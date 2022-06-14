@@ -7,3 +7,8 @@ spring:
 
 logging:
   level.com.codesquad.issuetracker: debug
+
+oauth:
+  github:
+    client_id: fbfd3db42dc5b227d1b8
+    client_secret: ${GITHUB_CLIENT_SECRET}
