@@ -12,3 +12,7 @@ oauth:
   github:
     client_id: fbfd3db42dc5b227d1b8
     client_secret: ${GITHUB_CLIENT_SECRET}
+
+auth:
+  jwt:
+    secret_key: ${JWT_SECRET_KEY}
