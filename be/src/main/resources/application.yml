@@ -5,3 +5,5 @@ spring:
     username: root
     password: elql1004
 
+logging:
+  level.com.codesquad.issuetracker: debug
