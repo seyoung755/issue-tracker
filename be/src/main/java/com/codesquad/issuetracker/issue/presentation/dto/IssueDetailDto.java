@@ -5,6 +5,7 @@ import com.codesquad.issuetracker.milestone.presentation.dto.SingleMilestoneResp
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class IssueDetailDto {
@@ -14,9 +15,9 @@ public class IssueDetailDto {
     private String content;
     private LocalDateTime createdAt;
     private AuthorInformationDto author;
-    private AssigneesInformationDto assignees;
+    private List<SingleAssigneeResponseDto> assignees;
     private SingleLabelResponseDto label;
     private SingleMilestoneResponseDto milestone;
-    private CommentsResponseDto comments;
+    private List<SingleCommentResponseDto> comments;
 
 }
