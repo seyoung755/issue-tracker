@@ -4,7 +4,7 @@ import com.codesquad.issuetracker.label.domain.TextColor;
 import lombok.Getter;
 
 @Getter
-public class SingleLabelResponseDto {
+public class LabelFormDto {
 
     private String labelName;
     private String description;
