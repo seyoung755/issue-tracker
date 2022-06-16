@@ -23,7 +23,8 @@ public class OAuthController {
     @GetMapping()
     public ResponseEntity<Void> login() throws URISyntaxException {
         /**
-         * 이미 토큰을 들고 있을 때 유효한 토큰이면, redirect를 거치지 않고 바로 로그인 처리
+         * todo: 이미 토큰을 들고 있을 때 유효한 토큰이면, redirect를 거치지 않고 바로 로그인 처리
+         * LoginInterceptor를 별도로 구현해서 유효할 경우 인터셉터에서 바로 false를 주고 요청을 끝내야할까?
          */
         return ResponseEntity.status(HttpStatus.FOUND).location(new URI(GITHUB_REDIRECT_URL)).build();
     }
