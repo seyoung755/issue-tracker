@@ -16,7 +16,7 @@ public class JwtProvider {
 
 
     private static final int ACCESS_TOKEN_EXPIRES_MINUTE = 60;
-    private static final int REFRESH_TOKEN_EXPIRES_WEEK = 2;
+    private static final int REFRESH_TOKEN_EXPIRES_WEEK = 60 * 24 * 14;
     private static final String CLAIM = "userId";
     private final String secretKey;
     private final Algorithm algorithm;
@@ -36,7 +36,7 @@ public class JwtProvider {
     }
 
     public String createRefreshToken(long userId) {
-        Date accessTokenExpiredDate = Date.from(Instant.now().plus(REFRESH_TOKEN_EXPIRES_WEEK, ChronoUnit.WEEKS));
+        Date accessTokenExpiredDate = Date.from(Instant.now().plus(REFRESH_TOKEN_EXPIRES_WEEK, ChronoUnit.MINUTES));
 
         return JWT.create()
                 .withClaim(CLAIM, userId)

@@ -22,8 +22,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         log.debug("request-uri: {}", request.getRequestURI());
 
-        String token = request.getHeader("Authentication");
-        User user = authService.checkTokenAndFindUser(token);
+        String authentication = request.getHeader("Authentication");
+        User user = authService.checkTokenAndFindUser(authentication);
 
         request.setAttribute("user", user);
 
