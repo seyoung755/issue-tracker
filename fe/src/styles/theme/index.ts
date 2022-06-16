@@ -2,6 +2,7 @@ import { DefaultTheme } from 'styled-components';
 
 import COLOR from './color';
 import FONT from './font';
+import ICON_SIZE from './icon';
 
 const fonts = {
   // logo
@@ -61,20 +62,12 @@ const fonts = {
   },
 };
 
-const iconSize = {
-  small: '12rem',
-  star: '16rem',
-  base: '24rem',
-  large: '30rem',
-  account: '76rem',
-};
-
 export type ColorTypes = typeof COLOR;
 export type FontTypes = typeof fonts;
-export type IconSizeTypes = typeof iconSize;
+export type IconSizeTypes = typeof ICON_SIZE;
 
 export const theme: DefaultTheme = {
   COLOR,
   fonts,
-  iconSize,
+  ICON_SIZE,
 };

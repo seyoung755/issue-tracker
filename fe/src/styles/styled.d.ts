@@ -6,6 +6,6 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     COLOR: ColorTypes;
     fonts: FontTypes;
-    iconSize: IconSizeTypes;
+    ICON_SIZE: IconSizeTypes;
   }
 }
