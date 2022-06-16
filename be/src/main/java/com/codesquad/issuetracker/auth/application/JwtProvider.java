@@ -1,4 +1,4 @@
-package com.codesquad.issuetracker.auth.util;
+package com.codesquad.issuetracker.auth.application;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -44,7 +44,7 @@ public class JwtProvider {
                 .sign(algorithm);
     }
 
-    public long validateAccessToken(String token) {
+    public long validateJwtToken(String token) {
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getClaim(CLAIM).asLong();
