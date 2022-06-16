@@ -6,7 +6,7 @@ import { IssueDetail, Issues, Labels, Login, Milestones, NotFound, Signup } from
 
 // TODO: isLogin이라는 util 메서드를 만들어서 로그인 여부를 boolean으로 반환하기
 export default function App() {
-  const isLogin = false;
+  const isLogin = true;
   return (
     <BrowserRouter>
       <Routes>
