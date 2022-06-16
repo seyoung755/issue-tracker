@@ -13,7 +13,7 @@ ${Normalize}
   margin: 0;
 }
 html {
-    font: ${FONT.WEIGHT.REGULAR} 62.5%/1.5 ${FONT.FAMILY.BASE};
+    font: ${FONT.WEIGHT.REGULAR} 62.5%/1.5 ${FONT.FAMILY.BASE} 10px;
   }
   body {
     width: 100%;
