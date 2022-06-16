@@ -1,9 +1,15 @@
 spring:
+#  mvc:
+#    servlet:
+#      path: /api
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/issuetracker
     username: root
     password: elql1004
+  jpa:
+    hibernate:
+      ddl-auto: create
 
 logging:
   level.com.codesquad.issuetracker: debug
