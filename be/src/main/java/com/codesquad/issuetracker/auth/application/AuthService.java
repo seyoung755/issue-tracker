@@ -15,9 +15,9 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public User checkTokenAndFindUser(String token) {
+    public User checkTokenAndFindUser(String authentication) {
 
-        // TODO: 2022/06/16 validateAccessToken에서 발생하는 에러를 처리하는 로직이 필요함.
+        String token = authentication.split(" ")[1].trim();
         long userId = jwtProvider.validateJwtToken(token);
 
         return userRepository.findById(userId)
