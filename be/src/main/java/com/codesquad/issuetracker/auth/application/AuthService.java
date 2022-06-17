@@ -15,9 +15,9 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public User checkTokenAndFindUser(String authentication) {
+    public User checkTokenAndFindUser(String authorization) {
 
-        String token = authentication.split(" ")[1].trim();
+        String token = authorization.split(" ")[1].trim();
         long userId = jwtProvider.validateJwtToken(token);
 
         return userRepository.findById(userId)

@@ -38,7 +38,8 @@ public class AuthConfig implements WebMvcConfigurer {
                         "/v3/api-docs/**",
                         "/oauth/login",
                         "/login",
-                        "/join/**");
+                        "/join/**",
+                        "/error/**");
 
         registry.addInterceptor(loginInterceptor())
                 .order(2)
