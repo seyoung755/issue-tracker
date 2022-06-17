@@ -23,17 +23,17 @@ const fonts = {
   },
   // link
   linkMedium: {
-    'font-weight': 700,
+    'font-weight': '700',
     'font-size': '18px',
     'line-height': `${FONT.SIZE.LARGE}`,
   },
   linkSmall: {
-    'font-weight': 700,
+    'font-weight': '700',
     'font-size': `${FONT.SIZE.BASE}`,
     'line-height': '28px',
   },
   linkXSmall: {
-    'font-weight': 700,
+    'font-weight': '700',
     'font-size': `${FONT.SIZE.X_SMALL}`,
     'line-height': '20px',
   },
@@ -51,7 +51,7 @@ const fonts = {
     'line-height': '28px',
   },
   textXSamll: {
-    'font-weight': 500,
+    'font-weight': '500',
     'font-size': `${FONT.SIZE.X_SMALL}`,
     'line-height': '20px',
   },

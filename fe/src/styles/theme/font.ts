@@ -9,9 +9,9 @@ const FONT = {
     X_LARGE: '5.6rem',
   },
   WEIGHT: {
-    REGULAR: 400,
-    MEDIUM: 500,
-    BOLD: 700,
+    REGULAR: '400',
+    MEDIUM: '500',
+    BOLD: '700',
   },
   FAMILY: {
     BASE: "'Noto Sans KR', sans-serif",
