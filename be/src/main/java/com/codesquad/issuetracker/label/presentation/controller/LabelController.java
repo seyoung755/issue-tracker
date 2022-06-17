@@ -1,7 +1,7 @@
 package com.codesquad.issuetracker.label.presentation.controller;
 
 import com.codesquad.issuetracker.label.presentation.dto.LabelCountDto;
-import com.codesquad.issuetracker.label.presentation.dto.LabelFormDto;
+import com.codesquad.issuetracker.label.presentation.dto.LabelSaveRequestDto;
 import com.codesquad.issuetracker.label.presentation.dto.LabelsResponseDto;
 import com.codesquad.issuetracker.label.presentation.dto.SingleLabelResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,13 +27,13 @@ public class LabelController {
 
     @Operation(summary = "라벨 작성하기", description = "새로운 라벨을 추가합니다.")
     @PostMapping
-    public long save(@RequestBody LabelFormDto labelFormDto) {
+    public long save(@RequestBody LabelSaveRequestDto labelSaveRequestDto) {
         return 1L;
     }
 
     @Operation(summary = "라벨 편집하기", description = "라벨의 정보를 편집합니다.")
     @PutMapping("/{labelId}")
-    public SingleLabelResponseDto edit(@PathVariable long labelId, @RequestBody LabelFormDto labelFormDto) {
+    public SingleLabelResponseDto edit(@PathVariable long labelId, @RequestBody LabelSaveRequestDto labelSaveRequestDto) {
         return null;
     }
 

@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class IssueFormDto {
+public class IssueSaveRequestDto {
 
     private String title;
     private String content;
