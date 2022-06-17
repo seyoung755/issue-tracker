@@ -34,7 +34,7 @@ public class User {
     public void validatePassword(String password) {
         if (!this.password.equals(password)) {
             //todo : 비밀번호 불일치 익셉션으로 변경해야함.
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
     }
 }

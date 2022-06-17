@@ -2,6 +2,7 @@ package com.codesquad.issuetracker.user.presentation.controller;
 
 import com.codesquad.issuetracker.user.application.OAuthService;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class OAuthController {
 
     private final OAuthService oAuthService;
 
+    @Operation(summary = "Github 로그인 화면으로 Redirect 하기", description = "Github 로그인 페이지로 이동합니다.")
     @GetMapping()
     public ResponseEntity<Void> login() throws URISyntaxException {
         /**
@@ -29,6 +31,7 @@ public class OAuthController {
         return ResponseEntity.status(HttpStatus.FOUND).location(new URI(GITHUB_REDIRECT_URL)).build();
     }
 
+    @Operation(summary = "Github 로그인 처리하기", description = "Github Authorization code 를 받아서 로그인을 완료합니다.")
     @GetMapping("/callback")
     public LoginResponseDto oauth(@RequestParam String code) {
         return oAuthService.login(code);
