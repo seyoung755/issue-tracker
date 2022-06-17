@@ -1,7 +1,7 @@
 package com.codesquad.issuetracker.milestone.presentation.controller;
 
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneCountDto;
-import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneFormDto;
+import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneSaveRequestDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestonesResponseDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.SingleMilestoneResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,14 +25,14 @@ public class MilestoneController {
 
     @Operation(summary = "마일스톤 작성하기", description = "새로운 마일스톤을 추가합니다.")
     @PostMapping
-    public long save(@RequestBody MilestoneFormDto milestoneFormDto) {
+    public long save(@RequestBody MilestoneSaveRequestDto milestoneSaveRequestDto) {
         return 1L;
     }
 
     @Operation(summary = "마일스톤 편집하기", description = "마일스톤의 정보를 편집합니다.")
     @PutMapping("/{milestoneId}")
     public SingleMilestoneResponseDto edit(@PathVariable long milestoneId,
-                                           @RequestBody MilestoneFormDto milestoneFormDto) {
+                                           @RequestBody MilestoneSaveRequestDto milestoneSaveRequestDto) {
         return null;
     }
 

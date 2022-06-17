@@ -2,9 +2,9 @@ package com.codesquad.issuetracker.user.presentation.controller;
 
 import com.codesquad.issuetracker.user.application.UserService;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
-import com.codesquad.issuetracker.user.presentation.dto.UserJoinFormDto;
-import com.codesquad.issuetracker.user.presentation.dto.UserLoginFormDto;
 import io.swagger.v3.oas.annotations.Operation;
+import com.codesquad.issuetracker.user.presentation.dto.UserJoinRequestDto;
+import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +22,14 @@ public class UserController {
 
     @Operation(summary = "유저 로그인하기", description = "사용자의 로그인을 처리합니다.")
     @PostMapping("/login")
-    public LoginResponseDto login(@RequestBody UserLoginFormDto userLoginFormDto) {
-        return userService.login(userLoginFormDto);
+    public LoginResponseDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
+        return userService.login(userLoginRequestDto);
     }
 
     @Operation(summary = "유저 회원가입하기", description = "새로운 사용자를 등록합니다.")
     @PostMapping("/join")
-    public ResponseEntity<Void> join(@Validated @RequestBody UserJoinFormDto userJoinFormDto) {
-        userService.join(userJoinFormDto);
+    public ResponseEntity<Void> join(@Validated @RequestBody UserJoinRequestDto userJoinRequestDto) {
+        userService.join(userJoinRequestDto);
         return ResponseEntity.ok().build();
     }
 

@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @ToString
 @Getter
-public class UserJoinFormDto {
+public class UserJoinRequestDto {
 
     private String username;
 

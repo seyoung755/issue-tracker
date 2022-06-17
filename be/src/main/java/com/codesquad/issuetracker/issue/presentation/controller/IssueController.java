@@ -23,7 +23,7 @@ public class IssueController {
 
     @Operation(summary = "이슈 작성하기", description = "새로운 이슈를 작성합니다.")
     @PostMapping
-    public long write(@RequestBody IssueFormDto issueFormDto) {
+    public long write(@RequestBody IssueSaveRequestDto issueSaveRequestDto) {
         return 1L;
     }
 
