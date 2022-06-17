@@ -18,10 +18,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String authentication = request.getHeader("Authorization");
+        String authorization = request.getHeader("Authorization");
 
         try {
-            jwtProvider.validateJwtToken(authentication);
+            jwtProvider.validateJwtToken(authorization);
         } catch (SignatureVerificationException | TokenExpiredException | IllegalArgumentException e) {
             return true;
         }
