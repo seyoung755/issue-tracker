@@ -10,13 +10,13 @@ public class IssueController {
 
     @Operation(summary = "이슈 상세정보 조회하기", description = "이슈의 상세정보를 조회합니다.")
     @GetMapping("/{id}")
-    public IssueDetailDto detail(@PathVariable(value = "id") long issueId) {
+    public IssueDetailDto readDetail(@PathVariable(value = "id") long issueId) {
         return null;
     }
 
     @Operation(summary = "이슈 목록 조회하기", description = "필터링 조건으로 조회한 이슈 목록을 보여줍니다.")
     @GetMapping
-    public IssuesResponseDto listOfOpen(FilteringCondition filteringCondition) {
+    public IssuesResponseDto readListOfOpen(FilteringCondition filteringCondition) {
 
         return null;
     }

@@ -33,7 +33,7 @@ public class OAuthController {
 
     @Operation(summary = "Github 로그인 처리하기", description = "Github Authorization code 를 받아서 로그인을 완료합니다.")
     @GetMapping("/callback")
-    public LoginResponseDto oauth(@RequestParam String code) {
+    public LoginResponseDto receiveCallback(@RequestParam String code) {
         return oAuthService.login(code);
     }
 }
