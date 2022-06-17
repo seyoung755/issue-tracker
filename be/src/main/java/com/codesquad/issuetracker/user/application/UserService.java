@@ -9,7 +9,10 @@ import com.codesquad.issuetracker.user.presentation.dto.UserLoginFormDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Slf4j
+@Transactional
 @Service
 public class UserService {
 
@@ -23,7 +26,7 @@ public class UserService {
 
     public LoginResponseDto login(UserLoginFormDto userLoginFormDto) {
         User user = userRepository.findByUserId(userLoginFormDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException(""));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
 
         user.validatePassword(userLoginFormDto.getPassword());
 
@@ -36,7 +39,7 @@ public class UserService {
 
         //유저 아이디 중복 검증
         if (isDuplicatedUserId(userJoinFormDto.getUserId())) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("중복된 id 입니다.");
         }
 
         //자체 회원가입 시 비밀번호를 암호화해서 저장해야할까?
