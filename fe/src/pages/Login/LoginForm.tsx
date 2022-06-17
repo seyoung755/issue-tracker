@@ -1,5 +1,7 @@
 import useForm from '@/hooks/useForm';
 
+import * as S from './stlye';
+
 export default function LoginForm() {
   type Values = {
     id: string;
@@ -41,7 +43,9 @@ export default function LoginForm() {
           onChange={handleChange}
         />
       </label>
-      <button disabled={!isValid}>아이디로 로그인</button>
+      <S.LoginButton onClick={() => {}} disabled={false}>
+        아이디로 로그인
+      </S.LoginButton>
     </form>
   );
 }
