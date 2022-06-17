@@ -15,13 +15,13 @@ public class LabelController {
 
     @Operation(summary = "라벨 목록 조회하기", description = "모든 라벨의 목록을 보여줍니다.")
     @GetMapping
-    public LabelsResponseDto list() {
+    public LabelsResponseDto readList() {
         return null;
     }
 
     @Operation(summary = "라벨 개수 조회하기", description = "현재 라벨의 개수를 출력합니다.")
     @GetMapping("/count")
-    public LabelCountDto count() {
+    public LabelCountDto getCount() {
         return null;
     }
 
