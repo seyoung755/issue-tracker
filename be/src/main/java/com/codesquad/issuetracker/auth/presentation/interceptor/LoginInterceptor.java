@@ -20,6 +20,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String authorization = request.getHeader("Authorization");
 
+        if (authorization == null) {
+            return true;
+        }
+
         try {
             jwtProvider.validateJwtToken(authorization);
         } catch (SignatureVerificationException | TokenExpiredException | IllegalArgumentException e) {

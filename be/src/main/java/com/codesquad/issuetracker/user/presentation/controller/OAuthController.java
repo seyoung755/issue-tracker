@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 public class OAuthController {
 
 
-    public OAuthController(@Value("${oauth.github.client_id") String clientId,
+    public OAuthController(@Value("${oauth.github.client_id}") String clientId,
                            OAuthService oAuthService) {
         this.oAuthService = oAuthService;
         redirectUrl =
