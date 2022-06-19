@@ -5,6 +5,6 @@ import Login from './Login';
 import Milestones from './Milestones';
 import NotAllow from './NotAllow';
 import NotFound from './NotFound';
-import Signup from './Signup';
+import Signup from './Signup/SignUpForm';
 
 export { IssueDetail, Issues, Labels, Login, Milestones, NotFound, Signup, NotAllow };

@@ -1,15 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function NotAllow({ warnMessage }: { warnMessage: string }) {
+interface NotAllowProps {
+  warnMessage: string;
+  fallbackButtonMessage: string;
+  fallbackPath: string;
+}
+
+export default function NotAllow({
+  warnMessage,
+  fallbackButtonMessage,
+  fallbackPath,
+}: NotAllowProps) {
   const navigate = useNavigate();
-  const backToMain = () => {
-    navigate('/');
+  const OnClickFallbackButton = () => {
+    navigate(fallbackPath);
   };
   return (
     <div>
       NotAllow
       <h1>{warnMessage}</h1>
-      <button onClick={backToMain}>홈으로 돌아가기</button>
+      <button onClick={OnClickFallbackButton}>{fallbackButtonMessage}</button>
     </div>
   );
 }
