@@ -1,9 +1,10 @@
 import instance from '@/api/core';
+import { USER_API } from '@/constant/api';
 
 const userApi = {
   requestGithubOAuth() {
     return instance({
-      url: '/oauth/login',
+      url: USER_API.GITHUB_OAUTH,
       method: 'get',
     });
   },

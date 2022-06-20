@@ -1,15 +1,16 @@
 import instance from '@/api/core';
+import { ISSUE_API } from '@/constant/api';
 
 const issueApi = {
   getIssueList() {
     return instance({
-      url: '/issues',
+      url: ISSUE_API.ISSUES,
       method: 'get',
     });
   },
   getIssueDetail(id: string) {
     return instance({
-      url: `/issues/${id}`,
+      url: `${ISSUE_API.ISSUES}/${id}`,
       method: 'get',
     });
   },
