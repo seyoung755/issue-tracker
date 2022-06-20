@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
-import COLOR from '@/styles/theme/color';
-import FONT from '@/styles/theme/font';
+import { COLOR } from '@/styles/theme/color';
+import { FONT } from '@/styles/theme/font';
 
 import Normalize from './Normalize';
 

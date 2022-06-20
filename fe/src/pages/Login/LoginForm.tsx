@@ -1,6 +1,5 @@
+import { Button } from '@/components/Common/Button';
 import useForm from '@/hooks/useForm';
-
-import * as S from './stlye';
 
 export default function LoginForm() {
   const onSubmit = async (values: { [key: string]: string }) => {
@@ -21,9 +20,7 @@ export default function LoginForm() {
         {errors.password?.minLength && <span>6자 이상 입력해주세요</span>}
         {errors.password?.maxLength && <span>16자 이하로 입력해주세요</span>}
       </label>
-      <S.LoginButton onClick={() => {}} disabled={false}>
-        아이디로 로그인
-      </S.LoginButton>
+      <Button onClick={() => {}}>아이디로 로그인</Button>
     </form>
   );
 }
