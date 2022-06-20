@@ -43,3 +43,22 @@ export function SecondaryButton({
     </S.Secondary>
   );
 }
+
+export function TextButton({
+  children,
+  onClick,
+  disabled = false,
+  className,
+  customStyle,
+}: ButtonProps) {
+  return (
+    <S.TextButton
+      className={className}
+      onClick={onClick}
+      disabled={disabled}
+      customStyle={customStyle}
+    >
+      {children}
+    </S.TextButton>
+  );
+}

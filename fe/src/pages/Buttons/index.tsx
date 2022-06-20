@@ -1,4 +1,4 @@
-import { Button, SecondaryButton } from '@/components/Common/Button';
+import { Button, SecondaryButton, TextButton } from '@/components/Common/Button';
 import { GithubLoginButton, SmallButon } from '@/pages/Login/style';
 
 export default function Buttons() {
@@ -13,6 +13,7 @@ export default function Buttons() {
         작은 버튼
       </Button>
       <SecondaryButton onClick={() => {}}>SecondaryButton</SecondaryButton>
+      <TextButton onClick={() => {}}>TextButton</TextButton>
     </div>
   );
 }

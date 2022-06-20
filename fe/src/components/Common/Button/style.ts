@@ -60,3 +60,26 @@ export const Secondary = styled.button<{ customStyle: CSSProp | null | undefined
       ${customStyle};
     `}
 `;
+
+export const TextButton = styled.button<{ customStyle: CSSProp | null | undefined }>`
+  color: ${({ theme }) => theme.colors.greyscale.label};
+  ${({ theme }) => theme.fonts.linkSmall};
+  :hover {
+    color: ${({ theme }) => theme.colors.greyscale.titleActive};
+  }
+  :focus {
+    color: ${({ theme }) => theme.colors.greyscale.body};
+  }
+  ${({ disabled, theme }) =>
+    disabled &&
+    css`
+      background: ${theme.colors.greyscale.body};
+      opacity: 0.5;
+    `}
+  /* 커스텀 스타일이 있다면 커스텀 스타일로 오버라이딩 */
+  ${({ customStyle }) =>
+    customStyle &&
+    css`
+      ${customStyle};
+    `}
+`;
