@@ -1,8 +1,5 @@
 package com.codesquad.issuetracker.common.config;
 
-import com.codesquad.issuetracker.auth.application.AuthService;
-import com.codesquad.issuetracker.auth.application.JwtProvider;
-import com.codesquad.issuetracker.auth.presentation.interceptor.LoginInterceptor;
 import com.codesquad.issuetracker.auth.presentation.argumentresolver.AuthArgumentResolver;
 import com.codesquad.issuetracker.auth.presentation.interceptor.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
@@ -15,22 +12,22 @@ import java.util.List;
 @Configuration
 public class AuthConfig implements WebMvcConfigurer {
 
-    private final JwtProvider jwtProvider;
-    private final AuthService authService;
+    private final AuthInterceptor authInterceptor;
+    private final AuthArgumentResolver authArgumentResolver;
 
-    public AuthConfig(JwtProvider jwtProvider, AuthService authService) {
-        this.jwtProvider = jwtProvider;
-        this.authService = authService;
+    public AuthConfig(AuthInterceptor authInterceptor, AuthArgumentResolver authArgumentResolver) {
+        this.authInterceptor = authInterceptor;
+        this.authArgumentResolver = authArgumentResolver;
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new AuthArgumentResolver());
+        resolvers.add(authArgumentResolver);
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor())
+        registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
                 .order(1)
                 .excludePathPatterns(
@@ -40,19 +37,5 @@ public class AuthConfig implements WebMvcConfigurer {
                         "/login",
                         "/join/**",
                         "/error/**");
-
-        registry.addInterceptor(loginInterceptor())
-                .order(2)
-                .addPathPatterns("/oauth/login");
     }
-
-    private AuthInterceptor authInterceptor() {
-        return new AuthInterceptor(authService);
-    }
-
-    private LoginInterceptor loginInterceptor() {
-        return new LoginInterceptor(jwtProvider);
-    }
-
-
 }

@@ -8,12 +8,14 @@ import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
+@Component
 public class AuthInterceptor implements HandlerInterceptor {
 
     private static final String TOKEN_TYPE = "Bearer ";
