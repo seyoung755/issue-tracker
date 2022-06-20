@@ -11,8 +11,8 @@ export interface ButtonProps {
 
 export default function Button({ children, onClick, disabled, className }: ButtonProps) {
   return (
-    <S.Container className={className} onClick={onClick} disabled={disabled}>
+    <S.Button className={className} onClick={onClick} disabled={disabled}>
       {children}
-    </S.Container>
+    </S.Button>
   );
 }
