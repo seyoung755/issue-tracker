@@ -9,11 +9,11 @@ export interface LabelTypes {
   textColor: string;
 }
 
-export interface LabelWithTotalCountTypes {
+export interface LabelListTypes {
   totalCount: number;
   labels: LabelTypes[];
 }
-export const labelState = atom<LabelWithTotalCountTypes>({
+export const labelState = atom<LabelListTypes>({
   key: LABEL_ATOM_KEY,
   default: {
     totalCount: 5,

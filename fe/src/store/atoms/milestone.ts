@@ -11,12 +11,12 @@ export interface MilestoneTypes {
   closeCount: number;
 }
 
-export interface MilestoneWithTotalCountTypes {
+export interface MilestoneListTypes {
   totalCount: number;
   milestones: MilestoneTypes[];
 }
 
-export const milestoneState = atom<MilestoneWithTotalCountTypes>({
+export const milestoneState = atom<MilestoneListTypes>({
   key: MILESTONE_ATOM_KEY,
   default: {
     totalCount: 2,
