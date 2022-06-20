@@ -2,22 +2,23 @@ package com.codesquad.issuetracker.user.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class GithubUserInformation {
 
-
     @JsonProperty(value = "login")
-    private final String userId;
+    private String userId;
 
     @JsonProperty(value = "name")
-    private final String username;
+    private String username;
 
     @JsonProperty(value = "node_id")
-    private final String password;
+    private String password;
 
     @JsonProperty(value = "avatar_url")
-    private final String profileImage;
+    private String profileImage;
 
     public GithubUserInformation(String userId, String username, String password, String profileImage) {
         this.userId = userId;

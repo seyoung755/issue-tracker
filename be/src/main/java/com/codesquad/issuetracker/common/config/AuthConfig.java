@@ -36,7 +36,7 @@ public class AuthConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
-                        "/oauth/login",
+                        "/oauth/login/**",
                         "/login",
                         "/join/**",
                         "/error/**");
