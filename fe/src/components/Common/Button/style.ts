@@ -5,10 +5,12 @@ export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
 
+  ${({ theme }) => theme.buttonSizes.large}
+  ${({ theme }) => theme.fonts.linkMedium}
   background: ${({ theme }) => theme.colors.primary.normal};
   color: ${({ theme }) => theme.colors.greyscale.offWhite};
+
   :hover {
     background: ${({ theme }) => theme.colors.primary.dark};
   }

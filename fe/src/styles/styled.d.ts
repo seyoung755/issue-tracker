@@ -7,5 +7,6 @@ declare module 'styled-components' {
     colors: ColorsTypes;
     fonts: FontTypes;
     iconSizes: IconSizeTypes;
+    buttonSizes: ButtonSizeTypes;
   }
 }
