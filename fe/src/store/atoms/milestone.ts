@@ -11,24 +11,32 @@ export interface MilestoneTypes {
   closeCount: number;
 }
 
-export const milestoneState = atom<MilestoneTypes[]>({
+export interface MilestoneWithTotalCountTypes {
+  totalCount: number;
+  milestones: MilestoneTypes[];
+}
+
+export const milestoneState = atom<MilestoneWithTotalCountTypes>({
   key: MILESTONE_ATOM_KEY,
-  default: [
-    {
-      name: 'string',
-      dueDate: '2022-06-20',
-      description: 'string',
-      progressRate: 0.33,
-      openCount: 10,
-      closeCount: 20,
-    },
-    {
-      name: 'string',
-      dueDate: '2022-06-20',
-      description: 'string',
-      progressRate: 0.55,
-      openCount: 5,
-      closeCount: 4,
-    },
-  ],
+  default: {
+    totalCount: 2,
+    milestones: [
+      {
+        name: 'string',
+        dueDate: '2022-06-20',
+        description: 'string',
+        progressRate: 0.33,
+        openCount: 10,
+        closeCount: 20,
+      },
+      {
+        name: 'string',
+        dueDate: '2022-06-20',
+        description: 'string',
+        progressRate: 0.55,
+        openCount: 5,
+        closeCount: 4,
+      },
+    ],
+  },
 });
