@@ -8,9 +8,9 @@ export const LoginButton = styled(Button)<ButtonProps>`
   width: 340px;
   height: 64px;
 
-  background: ${({ theme }) => theme.COLOR.BLUE[200]};
+  background: ${({ theme }) => theme.colors.primary.normal};
   border-radius: 20px;
-  color: ${({ theme }) => theme.COLOR.WHITE};
+  color: ${({ theme }) => theme.colors.greyscale.offWhite};
 `;
 
 export const GithubLoginButton = styled(Button)<ButtonProps>`
@@ -19,7 +19,7 @@ export const GithubLoginButton = styled(Button)<ButtonProps>`
   width: 340px;
   height: 64px;
 
-  background: ${({ theme }) => theme.COLOR.BLACK};
+  background: ${({ theme }) => theme.colors.greyscale.titleActive};
   border-radius: 20px;
-  color: ${({ theme }) => theme.COLOR.WHITE};
+  color: ${({ theme }) => theme.colors.greyscale.offWhite};
 `;
