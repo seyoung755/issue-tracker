@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css, CSSProp } from 'styled-components';
 
-export const Button = styled.button`
+export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,5 +20,11 @@ export const Button = styled.button`
     css`
       background: ${theme.colors.primary.normal};
       opacity: 0.5;
+    `}
+  /* 커스텀 스타일이 있다면 커스텀 스타일로 오버라이딩 */
+  ${({ customStyle }) =>
+    customStyle &&
+    css`
+      ${customStyle};
     `}
 `;

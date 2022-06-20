@@ -1,6 +1,7 @@
+import Button from '@/components/Common/Button';
 import useForm from '@/hooks/useForm';
 
-import * as S from './stlye';
+import * as S from './style';
 
 export default function LoginForm() {
   type Values = {
@@ -43,9 +44,9 @@ export default function LoginForm() {
           onChange={handleChange}
         />
       </label>
-      <S.LoginButton onClick={() => {}} disabled={false}>
+      <Button onClick={() => {}} customStyle={S.LoginButton}>
         아이디로 로그인
-      </S.LoginButton>
+      </Button>
     </form>
   );
 }
