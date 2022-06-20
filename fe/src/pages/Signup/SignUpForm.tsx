@@ -1,60 +1,33 @@
 import useForm from '@/hooks/useForm';
 
 export default function SignUpForm() {
-  type Values = {
-    nickname: string;
-    id: string;
-    password: string;
-    passwordCheck: string;
-  };
-  const initialValues = {
-    nickname: '',
-    id: '',
-    password: '',
-    passwordCheck: '',
-  };
-  const onSubmit = async (values: Values) => {
+  const onSubmit = async (values: { [key: string]: string }) => {
     console.log(values);
   };
-  const { values, isValid, handleChange, handleSubmit } = useForm<Values>({
-    initialValues,
-    onSubmit,
-  });
+  const { register, values, errors, handleSubmit } = useForm();
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label>
         <div>닉네임</div>
-        <input
-          name="nickname"
-          value={values.nickname}
-          minLength={4}
-          maxLength={16}
-          placeholder="닉네임"
-          onChange={handleChange}
-        />
+        <input name="nickname" {...register('nickname', { minLength: 4, maxLength: 10 })} />
+        {errors.nickname?.minLength && <span>4자 이상 입력해주세요</span>}
+        {errors.nickname?.maxLength && <span>10자 이하로 입력해주세요</span>}
       </label>
       <label>
         <div>아이디</div>
-        <input
-          name="id"
-          value={values.id}
-          minLength={4}
-          maxLength={16}
-          placeholder="아이디"
-          onChange={handleChange}
-        />
+        <input name="id" {...register('id', { minLength: 4, maxLength: 16 })} />
+        {errors.id?.minLength && <span>4자 이상 입력해주세요</span>}
+        {errors.id?.maxLength && <span>16자 이하로 입력해주세요</span>}
       </label>
       <label>
         <div>비밀번호</div>
         <input
           name="password"
           type="password"
-          value={values.password}
-          minLength={6}
-          maxLength={12}
-          placeholder="비밀번호"
-          onChange={handleChange}
+          {...register('password', { minLength: 6, maxLength: 10 })}
         />
+        {errors.password?.minLength && <span>6자 이상 입력해주세요</span>}
+        {errors.password?.maxLength && <span>16자 이하로 입력해주세요</span>}
       </label>
 
       <label>
@@ -62,19 +35,16 @@ export default function SignUpForm() {
         <input
           name="passwordCheck"
           type="password"
-          value={values.passwordCheck}
-          minLength={6}
-          maxLength={12}
-          placeholder="비밀번호 확인"
-          onChange={handleChange}
+          {...register('passwordCheck', { pattern: new RegExp(`^${values.password}$`) })}
         />
+        {errors.passwordCheck?.pattern && <span>비밀번호와 일치하지 않습니다.</span>}
       </label>
 
       <label>
         <div>프로필 이미지</div>
         <input type="file" name="profileImage" accept="image/png, image/jpeg" />
       </label>
-      <button disabled={!isValid}>회원가입</button>
+      <button disabled={false}>회원가입</button>
     </form>
   );
 }
