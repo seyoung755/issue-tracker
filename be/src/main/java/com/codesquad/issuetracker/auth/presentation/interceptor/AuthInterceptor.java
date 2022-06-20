@@ -44,8 +44,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw new BusinessException(AuthExceptionType.INVALID_TOKEN);
         }
 
-        User user = authService.findUser(token);
-        request.setAttribute("user", user);
+        request.setAttribute("Authorization", token);
 
         return true;
     }
