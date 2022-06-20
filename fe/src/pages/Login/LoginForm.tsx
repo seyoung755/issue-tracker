@@ -1,8 +1,6 @@
 import Button from '@/components/Common/Button';
 import useForm from '@/hooks/useForm';
 
-import * as S from './style';
-
 export default function LoginForm() {
   type Values = {
     id: string;
@@ -44,9 +42,7 @@ export default function LoginForm() {
           onChange={handleChange}
         />
       </label>
-      <Button onClick={() => {}} customStyle={S.LoginButton}>
-        아이디로 로그인
-      </Button>
+      <Button onClick={() => {}}>아이디로 로그인</Button>
     </form>
   );
 }

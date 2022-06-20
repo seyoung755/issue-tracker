@@ -1,6 +1,9 @@
 import { css } from 'styled-components';
 
-export const LoginButton = css``;
+export const SmallButon = css`
+  ${({ theme }) => theme.buttonSizes.small}
+  ${({ theme }) => theme.fonts.linkXSmall}
+`;
 
 export const GithubLoginButton = css`
   background: ${({ theme }) => theme.colors.greyscale.titleActive};
