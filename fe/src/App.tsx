@@ -1,5 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
+import {
+  HOME_ROUTE,
+  ISSUES_DETAIL_ROUTE,
+  ISSUES_ROUTE,
+  LABELS_ROUTE,
+  LOGIN_ROUTE,
+  MILESTONES_ROUTE,
+  SIGNUP_ROUTE,
+} from '@/constant/route';
 import PrivateRoute from '@/hoc/PrivateRoute';
 import PublicRoute from '@/hoc/PublicRoute';
 import { Buttons, IssueDetail, Issues, Labels, Login, Milestones, NotFound, Signup } from '@/pages';
@@ -10,24 +19,30 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/issues" replace />} />
+        <Route path={HOME_ROUTE} element={<Navigate to={ISSUES_ROUTE} replace />} />
         <Route path="/buttons" element={<Buttons />} />
         <Route
-          path="/login"
+          path={LOGIN_ROUTE}
           element={<PublicRoute Component={Login} isLogin={isLogin} restricted />}
         />
         <Route
-          path="/signup"
+          path={SIGNUP_ROUTE}
           element={<PublicRoute Component={Signup} isLogin={isLogin} restricted />}
         />
-        <Route path="/issues" element={<PrivateRoute Component={Issues} isLogin={isLogin} />} />
         <Route
-          path="/issues/:id"
+          path={ISSUES_ROUTE}
+          element={<PrivateRoute Component={Issues} isLogin={isLogin} />}
+        />
+        <Route
+          path={ISSUES_DETAIL_ROUTE}
           element={<PrivateRoute Component={IssueDetail} isLogin={isLogin} />}
         />
-        <Route path="/labels" element={<PrivateRoute Component={Labels} isLogin={isLogin} />} />
         <Route
-          path="/milestones"
+          path={LABELS_ROUTE}
+          element={<PrivateRoute Component={Labels} isLogin={isLogin} />}
+        />
+        <Route
+          path={MILESTONES_ROUTE}
           element={<PrivateRoute Component={Milestones} isLogin={isLogin} />}
         />
         <Route path="*" element={<NotFound />} />
