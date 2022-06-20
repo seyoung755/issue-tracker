@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const LABEL_ATOM_KEY = 'userState' as const;
+export const LABEL_ATOM_KEY = 'labelState' as const;
 
 export interface LabelTypes {
   labelName: string;

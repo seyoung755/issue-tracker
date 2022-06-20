@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const MILESTONE_ATOM_KEY = 'milestone' as const;
+export const MILESTONE_ATOM_KEY = 'milestoneState' as const;
 
 export interface MilestoneTypes {
   name: string;
