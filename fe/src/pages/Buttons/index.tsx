@@ -1,6 +1,4 @@
-import { Icons } from '@/assets/icons';
-import Button from '@/components/Common/Button';
-import Icon from '@/components/Common/Icon';
+import { Button, SecondaryButton } from '@/components/Common/Button';
 import { GithubLoginButton, SmallButon } from '@/pages/Login/style';
 
 export default function Buttons() {
@@ -12,9 +10,9 @@ export default function Buttons() {
       </Button>
       <Button onClick={() => {}}>아이디로 로그인</Button>
       <Button onClick={() => {}} customStyle={SmallButon}>
-        <Icon iconName="angleDown" iconSize="base" />
         작은 버튼
       </Button>
+      <SecondaryButton onClick={() => {}}>SecondaryButton</SecondaryButton>
     </div>
   );
 }

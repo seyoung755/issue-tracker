@@ -11,7 +11,7 @@ export interface ButtonProps {
   customStyle?: CSSProp | null | undefined;
 }
 
-export default function Button({
+export function Button({
   children,
   onClick,
   disabled = false,
@@ -22,5 +22,24 @@ export default function Button({
     <S.Button className={className} onClick={onClick} disabled={disabled} customStyle={customStyle}>
       {children}
     </S.Button>
+  );
+}
+
+export function SecondaryButton({
+  children,
+  onClick,
+  disabled = false,
+  className,
+  customStyle,
+}: ButtonProps) {
+  return (
+    <S.Secondary
+      className={className}
+      onClick={onClick}
+      disabled={disabled}
+      customStyle={customStyle}
+    >
+      {children}
+    </S.Secondary>
   );
 }

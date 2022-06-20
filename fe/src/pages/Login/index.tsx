@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Button from '@/components/Common/Button';
+import { Button } from '@/components/Common/Button';
 
 import LoginForm from './LoginForm';
 import * as S from './style';

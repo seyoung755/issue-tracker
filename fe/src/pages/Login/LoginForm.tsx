@@ -1,4 +1,4 @@
-import Button from '@/components/Common/Button';
+import { Button } from '@/components/Common/Button';
 import useForm from '@/hooks/useForm';
 
 export default function LoginForm() {
