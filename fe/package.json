@@ -22,6 +22,7 @@
   "homepage": "https://github.com/seyoung755/issue-tracker#readme",
   "dependencies": {
     "@types/styled-components": "^5.1.25",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
