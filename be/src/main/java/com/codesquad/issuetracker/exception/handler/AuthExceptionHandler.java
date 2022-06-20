@@ -2,6 +2,8 @@ package com.codesquad.issuetracker.exception.handler;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
+import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.dto.ExceptionResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +27,14 @@ public class AuthExceptionHandler {
         return ResponseEntity.ok().body(new ExceptionResponseDto(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
     }
 
-    @ExceptionHandler({TokenExpiredException.class})
-    public ResponseEntity<ExceptionResponseDto> exceptionHandler(HttpServletRequest request, TokenExpiredException ex) {
-        return ResponseEntity.ok().body(new ExceptionResponseDto(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<String> exceptionHandler(HttpServletRequest request, TokenExpiredException exception) {
+        AuthExceptionType exceptionType = AuthExceptionType.TOKEN_NOT_FOUND;
+        return ResponseEntity.status(exceptionType.getStatusCode()).body(exceptionType.getMessage());
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handleBusinessException(HttpServletRequest request, BusinessException exception) {
+        return ResponseEntity.status(exception.getExceptionType().getStatusCode()).body(exception.getMessage());
     }
 }
