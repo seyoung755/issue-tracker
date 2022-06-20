@@ -1,42 +1,72 @@
 import { useState } from 'react';
 
-interface UseFormProps<T> {
-  initialValues: T;
-  onSubmit(values: T): void;
+interface StringObject {
+  [key: string]: string;
+}
+interface ErrorProps {
+  minLength?: boolean;
+  maxLength?: boolean;
+  pattern?: boolean;
+}
+interface ErrorsProps {
+  [key: string]: ErrorProps;
 }
 
-export default function useForm<T>({ initialValues, onSubmit }: UseFormProps<T>) {
-  const [values, setValues] = useState(initialValues);
-  const [isValid, setIsValid] = useState(false);
+interface RegisterOptionsProps {
+  minLength?: number;
+  maxLength?: number;
+  pattern?: RegExp;
+}
+
+export default function useForm() {
+  const [values, setValues] = useState<StringObject>({});
+  const [errors, setErrors] = useState<ErrorsProps>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const validate = (form: HTMLFormElement, newValues: { [index: string]: string }) =>
-    Object.keys(newValues).every(key => newValues[key].length >= form[key].minLength);
-
-  const handleChange = ({ target }: React.FormEvent<HTMLInputElement>) => {
-    const { name, value, pattern, form } = target as HTMLInputElement;
-    if (!form) return;
-    if (value === '' || value.match(pattern) != null) {
-      const newValues = { ...values, [name]: value };
-      setValues(newValues);
-      setIsValid(validate(form, newValues));
+  const validate = (name: string, value: string, options: RegisterOptionsProps) => {
+    const error: ErrorProps = {};
+    if (!!options.minLength && value.length < options.minLength) {
+      error.minLength = true;
+    } else if (!!options.maxLength && value.length > options.maxLength) {
+      error.maxLength = true;
     }
+    if (!!options.pattern && value.match(options.pattern) === null) {
+      error.pattern = true;
+    }
+    setErrors({ ...errors, [name]: error });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!isLoading) {
-      setIsLoading(true);
-      await onSubmit(values);
-      setIsLoading(false);
-    }
+  const register = (name: string, options: RegisterOptionsProps) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      validate(name, value, options);
+      setValues({ ...values, [e.target.name]: e.target.value });
+    };
+    return {
+      value: values[name],
+      onChange,
+    };
+  };
+
+  const handleSubmit = (onSubmit: any) => {
+    return async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const isValid = Object.values(errors).every(error => Object.values(error).length === 0);
+      if (!isValid) {
+        return;
+      }
+      if (!isLoading) {
+        setIsLoading(true);
+        await onSubmit(values);
+        setIsLoading(false);
+      }
+    };
   };
 
   return {
+    register,
     values,
-    isValid,
-    isLoading,
-    handleChange,
+    errors,
     handleSubmit,
   };
 }
