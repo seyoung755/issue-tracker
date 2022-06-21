@@ -19,14 +19,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
     private String username;
+    private String name;
     private String password;
     private String profileImage;
+    private String refreshToken;
 
-    public User(String userId, String username, String password, String profileImage) {
-        this.userId = userId;
+    public User(String username, String name, String password, String profileImage) {
         this.username = username;
+        this.name = name;
         this.password = password;
         this.profileImage = profileImage;
     }

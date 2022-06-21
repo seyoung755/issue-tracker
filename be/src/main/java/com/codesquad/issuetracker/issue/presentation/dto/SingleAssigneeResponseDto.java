@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class SingleAssigneeResponseDto {
 
-    private String username;
+    private String name;
     private String profileImage;
 }
