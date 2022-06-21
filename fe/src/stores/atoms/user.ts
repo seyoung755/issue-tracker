@@ -8,11 +8,7 @@ export interface UserTypes {
   name: string;
 }
 
-export const userState = atom<UserTypes>({
+export const userState = atom<UserTypes | null | undefined>({
   key: USER_ATOM_KEY,
-  default: {
-    id: 'akdf0-asdfasdf',
-    profileUrl: 'https://avatars.githubusercontent.com/u/54533561?s=96&v=4',
-    name: 'team-32',
-  },
+  default: null,
 });

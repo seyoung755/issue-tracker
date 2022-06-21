@@ -16,27 +16,7 @@ export interface MilestoneListTypes {
   milestones: MilestoneTypes[];
 }
 
-export const milestoneState = atom<MilestoneListTypes>({
+export const milestoneState = atom<MilestoneListTypes | null | undefined>({
   key: MILESTONE_ATOM_KEY,
-  default: {
-    totalCount: 2,
-    milestones: [
-      {
-        name: 'string',
-        dueDate: '2022-06-20',
-        description: 'string',
-        progressRate: 0.33,
-        openCount: 10,
-        closeCount: 20,
-      },
-      {
-        name: 'string',
-        dueDate: '2022-06-20',
-        description: 'string',
-        progressRate: 0.55,
-        openCount: 5,
-        closeCount: 4,
-      },
-    ],
-  },
+  default: null,
 });
