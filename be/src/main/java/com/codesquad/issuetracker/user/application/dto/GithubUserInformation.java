@@ -1,14 +1,15 @@
 package com.codesquad.issuetracker.user.application.dto;
 
+import com.codesquad.issuetracker.user.domain.LoginType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class GithubUserInformation {
+public class GithubUserInformation extends OAuthUserInformation {
 
-    @JsonProperty(value = "login")
+    @JsonProperty(value = "id")
     private String username;
 
     @JsonProperty(value = "name")
@@ -20,10 +21,16 @@ public class GithubUserInformation {
     @JsonProperty(value = "avatar_url")
     private String profileImage;
 
+    private LoginType loginType = LoginType.GITHUB;
+
     public GithubUserInformation(String username, String name, String password, String profileImage) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.profileImage = profileImage;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
