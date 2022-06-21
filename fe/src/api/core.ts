@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 import { API_PREFIX } from '@/constant/api';
 
-const instance = axios.create({
-  baseURL: API_PREFIX, // TODO: constant로 분리하기
+const instance: AxiosInstance = axios.create({
+  baseURL: API_PREFIX,
   timeout: 2500,
   headers: {},
 });
