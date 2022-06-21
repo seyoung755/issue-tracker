@@ -1,15 +1,19 @@
+import styled, { css } from 'styled-components';
+
 import { Icons, IconsType } from '@/assets/icons';
 import { IconSizeTypes } from '@/styles/theme';
 
-import * as S from './style';
-
 export interface IconPropsType {
   iconName: IconsType;
-  iconSize: keyof IconSizeTypes;
+  iconSize?: keyof IconSizeTypes;
 }
 
-const Icon = ({ iconName, iconSize }: IconPropsType) => {
-  return <S.Icon src={Icons[iconName]} size={iconSize} alt={iconName} />;
-};
-
-export default Icon;
+export default function Icon({ iconName, iconSize = 'base' }: IconPropsType) {
+  const StyledIcon = styled(Icons[iconName])`
+    ${({ theme }) =>
+      css`
+        ${theme.iconSizes[iconSize]}
+      `}
+  `;
+  return <StyledIcon />;
+}

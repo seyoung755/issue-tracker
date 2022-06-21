@@ -1,4 +1,5 @@
 import { Button, TextButton } from '@/components/Common/Button';
+import Icon from '@/components/Common/Icon';
 import { GithubLoginButton, SmallButon } from '@/pages/Login/style';
 
 export default function Buttons() {
@@ -15,6 +16,7 @@ export default function Buttons() {
       <Button isSecondary onClick={() => {}}>
         Button
       </Button>
+      <Icon iconName="angleDown" />
       <TextButton onClick={() => {}}>TextButton</TextButton>
     </div>
   );
