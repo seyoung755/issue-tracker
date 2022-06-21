@@ -16,7 +16,6 @@ export default function Buttons() {
       <Button isSecondary onClick={() => {}}>
         Button
       </Button>
-      <Icon iconName="angleDown" />
       <TextButton onClick={() => {}}>TextButton</TextButton>
     </div>
   );

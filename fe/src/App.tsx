@@ -13,6 +13,7 @@ import PrivateRoute from '@/hoc/PrivateRoute';
 import PublicRoute from '@/hoc/PublicRoute';
 import {
   Buttons,
+  Icons,
   IssueDetail,
   Issues,
   Labels,
@@ -31,6 +32,7 @@ export default function App() {
       <Routes>
         <Route path={HOME_ROUTE} element={<Navigate to={ISSUES_ROUTE} replace />} />
         <Route path="/buttons" element={<Buttons />} />
+        <Route path="/icons" element={<Icons />} />
         <Route path="/textInputs" element={<TextInputs />} />
 
         <Route

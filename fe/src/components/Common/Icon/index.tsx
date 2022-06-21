@@ -21,13 +21,12 @@ export default function Icon({
       css`
         ${theme.iconSizes[iconSize]}
       `}
+
     & path {
       /* fill: backgroundColor */
-      stroke: ${({ theme }) => theme.colors.greyscale.label};
+      /* stroke: border(line) color */
     }
-    &:hover path {
-      stroke: ${({ theme }) => theme.colors.greyscale.titleActive};
-    }
+
     ${customStyle &&
     css`
       ${customStyle};
