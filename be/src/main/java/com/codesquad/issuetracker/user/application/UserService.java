@@ -1,6 +1,8 @@
 package com.codesquad.issuetracker.user.application;
 
 import com.codesquad.issuetracker.auth.application.JwtProvider;
+import com.codesquad.issuetracker.user.application.dto.OAuthUserInformation;
+import com.codesquad.issuetracker.user.domain.LoginType;
 import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.domain.UserRepository;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
@@ -25,7 +27,7 @@ public class UserService {
     }
 
     public LoginResponseDto login(UserLoginRequestDto userLoginRequestDto) {
-        User user = userRepository.findByUserId(userLoginRequestDto.getUserId())
+        User user = userRepository.findByUsername(userLoginRequestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException(""));
 
         user.validatePassword(userLoginRequestDto.getPassword());
@@ -35,24 +37,31 @@ public class UserService {
         return new LoginResponseDto(accessToken, refreshToken);
     }
 
-    public void join(UserJoinRequestDto userJoinRequestDto) {
+    public User join(UserJoinRequestDto userJoinRequestDto, LoginType loginType) {
 
-        //유저 아이디 중복 검증
-        if (isDuplicatedUserId(userJoinRequestDto.getUserId())) {
+        if (isDuplicatedUsername(userJoinRequestDto.getUsername())) {
             throw new IllegalArgumentException();
         }
 
-        //자체 회원가입 시 비밀번호를 암호화해서 저장해야할까?
-        User user = new User(userJoinRequestDto.getUserId(),
-                userJoinRequestDto.getUsername(),
+        User user = new User(userJoinRequestDto.getUsername(),
+                userJoinRequestDto.getName(),
                 userJoinRequestDto.getPassword(),
-                userJoinRequestDto.getProfileImage());
+                userJoinRequestDto.getProfileImage(),
+                loginType);
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
-    public boolean isDuplicatedUserId(String userId) {
-        return userRepository.findByUserId(userId).isPresent();
+    public boolean isDuplicatedUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
+    public User oAuthLogin(OAuthUserInformation oAuthUserInformation) {
+        return userRepository.findByUsername(oAuthUserInformation.getUsername())
+                .orElseGet(() -> join(new UserJoinRequestDto(
+                        oAuthUserInformation.getUsername(),
+                        oAuthUserInformation.getName(),
+                        oAuthUserInformation.getPassword(),
+                        oAuthUserInformation.getProfileImage()), oAuthUserInformation.getLoginType()));
+    }
 }
