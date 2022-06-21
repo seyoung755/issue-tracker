@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, CSSProp } from 'styled-components';
 
 import { Icons, IconsType } from '@/assets/icons';
 import { IconSizeTypes } from '@/styles/theme';
@@ -6,14 +6,32 @@ import { IconSizeTypes } from '@/styles/theme';
 export interface IconPropsType {
   iconName: IconsType;
   iconSize?: keyof IconSizeTypes;
+  className?: string;
+  customStyle?: CSSProp | null | undefined;
 }
 
-export default function Icon({ iconName, iconSize = 'base' }: IconPropsType) {
+export default function Icon({
+  iconName,
+  iconSize = 'base',
+  className,
+  customStyle,
+}: IconPropsType) {
   const StyledIcon = styled(Icons[iconName])`
     ${({ theme }) =>
       css`
         ${theme.iconSizes[iconSize]}
       `}
+    & path {
+      /* fill: backgroundColor */
+      stroke: ${({ theme }) => theme.colors.greyscale.label};
+    }
+    &:hover path {
+      stroke: ${({ theme }) => theme.colors.greyscale.titleActive};
+    }
+    ${customStyle &&
+    css`
+      ${customStyle};
+    `}
   `;
-  return <StyledIcon />;
+  return <StyledIcon className={className} />;
 }
