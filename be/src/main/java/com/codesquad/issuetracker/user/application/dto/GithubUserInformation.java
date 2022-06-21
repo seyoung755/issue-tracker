@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 public class GithubUserInformation {
 
     @JsonProperty(value = "login")
-    private String userId;
+    private String username;
 
     @JsonProperty(value = "name")
-    private String username;
+    private String name;
 
     @JsonProperty(value = "node_id")
     private String password;
@@ -20,9 +20,9 @@ public class GithubUserInformation {
     @JsonProperty(value = "avatar_url")
     private String profileImage;
 
-    public GithubUserInformation(String userId, String username, String password, String profileImage) {
-        this.userId = userId;
+    public GithubUserInformation(String username, String name, String password, String profileImage) {
         this.username = username;
+        this.name = name;
         this.password = password;
         this.profileImage = profileImage;
     }
