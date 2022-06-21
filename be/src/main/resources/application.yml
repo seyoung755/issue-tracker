@@ -18,6 +18,9 @@ oauth:
   github:
     client_id: fbfd3db42dc5b227d1b8
     client_secret: ${GITHUB_CLIENT_SECRET}
+  google:
+    client_id: 886648386281-q6205r09trl1iu29qa09b2sdufbvhgth.apps.googleusercontent.com
+    client_secret: ${GOOGLE_CLIENT_SECRET}
 
 auth:
   jwt:
