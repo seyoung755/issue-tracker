@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 import { CSSProp } from 'styled-components';
 
-import { OverridableProps } from '@/utils/type';
-
 import * as S from './style';
 
 export interface ButtonProps {
