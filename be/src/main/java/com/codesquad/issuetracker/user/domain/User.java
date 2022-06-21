@@ -1,5 +1,8 @@
 package com.codesquad.issuetracker.user.domain;
 
+import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.ExceptionType;
+import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -34,8 +37,7 @@ public class User {
 
     public void validatePassword(String password) {
         if (!this.password.equals(password)) {
-            //todo : 비밀번호 불일치 익셉션으로 변경해야함.
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new BusinessException(UserExceptionType.INVALID_PASSWORD);
         }
     }
 }
