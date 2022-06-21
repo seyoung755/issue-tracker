@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 
-export const TextInput = styled.div<{ textInputSize: string; isError: boolean }>`
+import { TextInputSizesTypes } from '@/styles/theme';
+
+export const TextInput = styled.div<{ textInputSize: keyof TextInputSizesTypes; isError: boolean }>`
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.greyscale.inputBackground};
