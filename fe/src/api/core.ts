@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+import { API_PREFIX } from '@/constant/api';
+
 const instance = axios.create({
-  baseURL: '/api', // TODO: constant로 분리하기
+  baseURL: API_PREFIX, // TODO: constant로 분리하기
   timeout: 2500,
   headers: {},
 });

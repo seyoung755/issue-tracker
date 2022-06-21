@@ -1,3 +1,5 @@
+export const API_PREFIX = '/api';
+
 export const USER_API = {
   GITHUB_OAUTH: '/oauth/login',
   LOGIN: '/login',
