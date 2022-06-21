@@ -8,5 +8,6 @@ declare module 'styled-components' {
     fonts: FontTypes;
     iconSizes: IconSizeTypes;
     buttonSizes: ButtonSizeTypes;
+    textInputSizes: TextInputTypes;
   }
 }
