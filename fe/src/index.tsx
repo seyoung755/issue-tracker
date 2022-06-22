@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import App from '@/App';
@@ -18,7 +19,9 @@ root.render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <App />
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
     </ThemeProvider>
   </StrictMode>,
 );
