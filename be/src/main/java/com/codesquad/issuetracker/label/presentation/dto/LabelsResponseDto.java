@@ -7,6 +7,6 @@ import java.util.List;
 @Getter
 public class LabelsResponseDto {
 
-    private List<SingleLabelResponseDto> labels;
+    private List<LabelResponseDto> labels;
 
 }

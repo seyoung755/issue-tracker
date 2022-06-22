@@ -7,7 +7,7 @@ import java.util.List;
 @Getter
 public class IssuesResponseDto {
 
-    private List<SingleIssueResponseDto> issues;
+    private List<IssueResponseDto> issues;
     private int openCount;
     private int closeCount;
 }

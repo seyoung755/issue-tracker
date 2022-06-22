@@ -7,5 +7,5 @@ import java.util.List;
 @Getter
 public class MilestonesResponseDto {
 
-    private List<SingleMilestoneResponseDto> milestones;
+    private List<MilestoneResponseDto> milestones;
 }
