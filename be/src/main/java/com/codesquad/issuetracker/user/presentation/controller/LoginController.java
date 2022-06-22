@@ -1,7 +1,9 @@
 package com.codesquad.issuetracker.user.presentation.controller;
 
+import com.codesquad.issuetracker.auth.presentation.argumentresolver.Auth;
 import com.codesquad.issuetracker.user.application.BasicLoginService;
 import com.codesquad.issuetracker.user.application.OAuthLoginService;
+import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
 import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -73,4 +75,11 @@ public class LoginController {
     public LoginResponseDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
         return basicLoginService.login(userLoginRequestDto);
     }
+
+    @Operation(summary = "유저 로그아웃하기", description = "사용자의 로그아웃을 처리합니다.")
+    @GetMapping("/logout")
+    public void logout(@Auth User user) {
+        basicLoginService.logout(user);
+    }
+
 }

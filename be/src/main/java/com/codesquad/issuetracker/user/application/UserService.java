@@ -22,6 +22,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
     public User join(UserJoinRequestDto userJoinRequestDto) {
 
         if (isDuplicatedUsername(userJoinRequestDto.getUsername())) {
@@ -44,4 +48,6 @@ public class UserService {
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+
 }
