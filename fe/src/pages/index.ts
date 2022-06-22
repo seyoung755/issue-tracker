@@ -1,4 +1,5 @@
 import Buttons from './Buttons';
+import Icons from './Icons';
 import IssueDetail from './IssueDetail';
 import Issues from './Issues';
 import Labels from './Labels';
@@ -20,4 +21,5 @@ export {
   NotAllow,
   Buttons,
   TextInputs,
+  Icons,
 };

@@ -1,5 +1,7 @@
 import { useState, InputHTMLAttributes } from 'react';
 
+import { TextInputSizesTypes } from '@/styles/theme';
+
 import * as S from './style';
 
 // FIXME: success type 추가되도록 error 로직 변경, 현재 error 상태만 확인하기 위한 임시 로직
@@ -7,7 +9,7 @@ import * as S from './style';
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  textInputSize: 'large' | 'medium' | 'small';
+  textInputSize: keyof TextInputSizesTypes;
 }
 export default function TextInput({
   label,

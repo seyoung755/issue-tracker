@@ -1,6 +1,6 @@
 import 'styled-components';
 
-import { ColorsTypes, FontTypes, IconSizeTypes } from './theme';
+import { ColorsTypes, FontTypes, IconSizeTypes, TextInputSizesTypes } from './theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -8,6 +8,6 @@ declare module 'styled-components' {
     fonts: FontTypes;
     iconSizes: IconSizeTypes;
     buttonSizes: ButtonSizeTypes;
-    textInputSizes: TextInputTypes;
+    textInputSizes: TextInputSizesTypes;
   }
 }
