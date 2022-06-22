@@ -4,8 +4,9 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.codesquad.issuetracker.auth.application.AuthService;
-import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
+import com.codesquad.issuetracker.common.util.TokenParser;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
-
-    private static final String TOKEN_TYPE = "Bearer ";
 
     private final AuthService authService;
 
@@ -32,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         log.debug("request-uri: {}", request.getRequestURI());
 
         String authorization = request.getHeader("Authorization");
-        String token = parseToken(authorization);
+        String token = TokenParser.parseToken(authorization);
 
         try {
             authService.validateToken(token);
@@ -41,7 +40,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw new BusinessException(AuthExceptionType.TOKEN_EXPIRED);
         } catch (SignatureVerificationException | JWTDecodeException e) {
             e.printStackTrace();
-            throw new BusinessException(AuthExceptionType.INVALID_TOKEN);
+            throw new BusinessException(AuthExceptionType.INVALID_ACCESS_TOKEN);
         }
 
         User user = authService.findUser(token);
@@ -50,21 +49,5 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private String parseToken(String authorization) {
-        String token;
-        try {
-            validateAuthorizationHeader(authorization);
-            token = authorization.split(" ")[1].trim();
-        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
-            e.printStackTrace();
-            throw new BusinessException(AuthExceptionType.TOKEN_NOT_FOUND);
-        }
-        return token;
-    }
 
-    private void validateAuthorizationHeader(String authorization) {
-        if (authorization == null || !authorization.startsWith(TOKEN_TYPE)) {
-            throw new IllegalArgumentException("토큰의 형식이 잘못되었습니다.");
-        }
-    }
 }
