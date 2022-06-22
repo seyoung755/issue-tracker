@@ -1,6 +1,8 @@
 package com.codesquad.issuetracker.user.application;
 
 import com.codesquad.issuetracker.auth.application.JwtProvider;
+import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.domain.UserRepository;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
@@ -19,12 +21,15 @@ public class BasicLoginService {
 
     public LoginResponseDto login(UserLoginRequestDto userLoginRequestDto) {
         User user = userRepository.findByUsername(userLoginRequestDto.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException(""));
+                .orElseThrow(() -> new BusinessException(UserExceptionType.NOT_FOUND));
 
         user.validatePassword(userLoginRequestDto.getPassword());
 
         String accessToken = jwtProvider.createAccessToken(user.getId());
         String refreshToken = jwtProvider.createRefreshToken(user.getId());
+
+        user.saveRefreshToken(refreshToken);
+
         return new LoginResponseDto(accessToken, refreshToken);
     }
 }
