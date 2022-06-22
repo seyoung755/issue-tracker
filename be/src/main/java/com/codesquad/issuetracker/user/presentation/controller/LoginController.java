@@ -3,14 +3,13 @@ package com.codesquad.issuetracker.user.presentation.controller;
 import com.codesquad.issuetracker.user.application.BasicLoginService;
 import com.codesquad.issuetracker.user.application.OAuthLoginService;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
+import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -67,5 +66,11 @@ public class LoginController {
     public LoginResponseDto receiveCallbackFromGoogle(@RequestParam String code) {
         log.debug("LoginController Google login code: {}", code);
         return oAuthLoginService.googleLogin(code);
+    }
+
+    @Operation(summary = "유저 로그인하기", description = "사용자의 로그인을 처리합니다.")
+    @PostMapping("/login")
+    public LoginResponseDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
+        return basicLoginService.login(userLoginRequestDto);
     }
 }

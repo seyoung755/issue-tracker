@@ -2,15 +2,14 @@ package com.codesquad.issuetracker.user.presentation.controller;
 
 import com.codesquad.issuetracker.user.application.UserService;
 import com.codesquad.issuetracker.user.domain.LoginType;
-import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
-import io.swagger.v3.oas.annotations.Operation;
 import com.codesquad.issuetracker.user.presentation.dto.UserJoinRequestDto;
-import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 public class UserController {
@@ -21,16 +20,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "유저 로그인하기", description = "사용자의 로그인을 처리합니다.")
-    @PostMapping("/login")
-    public LoginResponseDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
-        return userService.login(userLoginRequestDto);
-    }
-
     @Operation(summary = "유저 회원가입하기", description = "새로운 사용자를 등록합니다.")
     @PostMapping("/join")
-    public ResponseEntity<Void> join(@Validated @RequestBody UserJoinRequestDto userJoinRequestDto) {
-        userService.join(userJoinRequestDto, LoginType.NORMAL);
+    public ResponseEntity<Void> join(@Valid @RequestBody UserJoinRequestDto userJoinRequestDto) {
+        userJoinRequestDto.setLoginType(LoginType.NORMAL);
+        userService.join(userJoinRequestDto);
         return ResponseEntity.ok().build();
     }
 
@@ -39,5 +33,4 @@ public class UserController {
     public ResponseEntity<Boolean> checkDuplicateId(@RequestBody String userId) {
         return ResponseEntity.ok().body(userService.isDuplicatedUsername(userId));
     }
-
 }
