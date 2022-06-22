@@ -3,7 +3,7 @@ package com.codesquad.issuetracker.issue.presentation.dto;
 import lombok.Getter;
 
 @Getter
-public class SingleAssigneeResponseDto {
+public class AssigneeResponseDto {
 
     private String name;
     private String profileImage;
