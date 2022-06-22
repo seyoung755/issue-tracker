@@ -60,6 +60,10 @@ public class User {
             throw new BusinessException(AuthExceptionType.INVALID_REFRESH_TOKEN);
         }
     }
+
+    public void expireRefreshToken() {
+        this.refreshToken = "";
+    }
 }
 
 
