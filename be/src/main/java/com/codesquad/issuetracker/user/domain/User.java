@@ -5,6 +5,7 @@ import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 
@@ -30,19 +31,27 @@ public class User {
     public User(String username, String name, String password, String profileImage, LoginType loginType) {
         this.username = username;
         this.name = name;
-        this.password = password;
+        this.password = hashPassword(password);
         this.profileImage = profileImage;
         this.loginType = loginType;
     }
 
-    public void validatePassword(String password) {
-        if (!this.password.equals(password)) {
+    public void validatePassword(String plainTextPassword) {
+        if (!checkPassword(plainTextPassword, password)) {
             throw new BusinessException(UserExceptionType.INVALID_PASSWORD);
         }
     }
 
     public void saveRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    private String hashPassword(String plainTextPassword) {
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    }
+
+    private boolean checkPassword(String plainTextPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainTextPassword, hashedPassword);
     }
 }
 

@@ -4,7 +4,6 @@ import com.codesquad.issuetracker.auth.application.JwtProvider;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.user.domain.User;
-import com.codesquad.issuetracker.user.domain.UserRepository;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
 import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class BasicLoginService {
 
     private final JwtProvider jwtProvider;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public LoginResponseDto login(UserLoginRequestDto userLoginRequestDto) {
-        User user = userRepository.findByUsername(userLoginRequestDto.getUsername())
+        User user = userService.findByUsername(userLoginRequestDto.getUsername())
                 .orElseThrow(() -> new BusinessException(UserExceptionType.NOT_FOUND));
 
         user.validatePassword(userLoginRequestDto.getPassword());
