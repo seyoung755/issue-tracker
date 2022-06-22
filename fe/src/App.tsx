@@ -32,6 +32,7 @@ export default function App() {
       <Routes>
         <Route path={HOME_ROUTE} element={<Navigate to={ISSUES_ROUTE} replace />} />
         <Route path="/buttons" element={<Buttons />} />
+        <Route path="/icons" element={<Icons />} />
         <Route path="/textInputs" element={<TextInputs />} />
 
         <Route
