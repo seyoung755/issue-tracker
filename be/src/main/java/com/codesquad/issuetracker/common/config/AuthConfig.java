@@ -29,7 +29,6 @@ public class AuthConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
-                .order(1)
                 .excludePathPatterns(
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
