@@ -7,6 +7,7 @@ import com.codesquad.issuetracker.user.application.oauth.GoogleLoginService;
 import com.codesquad.issuetracker.user.application.oauth.OAuthProvider;
 import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
+import com.codesquad.issuetracker.user.presentation.dto.UserJoinRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class OAuthLoginService {
     public LoginResponseDto login(String code, OAuthProvider oAuthProvider) {
         OAuthUserInformation oAuthUserInformation = oAuthProvider.requestUserInformation(code);
 
-        User user = userService.oAuthLogin(oAuthUserInformation);
+        User user = oAuthLogin(oAuthUserInformation);
 
         String accessToken = jwtProvider.createAccessToken(user.getId());
         String refreshToken = jwtProvider.createRefreshToken(user.getId());
@@ -42,5 +43,10 @@ public class OAuthLoginService {
         user.saveRefreshToken(refreshToken);
 
         return new LoginResponseDto(accessToken, refreshToken);
+    }
+
+    public User oAuthLogin(OAuthUserInformation oAuthUserInformation) {
+        return userService.findByUsername(oAuthUserInformation.getUsername())
+                .orElseGet(() -> userService.join(UserJoinRequestDto.from(oAuthUserInformation)));
     }
 }
