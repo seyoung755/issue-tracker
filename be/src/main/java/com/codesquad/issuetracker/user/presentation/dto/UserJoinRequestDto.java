@@ -1,5 +1,7 @@
 package com.codesquad.issuetracker.user.presentation.dto;
 
+import com.codesquad.issuetracker.user.application.dto.OAuthUserInformation;
+import com.codesquad.issuetracker.user.domain.LoginType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,10 +24,26 @@ public class UserJoinRequestDto {
 
     private String profileImage;
 
-    public UserJoinRequestDto(String username, String name, String password, String profileImage) {
+    private LoginType loginType;
+
+    public UserJoinRequestDto(String username, String name, String password, String profileImage, LoginType loginType) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.profileImage = profileImage;
+        this.loginType = loginType;
+    }
+
+    public static UserJoinRequestDto from(OAuthUserInformation oAuthUserInformation) {
+        return new UserJoinRequestDto(
+                oAuthUserInformation.getUsername(),
+                oAuthUserInformation.getName(),
+                oAuthUserInformation.getPassword(),
+                oAuthUserInformation.getProfileImage(),
+                oAuthUserInformation.getLoginType());
+    }
+
+    public void setLoginType(LoginType loginType) {
+        this.loginType = loginType;
     }
 }
