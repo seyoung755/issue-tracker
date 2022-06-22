@@ -1,6 +1,7 @@
 package com.codesquad.issuetracker.user.domain;
 
 import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,6 +53,12 @@ public class User {
 
     private boolean checkPassword(String plainTextPassword, String hashedPassword) {
         return BCrypt.checkpw(plainTextPassword, hashedPassword);
+    }
+
+    public void validateRefreshToken(String refreshToken) {
+        if (!this.refreshToken.equals(refreshToken)) {
+            throw new BusinessException(AuthExceptionType.INVALID_REFRESH_TOKEN);
+        }
     }
 }
 
