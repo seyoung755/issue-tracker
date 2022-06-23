@@ -7,6 +7,9 @@ public class TokenParser {
 
     private static final String TOKEN_TYPE = "Bearer ";
 
+    private TokenParser() {
+    }
+
     public static String parseToken(String authorization) {
         String token;
         try {

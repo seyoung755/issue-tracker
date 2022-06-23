@@ -2,45 +2,27 @@ package com.codesquad.issuetracker.auth.application;
 
 import com.codesquad.issuetracker.auth.presentation.dto.AccessTokenDto;
 import com.codesquad.issuetracker.common.util.TokenParser;
-import com.codesquad.issuetracker.exception.domain.BusinessException;
-import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
+import com.codesquad.issuetracker.user.application.UserService;
 import com.codesquad.issuetracker.user.domain.User;
-import com.codesquad.issuetracker.user.domain.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@RequiredArgsConstructor
 @Transactional
 @Service
 public class AuthService {
 
-    private static final String USER_ID = "userId";
-
     private final JwtProvider jwtProvider;
-    private final UserRepository userRepository;
-
-    public AuthService(JwtProvider jwtProvider, UserRepository userRepository) {
-        this.jwtProvider = jwtProvider;
-        this.userRepository = userRepository;
-    }
-
-    public void validateToken(String token) {
-        jwtProvider.validateJwtToken(token);
-    }
-
-    public User findUser(String token) {
-        Long userId = jwtProvider.getClaimFromToken(token, USER_ID);
-
-        return userRepository.findById(userId)
-                .orElseThrow(()-> new BusinessException(UserExceptionType.NOT_FOUND));
-    }
+    private final UserService userService;
 
     public AccessTokenDto refreshAccessToken(String authorization) {
         String refreshToken = TokenParser.parseToken(authorization);
 
         jwtProvider.validateJwtToken(refreshToken);
+        Long userId = jwtProvider.getClaimFromToken(refreshToken, JwtProvider.USER_ID_CLAIM_KEY);
 
-        User user = findUser(refreshToken);
+        User user = userService.findById(userId);
         user.validateRefreshToken(refreshToken);
 
         String accessToken = jwtProvider.createAccessToken(user.getId());
