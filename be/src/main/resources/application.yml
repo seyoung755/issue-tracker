@@ -10,6 +10,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    open-in-view: false
 
 logging:
   level.com.codesquad.issuetracker: debug

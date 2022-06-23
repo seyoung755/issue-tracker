@@ -45,6 +45,10 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
+    public Optional<User> findById(long userId) {
+        return userRepository.findById(userId);
+    }
+
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
