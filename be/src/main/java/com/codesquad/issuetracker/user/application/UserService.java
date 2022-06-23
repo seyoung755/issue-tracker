@@ -5,6 +5,7 @@ import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.domain.UserRepository;
 import com.codesquad.issuetracker.user.presentation.dto.UserJoinRequestDto;
+import com.codesquad.issuetracker.user.presentation.dto.UserResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class UserService {
 
     public User findById(long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(()-> new BusinessException(UserExceptionType.NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(UserExceptionType.NOT_FOUND));
     }
 
     public Optional<User> findByUsername(String username) {
@@ -60,4 +61,8 @@ public class UserService {
         }
     }
 
+    public UserResponseDto findUserInfo(long userId) {
+        return UserResponseDto.from(findById(userId));
+
+    }
 }
