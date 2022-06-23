@@ -45,8 +45,9 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
-    public Optional<User> findById(long userId) {
-        return userRepository.findById(userId);
+    public User findById(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(()-> new BusinessException(UserExceptionType.NOT_FOUND));
     }
 
     public Optional<User> findByUsername(String username) {

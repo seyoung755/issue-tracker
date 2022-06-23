@@ -20,9 +20,11 @@ oauth:
   github:
     client_id: fbfd3db42dc5b227d1b8
     client_secret: ${GITHUB_CLIENT_SECRET}
+    redirect_url: https://github.com/login/oauth/authorize?client_id=${oauth.github.client_id}&scope=user:email
   google:
     client_id: 886648386281-q6205r09trl1iu29qa09b2sdufbvhgth.apps.googleusercontent.com
     client_secret: ${GOOGLE_CLIENT_SECRET}
+    redirect_url: https://accounts.google.com/o/oauth2/v2/auth?client_id=${oauth.github.client_id}&redirect_uri=${oauth.redirect_url}/oauth/google/callback&response_type=code&scope=profile email'
 
 auth:
   jwt:
