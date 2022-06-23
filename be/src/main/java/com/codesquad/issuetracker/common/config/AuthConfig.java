@@ -2,6 +2,7 @@ package com.codesquad.issuetracker.common.config;
 
 import com.codesquad.issuetracker.auth.presentation.argumentresolver.AuthArgumentResolver;
 import com.codesquad.issuetracker.auth.presentation.interceptor.AuthInterceptor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -9,16 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Configuration
 public class AuthConfig implements WebMvcConfigurer {
 
     private final AuthInterceptor authInterceptor;
     private final AuthArgumentResolver authArgumentResolver;
-
-    public AuthConfig(AuthInterceptor authInterceptor, AuthArgumentResolver authArgumentResolver) {
-        this.authInterceptor = authInterceptor;
-        this.authArgumentResolver = authArgumentResolver;
-    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
@@ -36,6 +33,7 @@ public class AuthConfig implements WebMvcConfigurer {
                         "/oauth/**",
                         "/login",
                         "/join/**",
-                        "/error/**");
+                        "/error/**",
+                        "/favicon.ico");
     }
 }

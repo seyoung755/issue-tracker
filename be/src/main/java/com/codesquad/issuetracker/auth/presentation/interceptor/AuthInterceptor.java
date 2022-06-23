@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
-    private final AuthService authService;
     private final JwtProvider jwtProvider;
 
     @Override
@@ -33,7 +32,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         String token = TokenParser.parseToken(authorization);
 
         try {
-            authService.validateToken(token);
+            jwtProvider.validateJwtToken(token);
         } catch (TokenExpiredException e) {
             e.printStackTrace();
             throw new BusinessException(AuthExceptionType.TOKEN_EXPIRED);
@@ -42,7 +41,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw new BusinessException(AuthExceptionType.INVALID_ACCESS_TOKEN);
         }
 
-        Long userId = jwtProvider.getClaimFromToken(token, "userId");
+        Long userId = jwtProvider.getClaimFromToken(token, JwtProvider.USER_ID_CLAIM_KEY);
         request.setAttribute("userId", userId);
         return true;
     }
