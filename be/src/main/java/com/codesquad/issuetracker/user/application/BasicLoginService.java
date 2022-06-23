@@ -33,7 +33,7 @@ public class BasicLoginService {
     }
 
     public void logout(long userId) {
-        User user = userService.findById(userId).get();
+        User user = userService.findById(userId);
 
         user.expireRefreshToken();
     }
