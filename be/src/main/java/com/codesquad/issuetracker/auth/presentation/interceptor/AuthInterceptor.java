@@ -8,6 +8,7 @@ import com.codesquad.issuetracker.auth.application.JwtProvider;
 import com.codesquad.issuetracker.common.util.TokenParser;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
+import com.codesquad.issuetracker.user.application.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthInterceptor implements HandlerInterceptor {
 
     private final JwtProvider jwtProvider;
+    private final UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -42,6 +44,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         Long userId = jwtProvider.getClaimFromToken(token, JwtProvider.USER_ID_CLAIM_KEY);
+        userService.doesExist(userId);
+
         request.setAttribute("userId", userId);
         return true;
     }

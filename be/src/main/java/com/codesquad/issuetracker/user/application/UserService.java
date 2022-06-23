@@ -54,5 +54,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public void doesExist(long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new BusinessException(UserExceptionType.NOT_FOUND);
+        }
+    }
 
 }
