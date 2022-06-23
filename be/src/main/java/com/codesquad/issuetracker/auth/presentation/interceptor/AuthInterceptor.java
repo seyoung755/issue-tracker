@@ -4,10 +4,11 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.codesquad.issuetracker.auth.application.AuthService;
+import com.codesquad.issuetracker.auth.application.JwtProvider;
 import com.codesquad.issuetracker.common.util.TokenParser;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
-import com.codesquad.issuetracker.user.domain.User;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,14 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
     private final AuthService authService;
-
-    public AuthInterceptor(AuthService authService) {
-        this.authService = authService;
-    }
+    private final JwtProvider jwtProvider;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -43,11 +42,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw new BusinessException(AuthExceptionType.INVALID_ACCESS_TOKEN);
         }
 
-        User user = authService.findUser(token);
-        request.setAttribute("user", user);
-
+        Long userId = jwtProvider.getClaimFromToken(token, "userId");
+        request.setAttribute("userId", userId);
         return true;
     }
-
 
 }
