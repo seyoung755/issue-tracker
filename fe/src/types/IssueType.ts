@@ -17,11 +17,14 @@ export interface IssueListType {
   issues: IssueType[];
 }
 
-export interface IssueDetailType {
+export interface IssueInfo {
   id: string;
   title: string;
   content: string;
   createdAt: string;
+}
+
+export interface IssueDetailType extends IssueInfo {
   author: UserType;
   assignees: UserType[];
   label: LabelType;

@@ -1,14 +1,10 @@
 import { atom } from 'recoil';
 
+import { UserType } from '@/types/userType';
+
 export const USER_ATOM_KEY = 'userState' as const;
 
-export interface UserTypes {
-  id: string;
-  profileUrl: string;
-  name: string;
-}
-
-export const userState = atom<UserTypes | null | undefined>({
+export const userState = atom<UserType | null | undefined>({
   key: USER_ATOM_KEY,
   default: null,
 });
