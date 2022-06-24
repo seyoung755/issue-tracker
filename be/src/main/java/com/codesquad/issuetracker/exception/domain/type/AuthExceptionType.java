@@ -9,7 +9,6 @@ public enum AuthExceptionType implements ExceptionType {
     INVALID_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "AUTH003", "유효하지 않은 Access 토큰입니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "AUTH004", "유효하지 않은 Refresh 토큰입니다.");
 
-
     private final HttpStatus statusCode;
     private final String errorCode;
     private final String message;

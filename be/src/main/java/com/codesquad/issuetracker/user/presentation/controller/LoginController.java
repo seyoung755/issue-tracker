@@ -30,9 +30,8 @@ public class LoginController {
 
     @Operation(summary = "Github 로그인 화면으로 Redirect 하기", description = "Github 로그인 페이지로 이동합니다.")
     @GetMapping("/oauth/github/login")
-    public ResponseEntity<String> loginByGithub() throws URISyntaxException {
-        return ResponseEntity.ok()
-                .body(githubRedirectUrl);
+    public ResponseEntity<String> loginByGithub() {
+        return ResponseEntity.ok().body(githubRedirectUrl);
     }
 
     @Operation(summary = "Github 로그인 처리하기", description = "Github Authorization code 를 받아서 로그인을 완료합니다.")
