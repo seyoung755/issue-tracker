@@ -1,0 +1,24 @@
+spring:
+#  mvc:
+#    servlet:
+#      path: /api
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/issuetracker
+    username: root
+    password: elql1004
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+logging:
+  level.com.codesquad.issuetracker: debug
+
+oauth:
+  github:
+    client_id: fbfd3db42dc5b227d1b8
+    client_secret: ${GITHUB_CLIENT_SECRET}
+
+auth:
+  jwt:
+    secret_key: ${JWT_SECRET_KEY}
