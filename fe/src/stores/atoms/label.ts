@@ -1,19 +1,10 @@
 import { atom } from 'recoil';
 
+import { LabelListType } from '@/types/labelTypes';
+
 export const LABEL_ATOM_KEY = 'labelState' as const;
 
-export interface LabelTypes {
-  labelName: string;
-  description: string;
-  colorCode: string;
-  textColor: string;
-}
-
-export interface LabelListTypes {
-  totalCount: number;
-  labels: LabelTypes[];
-}
-export const labelState = atom<LabelListTypes>({
+export const labelState = atom<LabelListType>({
   key: LABEL_ATOM_KEY,
   default: {
     totalCount: 0,

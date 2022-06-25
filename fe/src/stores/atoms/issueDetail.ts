@@ -1,52 +1,27 @@
 import { atom } from 'recoil';
 
-export const ISSUE_DETAIL_ATOM_KEY = 'issueDetailState' as const;
+import { CommentType } from '@/types/commentType';
+import { IssueInfo } from '@/types/IssueType';
+import { MilestoneType } from '@/types/milestoneType';
+import { UserType } from '@/types/userType';
 
-export interface IssueDetailType {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  author: {
-    userId: string;
-    profileImage: string;
-    username: string;
-  };
-  assignees: [
-    {
-      username: string;
-      profileImage: string;
-    },
-  ];
-  label: {
-    labelName: string;
-    description: string;
-    colorCode: string;
-    textColor: string;
-  };
-  milestone: {
-    name: string;
-    dueDate: string;
-    description: string;
-    progressRate: number;
-    openCount: number;
-    closeCount: number;
-  };
-  // TODO: comment 별도의 atom으로 뺄지 얘기해보기
-  comments: [
-    {
-      content: string;
-      author: {
-        userId: string;
-        profileImage: string;
-        username: string;
-      };
-      createdAt: string;
-    },
-  ];
-}
-
-export const issueDetailState = atom<IssueDetailType | null | undefined>({
-  key: ISSUE_DETAIL_ATOM_KEY,
+export const issueDetailInfo = atom<IssueInfo | null | undefined>({
+  key: 'issueDetailInfo',
+  default: null,
+});
+export const issueDetailAssginee = atom<UserType | null | undefined>({
+  key: 'issueDetailAssginee',
+  default: null,
+});
+export const issueDetailAuthor = atom<UserType | null | undefined>({
+  key: 'issueDetailAuthor',
+  default: null,
+});
+export const issueDetailMilestone = atom<MilestoneType | null | undefined>({
+  key: 'issueDetailMilestone',
+  default: null,
+});
+export const issueDetailComments = atom<CommentType[] | null | undefined>({
+  key: 'issueDetailComments',
   default: null,
 });
