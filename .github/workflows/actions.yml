@@ -30,13 +30,15 @@ jobs:
       - name: Setup MySQL
         uses: mirromutth/mysql-action@v1.1
         with:
-          mysql database: actions
+          mysql database: issuetracker
           mysql user: root
           mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           
       - name: Set application.yml for deploy
         working-directory: ./be/src/main/resources
-        run: echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml  
+        run: |
+		touch application-prod.yml
+		echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml  
 
       - name: Build with Gradle
         run: ./gradlew bootJar 
