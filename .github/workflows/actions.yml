@@ -21,6 +21,8 @@ jobs:
       - name: Set application.yml for deploy
         working-directory: ./be/src/main/resources
         run: |
+          cat /dev/null > application.yml
+          echo "${{ secrets.APPLICATION_DEVELOP }}" >> ./application.yml
           echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml
 
       - name: Setup Java JDK
@@ -40,7 +42,7 @@ jobs:
           mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
       - name: Build with Gradle
-        run: ./gradlew build -Pprofile=prod
+        run: ./gradlew build
 
       - name: Docker Login
         uses: docker/login-action@v2.0.0
