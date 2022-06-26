@@ -64,7 +64,7 @@ jobs:
           envs: GITHUB_SHA
           script: |
             ls -al
-            sudo docker ps -a -q -f "name=issue-tracker" | grep -q . && docker stop issue-tracker && docker rm issue-tracker | true
+            sudo docker ps -a -q -f "name=issue-tracker" | grep -q . && sudo docker stop issue-tracker && sudo docker rm issue-tracker | true
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:1.0.0
             sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:1.0.0 issue-tracker
             sudo docker run -d --name issue-tracker -p 80:8080 issue-tracker
