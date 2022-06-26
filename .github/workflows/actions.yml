@@ -43,7 +43,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew bootJar 
 
-	      - name: Docker Login
+      - name: Docker Login
         uses: docker/login-action@v2.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -63,7 +63,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
-		    sudo docker ps -a -q -f "name=issue-tracker" | grep -q . && docker stop issue-tracker && docker rm issue-tracker | true
+            sudo docker ps -a -q -f "name=issue-tracker" | grep -q . && docker stop issue-tracker && docker rm issue-tracker | true
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:${GITHUB_SHA::7}
             sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/issue-trakcer:${GITHUB_SHA::7} issue-tracker
             sudo docker run -d -e --name issue-tracker -p 80:8080 issue-tracker
