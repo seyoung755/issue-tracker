@@ -21,7 +21,7 @@ jobs:
       - name: Set application.yml for deploy
         working-directory: ./be/src/main/resources
         run: |
-		  cat /dev/null > application.yml
+          cat /dev/null > application.yml
           echo "${{ secrets.APPLICATION }}" >> ./application.yml
 
       - name: Setup Java JDK
