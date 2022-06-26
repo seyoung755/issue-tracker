@@ -1,16 +1,16 @@
 package com.codesquad.issuetracker.user.domain;
 
+import com.codesquad.issuetracker.common.util.PasswordEncryptor;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
 public class User {
@@ -31,13 +31,13 @@ public class User {
     public User(String username, String name, String password, String profileImage, LoginType loginType) {
         this.username = username;
         this.name = name;
-        this.password = hashPassword(password);
+        this.password = PasswordEncryptor.hashPassword(password);
         this.profileImage = profileImage;
         this.loginType = loginType;
     }
 
     public void validatePassword(String plainTextPassword) {
-        if (!checkPassword(plainTextPassword, password)) {
+        if (!PasswordEncryptor.checkPassword(plainTextPassword, password)) {
             throw new BusinessException(UserExceptionType.INVALID_PASSWORD);
         }
     }
@@ -46,12 +46,15 @@ public class User {
         this.refreshToken = refreshToken;
     }
 
-    private String hashPassword(String plainTextPassword) {
-        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+
+    public void validateRefreshToken(String refreshToken) {
+        if (!this.refreshToken.equals(refreshToken)) {
+            throw new BusinessException(AuthExceptionType.INVALID_REFRESH_TOKEN);
+        }
     }
 
-    private boolean checkPassword(String plainTextPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainTextPassword, hashedPassword);
+    public void expireRefreshToken() {
+        this.refreshToken = "";
     }
 }
 

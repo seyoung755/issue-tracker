@@ -31,4 +31,10 @@ public class BasicLoginService {
 
         return new LoginResponseDto(accessToken, refreshToken);
     }
+
+    public void logout(long userId) {
+        User user = userService.findById(userId);
+
+        user.expireRefreshToken();
+    }
 }
