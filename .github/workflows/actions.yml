@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ "deploy" ]
+  pull_request:
+    branches: [ "develop-BE" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.4.0
+        with:
+          distribution: 'adopt-hotspot'
+          java-version: '11'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: actions
+          mysql user: root
+          mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          
+      - name: Set application.yml for deploy
+        working-directory: ./src/main/resources
+        run: echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml  
+
+      - name: Build with Gradle
+        run: ./gradlew bootJar 
