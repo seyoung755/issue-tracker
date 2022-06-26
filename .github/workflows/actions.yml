@@ -37,8 +37,8 @@ jobs:
       - name: Set application.yml for deploy
         working-directory: ./be/src/main/resources
         run: |
-		touch application-prod.yml
-		echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml  
+          touch application-prod.yml
+          echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml
 
       - name: Build with Gradle
         run: ./gradlew bootJar 
