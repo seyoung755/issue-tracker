@@ -21,8 +21,8 @@ jobs:
       - name: Set application.yml for deploy
         working-directory: ./be/src/main/resources
         run: |
-          touch application-prod.yml
           echo "${{ secrets.APPLICATION }}" >> ./application-prod.yml
+          cat application-prod.yml
 
       - name: Setup Java JDK
         uses: actions/setup-java@v3.4.0
