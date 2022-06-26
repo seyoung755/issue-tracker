@@ -52,8 +52,8 @@ jobs:
       - name: Docker build
         run: |
           docker build -t issue-tracker .
-          docker tag issue-tracker ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:${GITHUB_SHA::7}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:${GITHUB_SHA::7}
+          docker tag issue-tracker ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:1.0.0
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:1.0.0
           
       - name: deploy!
         uses: appleboy/ssh-action@v0.1.4
@@ -64,6 +64,6 @@ jobs:
           envs: GITHUB_SHA
           script: |
             sudo docker ps -a -q -f "name=issue-tracker" | grep -q . && docker stop issue-tracker && docker rm issue-tracker | true
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:${GITHUB_SHA::7}
-            sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/issue-trakcer:${GITHUB_SHA::7} issue-tracker
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/issue-tracker:1.0.0
+            sudo docker tag ${{ secrets.DOCKERHUB_USERNAME }}/issue-trakcer:1.0.0 issue-tracker
             sudo docker run -d -e --name issue-tracker -p 80:8080 issue-tracker
