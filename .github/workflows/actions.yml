@@ -9,6 +9,9 @@ on:
   workflow_dispatch:
 
 jobs:
+  defaults:
+    run:
+	  working-directory: "./be"
   build:
     runs-on: ubuntu-latest
 
