@@ -7,6 +7,7 @@ import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.issue.application.dto.IssueAssigneeEditDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueLabelEditDto;
+import com.codesquad.issuetracker.issue.application.dto.IssueMilestoneEditDto;
 import com.codesquad.issuetracker.issue.domain.Issue;
 import com.codesquad.issuetracker.issue.domain.IssueAssignee;
 import com.codesquad.issuetracker.issue.domain.IssueLabel;
@@ -74,6 +75,15 @@ public class IssueService {
         List<IssueLabel> labels = createIssueLabels(issueLabelEditDto.getLabelNames(), issue);
 
         issue.updateLabels(labels);
+    }
+
+    @Transactional
+    public void editMilestone(IssueMilestoneEditDto issueMilestoneEditDto) {
+        Issue issue = findIssue(issueMilestoneEditDto.getIssueId());
+
+        Milestone milestone = findMilestone(issueMilestoneEditDto.getMilestoneName());
+
+        issue.updateMilestone(milestone);
     }
 
     private List<IssueAssignee> createIssueAssignees(List<Long> assigneeIds, Issue issue) {

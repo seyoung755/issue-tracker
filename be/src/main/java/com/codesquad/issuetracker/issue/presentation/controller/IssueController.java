@@ -5,6 +5,7 @@ import com.codesquad.issuetracker.issue.application.IssueService;
 import com.codesquad.issuetracker.issue.application.dto.IssueAssigneeEditDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueLabelEditDto;
+import com.codesquad.issuetracker.issue.application.dto.IssueMilestoneEditDto;
 import com.codesquad.issuetracker.issue.presentation.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -70,9 +71,10 @@ public class IssueController {
 
     @Operation(summary = "이슈의 마일스톤을 편집하기", description = "기존 이슈의 마일스톤을 추가하거나 삭제합니다.")
     @PutMapping("/milestone/{id}")
-    public IssueDetailDto edit(@PathVariable(value = "id") long issueId,
-                               @RequestBody IssueMileStoneEditRequestDto issueMileStoneEditRequestDto) {
-        return null;
+    public ResponseEntity<Void> editMilestone(@PathVariable(value = "id") long issueId,
+                               @RequestBody IssueMilestoneEditRequestDto issueMileStoneEditRequestDto) {
+        issueService.editMilestone(new IssueMilestoneEditDto(issueId, issueMileStoneEditRequestDto.getMilestoneName()));
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "이슈 삭제하기", description = "이슈를 삭제합니다.")
