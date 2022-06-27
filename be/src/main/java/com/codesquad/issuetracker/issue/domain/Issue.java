@@ -1,6 +1,7 @@
 package com.codesquad.issuetracker.issue.domain;
 
 import com.codesquad.issuetracker.comment.domain.Comment;
+import com.codesquad.issuetracker.common.domain.BaseEntity;
 import com.codesquad.issuetracker.milestone.domain.Milestone;
 import com.codesquad.issuetracker.user.domain.User;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Issue {
+public class Issue extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +62,14 @@ public class Issue {
         labels.stream()
                 .filter(label -> !(this.labels.contains(label)))
                 .forEach(label -> this.labels.add(label));
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.codesquad.issuetracker.user.domain;
 
+import com.codesquad.issuetracker.common.domain.BaseEntity;
 import com.codesquad.issuetracker.common.util.PasswordEncryptor;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
@@ -14,7 +15,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

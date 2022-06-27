@@ -1,5 +1,6 @@
 package com.codesquad.issuetracker.milestone.domain;
 
+import com.codesquad.issuetracker.common.domain.BaseEntity;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Entity
-public class Milestone {
+public class Milestone extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
