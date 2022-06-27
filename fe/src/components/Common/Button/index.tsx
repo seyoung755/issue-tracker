@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef, ElementType } from 'react';
+import { ReactNode, forwardRef, ElementType, Ref } from 'react';
 import { CSSProp } from 'styled-components';
 
 import { OverridableProps } from '@/utils/type';
@@ -18,19 +18,23 @@ export type ButtonProps<T extends ElementType> = OverridableProps<
 >;
 
 export const Button = forwardRef(
-  <T extends ElementType = 'button'>({
-    as,
-    children,
-    onClick,
-    disabled = false,
-    className,
-    customStyle,
-    isSecondary = false,
-    ...restProps
-  }: ButtonProps<T>) => {
+  <T extends ElementType = 'button'>(
+    {
+      as,
+      children,
+      onClick,
+      disabled = false,
+      className,
+      customStyle,
+      isSecondary = false,
+      ...restProps
+    }: ButtonProps<T>,
+    ref: Ref<any>,
+  ) => {
     const Style = isSecondary ? S.Secondary : S.Button;
     return (
       <Style
+        ref={ref}
         className={className}
         onClick={onClick}
         disabled={disabled}
@@ -44,17 +48,21 @@ export const Button = forwardRef(
 );
 
 export const TextButton = forwardRef(
-  <T extends ElementType = 'button'>({
-    as,
-    children,
-    onClick,
-    disabled = false,
-    className,
-    customStyle,
-    ...restProps
-  }: ButtonProps<T>) => {
+  <T extends ElementType = 'button'>(
+    {
+      as,
+      children,
+      onClick,
+      disabled = false,
+      className,
+      customStyle,
+      ...restProps
+    }: ButtonProps<T>,
+    ref: Ref<any>,
+  ) => {
     return (
       <S.TextButton
+        ref={ref}
         className={className}
         onClick={onClick}
         disabled={disabled}
