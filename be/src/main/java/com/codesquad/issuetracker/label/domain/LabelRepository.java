@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface LabelRepository extends JpaRepository<Label, Long> {
 
-
-    List<Label> findAllByName(Iterable<String> names);
+    List<Label> findAllByLabelNameIn(List<String> labelNames);
 }
