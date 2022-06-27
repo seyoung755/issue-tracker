@@ -64,7 +64,7 @@ public class IssueService {
     }
 
     private List<IssueLabel> findLabels(List<String> labelNames, Issue issue) {
-        List<Label> labels = labelRepository.findAllByName(labelNames);
+        List<Label> labels = labelRepository.findAllByLabelNameIn(labelNames);
         return labels.stream()
                 .map(label -> new IssueLabel(issue, label))
                 .collect(Collectors.toList());
