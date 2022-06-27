@@ -17,9 +17,15 @@ export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>
 
   :hover {
     background: ${({ theme }) => theme.colors.primary.dark};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.dark};
+    }
   }
   :focus {
     border: 4px solid ${({ theme }) => theme.colors.primary.light};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.light};
+    }
   }
   ${({ disabled, theme }) =>
     disabled &&
@@ -42,9 +48,15 @@ export const Secondary = styled.button<{ customStyle: CSSProp | null | undefined
   border: 2px solid ${({ theme }) => theme.colors.primary.normal};
   :hover {
     border: 2px solid ${({ theme }) => theme.colors.primary.dark};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.dark};
+    }
   }
   :focus {
     border: 4px solid ${({ theme }) => theme.colors.primary.light};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.light};
+    }
   }
   ${({ disabled, theme }) =>
     disabled &&
@@ -66,9 +78,15 @@ export const TextButton = styled.button<{ customStyle: CSSProp | null | undefine
   ${({ theme }) => theme.fonts.linkSmall};
   :hover {
     color: ${({ theme }) => theme.colors.greyscale.titleActive};
+    & path {
+      stroke: ${({ theme }) => theme.colors.greyscale.titleActive};
+    }
   }
   :focus {
     color: ${({ theme }) => theme.colors.greyscale.body};
+    & path {
+      stroke: ${({ theme }) => theme.colors.greyscale.titleActive};
+    }
   }
   ${({ disabled, theme }) =>
     disabled &&
