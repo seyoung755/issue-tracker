@@ -30,7 +30,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/issues" replace />} />
+        <Route path={HOME_ROUTE} element={<Navigate to={ISSUES_ROUTE} replace />} />
         <Route path="/buttons" element={<Buttons />} />
         <Route path="/textInputs" element={<TextInputs />} />
 
