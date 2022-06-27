@@ -1,7 +1,7 @@
 export const API_PREFIX = '/api';
 
 export const USER_API = {
-  GITHUB_OAUTH: '/oauth/login',
+  GITHUB_OAUTH: '/oauth/github/login',
   LOGIN: '/login',
 };
 export const ISSUE_API = {
