@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Dropdown = styled.div`
   z-index: 1012;
   position: absolute;
   top: 100px;

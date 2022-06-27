@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import PopUp from '@/components/Common/Popup';
+import Dropdown from '@/components/Common/Dropdown';
 import Loader from '@/components/Loader';
-import usePopup from '@/hooks/usePopup';
+import useDropdown from '@/hooks/useDropdown';
 import { issueListQuery } from '@/stores/selector/issueList';
 
 import * as S from './style';
@@ -15,15 +15,15 @@ function IssueList() {
 }
 
 export default function Issues() {
-  const [parent, isPopupOpen, openPopUp, handleModalClick] = usePopup(false);
+  const [parent, isDropdownOpen, openDropdown, handleDropdownClick] = useDropdown(false);
 
   return (
     <>
       <S.PopUp ref={parent}>
-        <button onClick={openPopUp}>1</button>
-        <PopUp parentComponent={parent} isOpen={isPopupOpen} onClose={handleModalClick}>
+        <button onClick={openDropdown}>1</button>
+        <Dropdown parentComponent={parent} isOpen={isDropdownOpen} onClose={handleDropdownClick}>
           1
-        </PopUp>
+        </Dropdown>
       </S.PopUp>
       <Suspense fallback={<Loader />}>
         <IssueList />
