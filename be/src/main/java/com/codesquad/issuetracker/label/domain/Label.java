@@ -12,10 +12,14 @@ public class Label {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String labelName;
     private String description;
+
+    @Column(nullable = false)
     private String colorCode;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TextColor textColor;
 }

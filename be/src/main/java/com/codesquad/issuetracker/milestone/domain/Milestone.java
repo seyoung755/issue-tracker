@@ -2,10 +2,7 @@ package com.codesquad.issuetracker.milestone.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
@@ -16,6 +13,7 @@ public class Milestone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
     private LocalDate dueDate;
     private String description;

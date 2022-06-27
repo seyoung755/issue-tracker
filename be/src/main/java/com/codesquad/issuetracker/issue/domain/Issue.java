@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @NoArgsConstructor
@@ -21,6 +18,7 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
     private String content;
 
@@ -30,11 +28,11 @@ public class Issue {
     @ManyToOne(fetch = FetchType.LAZY)
     private Milestone milestone;
 
-    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL)
-    private Set<IssueAssignee> assignees = new HashSet<>();
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<IssueAssignee> assignees = new ArrayList<>();
 
-    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL)
-    private Set<IssueLabel> labels = new HashSet<>();
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<IssueLabel> labels = new ArrayList<>();
 
     @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -49,11 +47,29 @@ public class Issue {
         this.milestone = milestone;
     }
 
-    public void addAssignees(List<IssueAssignee> issueAssignees) {
-        this.assignees.addAll(issueAssignees);
+    public void updateAssignees(List<IssueAssignee> assignees) {
+        this.assignees.removeIf(assignee -> !assignees.contains(assignee));
+
+        assignees.stream()
+                .filter(assignee -> !(this.assignees.contains(assignee)))
+                .forEach(assignee -> this.assignees.add(assignee));
     }
 
     public void addLabels(List<IssueLabel> labels) {
         this.labels.addAll(labels);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Issue)) {
+            return false;
+        }
+        Issue issue = (Issue) o;
+        return Objects.equals(this.id, issue.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
