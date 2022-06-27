@@ -32,6 +32,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/issues" replace />} />
         <Route path="/buttons" element={<Buttons />} />
+        <Route path="/textInputs" element={<TextInputs />} />
+
         <Route
           path={LOGIN_ROUTE}
           element={<PublicRoute Component={Login} isLogin={isLogin} restricted />}
