@@ -9,7 +9,8 @@ public class IssueSaveRequestDto {
 
     private String title;
     private String content;
-    private List<String> assignees;
-    private String labelName;
+    private List<Long> assignees;
+    private List<String> labelNames;
     private String milestoneName;
+
 }
