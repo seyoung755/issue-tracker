@@ -1,12 +1,19 @@
 package com.codesquad.issuetracker.issue.presentation.controller;
 
+import com.codesquad.issuetracker.auth.presentation.argumentresolver.Auth;
+import com.codesquad.issuetracker.issue.application.IssueService;
+import com.codesquad.issuetracker.issue.application.dto.IssueDto;
 import com.codesquad.issuetracker.issue.presentation.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RequestMapping("/issues")
 @RestController
 public class IssueController {
+
+    private final IssueService issueService;
 
     @Operation(summary = "이슈 상세정보 조회하기", description = "이슈의 상세정보를 조회합니다.")
     @GetMapping("/{id}")
@@ -23,8 +30,8 @@ public class IssueController {
 
     @Operation(summary = "이슈 작성하기", description = "새로운 이슈를 작성합니다.")
     @PostMapping
-    public long write(@RequestBody IssueSaveRequestDto issueSaveRequestDto) {
-        return 1L;
+    public long write(@Auth Long userId, @RequestBody IssueSaveRequestDto issueSaveRequestDto) {
+        return issueService.save(IssueDto.from(userId, issueSaveRequestDto));
     }
 
     @Operation(summary = "이슈의 제목을 편집하기", description = "기존 이슈의 제목을 편집합니다.")
