@@ -72,6 +72,10 @@ public class Issue extends BaseEntity {
         this.title = title;
     }
 
+    public void delete() {
+        super.changeDeleted(true);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Issue)) {
