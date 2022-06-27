@@ -2,6 +2,7 @@ package com.codesquad.issuetracker.issue.presentation.controller;
 
 import com.codesquad.issuetracker.auth.presentation.argumentresolver.Auth;
 import com.codesquad.issuetracker.issue.application.IssueService;
+import com.codesquad.issuetracker.issue.application.dto.IssueAssigneeEditDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueDto;
 import com.codesquad.issuetracker.issue.presentation.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,31 +37,38 @@ public class IssueController {
 
     @Operation(summary = "이슈의 제목을 편집하기", description = "기존 이슈의 제목을 편집합니다.")
     @PutMapping("/title/{id}")
-    public IssueDetailDto editTitle(@PathVariable(value = "id") long issueId, @RequestBody IssueTitleEditRequestDto issueTitleEditRequestDto) {
+    public IssueDetailDto editTitle(@Auth Long userId,
+                                    @PathVariable(value = "id") long issueId,
+                                    @RequestBody IssueTitleEditRequestDto issueTitleEditRequestDto) {
         return null;
     }
 
     @Operation(summary = "이슈의 내용을 편집하기", description = "기존 이슈의 내용을 편집합니다.")
     @PutMapping("/content/{id}")
-    public IssueDetailDto editContent(@PathVariable(value = "id") long issueId, @RequestBody IssueContentEditRequestDto issueContentEditRequestDto) {
+    public IssueDetailDto editContent(@PathVariable(value = "id") long issueId,
+                                      @RequestBody IssueContentEditRequestDto issueContentEditRequestDto) {
         return null;
     }
 
     @Operation(summary = "이슈의 담당자를 편집하기", description = "기존 이슈의 담당자를 추가하거나 삭제합니다.")
     @PutMapping("/assignee/{id}")
-    public IssueDetailDto editAssignee(@PathVariable(value = "id") long issueId, @RequestBody IssueAssigneeEditRequestDto issueAssigneeEditRequestDto) {
+    public IssueDetailDto editAssignee(@PathVariable(value = "id") long issueId,
+                                       @RequestBody IssueAssigneeEditRequestDto issueAssigneeEditRequestDto) {
+        issueService.editAssignee(new IssueAssigneeEditDto(issueId, issueAssigneeEditRequestDto.getAssignees()));
         return null;
     }
 
     @Operation(summary = "이슈의 라벨을 편집하기", description = "기존 이슈의 라벨을 추가하거나 삭제합니다.")
     @PutMapping("/label/{id}")
-    public IssueDetailDto editLabel(@PathVariable(value = "id") long issueId, @RequestBody IssueLabelEditRequestDto issueLabelEditRequestDto) {
+    public IssueDetailDto editLabel(@PathVariable(value = "id") long issueId,
+                                    @RequestBody IssueLabelEditRequestDto issueLabelEditRequestDto) {
         return null;
     }
 
     @Operation(summary = "이슈의 마일스톤을 편집하기", description = "기존 이슈의 마일스톤을 추가하거나 삭제합니다.")
     @PutMapping("/milestone/{id}")
-    public IssueDetailDto edit(@PathVariable(value = "id") long issueId, @RequestBody IssueMileStoneEditRequestDto issueMileStoneEditRequestDto) {
+    public IssueDetailDto edit(@PathVariable(value = "id") long issueId,
+                               @RequestBody IssueMileStoneEditRequestDto issueMileStoneEditRequestDto) {
         return null;
     }
 
