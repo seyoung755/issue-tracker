@@ -6,7 +6,6 @@ import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 
