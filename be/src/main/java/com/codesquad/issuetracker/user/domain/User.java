@@ -4,10 +4,12 @@ import com.codesquad.issuetracker.common.util.PasswordEncryptor;
 import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
+import com.codesquad.issuetracker.issue.domain.Issue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -18,8 +20,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String password;
     private String profileImage;
     private String refreshToken;
@@ -54,6 +61,20 @@ public class User {
 
     public void expireRefreshToken() {
         this.refreshToken = "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(this.getId(), user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 
