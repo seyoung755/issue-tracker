@@ -30,11 +30,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={HOME_ROUTE} element={<Navigate to={ISSUES_ROUTE} replace />} />
+        <Route path="/" element={<Navigate to="/issues" replace />} />
         <Route path="/buttons" element={<Buttons />} />
-        <Route path="/icons" element={<Icons />} />
-        <Route path="/textInputs" element={<TextInputs />} />
-
         <Route
           path={LOGIN_ROUTE}
           element={<PublicRoute Component={Login} isLogin={isLogin} restricted />}
