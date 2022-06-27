@@ -1,12 +1,13 @@
 package com.codesquad.issuetracker.label.domain;
 
+import com.codesquad.issuetracker.common.domain.BaseEntity;
 import lombok.Getter;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
-public class Label {
+public class Label extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
