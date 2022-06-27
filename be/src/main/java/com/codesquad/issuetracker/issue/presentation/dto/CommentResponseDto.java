@@ -5,11 +5,10 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class SingleIssueResponseDto {
+public class CommentResponseDto {
 
-    private long id;
-    private LocalDateTime createdAt;
-    private String labelName;
-    private String milestoneName;
+    private String content;
     private AuthorInformationDto author;
+    private LocalDateTime createdAt;
+
 }

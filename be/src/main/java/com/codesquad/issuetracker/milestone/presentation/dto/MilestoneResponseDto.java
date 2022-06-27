@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
-public class SingleMilestoneResponseDto {
+public class MilestoneResponseDto {
 
     private String name;
     private LocalDate dueDate;

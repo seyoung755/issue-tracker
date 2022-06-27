@@ -7,5 +7,5 @@ public class AuthorInformationDto {
 
     private long userId;
     private String profileImage;
-    private String username;
+    private String name;
 }

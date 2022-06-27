@@ -1,5 +1,6 @@
 package com.codesquad.issuetracker.user.application.dto;
 
+
 import com.codesquad.issuetracker.user.domain.LoginType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -7,30 +8,26 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class GithubUserInformation extends OAuthUserInformation {
+public class GoogleUserInformation extends OAuthUserInformation {
 
-    private static final LoginType loginType = LoginType.GITHUB;
+    private static final LoginType loginType = LoginType.GOOGLE;
 
-    @JsonProperty(value = "id")
+    @JsonProperty(value = "email")
     private String username;
 
     @JsonProperty(value = "name")
     private String name;
 
-    @JsonProperty(value = "node_id")
+    @JsonProperty(value = "id")
     private String password;
 
-    @JsonProperty(value = "avatar_url")
+    @JsonProperty(value = "picture")
     private String profileImage;
 
-    public GithubUserInformation(String username, String name, String password, String profileImage) {
+    public GoogleUserInformation(String username, String name, String password, String profileImage) {
         this.username = username;
         this.name = name;
         this.password = password;
         this.profileImage = profileImage;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }
