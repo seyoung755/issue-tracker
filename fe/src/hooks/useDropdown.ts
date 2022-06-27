@@ -12,7 +12,7 @@ const useDropdown = (initialMode: boolean): ReturnProps => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(initialMode);
 
-  const handleDropdownClick = (event: MouseEvent) => {
+  const closeDropdown = (event: MouseEvent) => {
     for (const element of event.composedPath()) {
       if (element === parent.current) return;
     }
@@ -22,13 +22,13 @@ const useDropdown = (initialMode: boolean): ReturnProps => {
   const openDropdown = () => setIsDropdownOpen(true);
 
   useEffect(() => {
-    window.addEventListener('click', handleDropdownClick, true);
+    window.addEventListener('click', closeDropdown, true);
 
     return () => {
-      window.removeEventListener('click', handleDropdownClick, true);
+      window.removeEventListener('click', closeDropdown, true);
     };
   }, [parent]);
-  return [parent, isDropdownOpen, openDropdown, handleDropdownClick];
+  return [parent, isDropdownOpen, openDropdown, closeDropdown];
 };
 
 export default useDropdown;
