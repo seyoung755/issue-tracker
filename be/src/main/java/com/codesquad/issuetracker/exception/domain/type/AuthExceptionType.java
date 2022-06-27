@@ -1,7 +1,9 @@
 package com.codesquad.issuetracker.exception.domain.type;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public enum AuthExceptionType implements ExceptionType {
 
     TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "AUTH001", "이 api에 접근하기 위해서는 Access 토큰이 필요합니다."),
@@ -19,15 +21,4 @@ public enum AuthExceptionType implements ExceptionType {
         this.message = message;
     }
 
-    public HttpStatus getStatusCode() {
-        return statusCode;
-    }
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }
