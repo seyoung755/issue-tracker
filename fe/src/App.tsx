@@ -8,6 +8,7 @@ import {
   LOGIN_ROUTE,
   MILESTONES_ROUTE,
   SIGNUP_ROUTE,
+  LOADING_ROUTE,
 } from '@/constant/route';
 import PrivateRoute from '@/hoc/PrivateRoute';
 import PublicRoute from '@/hoc/PublicRoute';
@@ -17,6 +18,7 @@ import {
   IssueDetail,
   Issues,
   Labels,
+  Loading,
   Login,
   Milestones,
   NotFound,
@@ -58,6 +60,10 @@ export default function App() {
         <Route
           path={MILESTONES_ROUTE}
           element={<PrivateRoute Component={Milestones} isLogin={isLogin} />}
+        />
+        <Route
+          path={LOADING_ROUTE}
+          element={<PublicRoute Component={Loading} isLogin={isLogin} restricted={false} />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
