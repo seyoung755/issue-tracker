@@ -3,7 +3,7 @@ package com.codesquad.issuetracker.label.presentation.controller;
 import com.codesquad.issuetracker.label.presentation.dto.LabelCountDto;
 import com.codesquad.issuetracker.label.presentation.dto.LabelSaveRequestDto;
 import com.codesquad.issuetracker.label.presentation.dto.LabelsResponseDto;
-import com.codesquad.issuetracker.label.presentation.dto.SingleLabelResponseDto;
+import com.codesquad.issuetracker.label.presentation.dto.LabelResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class LabelController {
 
     @Operation(summary = "라벨 편집하기", description = "라벨의 정보를 편집합니다.")
     @PutMapping("/{labelId}")
-    public SingleLabelResponseDto edit(@PathVariable long labelId, @RequestBody LabelSaveRequestDto labelSaveRequestDto) {
+    public LabelResponseDto edit(@PathVariable long labelId, @RequestBody LabelSaveRequestDto labelSaveRequestDto) {
         return null;
     }
 

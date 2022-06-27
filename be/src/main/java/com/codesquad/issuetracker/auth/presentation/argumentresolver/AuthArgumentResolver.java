@@ -1,33 +1,38 @@
 package com.codesquad.issuetracker.auth.presentation.argumentresolver;
 
+import com.codesquad.issuetracker.auth.application.AuthService;
+import com.codesquad.issuetracker.user.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
+@Component
 public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
 
-//        해당 파라미터에 Auth 어노테이션이 붙어 있는가?
         boolean hasAuth = parameter.hasParameterAnnotation(Auth.class);
+        boolean hasUserId = Long.class.isAssignableFrom(parameter.getParameterType());
 
-//        해당 파라미터의 타입이 User 타입인가?
-        boolean hasUser = com.codesquad.issuetracker.user.domain.User.class.isAssignableFrom(parameter.getParameterType());
-
-        return hasAuth && hasUser;
+        return hasAuth && hasUserId;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-        //httpServletRequest를 사용하기 위한 작업
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 
-        return request.getAttribute("user");
+        long userId =(long) request.getAttribute("userId");
+
+        return userId;
     }
 }

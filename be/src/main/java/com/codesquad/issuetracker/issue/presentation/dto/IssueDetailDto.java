@@ -1,7 +1,7 @@
 package com.codesquad.issuetracker.issue.presentation.dto;
 
-import com.codesquad.issuetracker.label.presentation.dto.SingleLabelResponseDto;
-import com.codesquad.issuetracker.milestone.presentation.dto.SingleMilestoneResponseDto;
+import com.codesquad.issuetracker.label.presentation.dto.LabelResponseDto;
+import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneResponseDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -15,9 +15,9 @@ public class IssueDetailDto {
     private String content;
     private LocalDateTime createdAt;
     private AuthorInformationDto author;
-    private List<SingleAssigneeResponseDto> assignees;
-    private SingleLabelResponseDto label;
-    private SingleMilestoneResponseDto milestone;
-    private List<SingleCommentResponseDto> comments;
+    private List<AssigneeResponseDto> assignees;
+    private LabelResponseDto label;
+    private MilestoneResponseDto milestone;
+    private List<CommentResponseDto> comments;
 
 }

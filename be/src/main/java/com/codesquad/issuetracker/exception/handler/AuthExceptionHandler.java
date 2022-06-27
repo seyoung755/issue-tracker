@@ -1,32 +1,30 @@
 package com.codesquad.issuetracker.exception.handler;
 
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.ExceptionType;
+import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.exception.dto.ExceptionResponseDto;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
-//todo Exception 클래스를 추상화하고, enum으로 상태코드, 메세지 관리.
-
 @RestControllerAdvice
 public class AuthExceptionHandler {
-
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<ExceptionResponseDto> exceptionHandler(HttpServletRequest request, IllegalArgumentException ex) {
-        return ResponseEntity.ok().body(new ExceptionResponseDto(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionResponseDto> exceptionHandler(HttpServletRequest request, MethodArgumentNotValidException exception) {
+        UserExceptionType exceptionType = UserExceptionType.INVALID_FORMAT;
+        return createResponseEntity(exceptionType);
     }
 
-    @ExceptionHandler({SignatureVerificationException.class})
-    public ResponseEntity<ExceptionResponseDto> exceptionHandler(HttpServletRequest request, SignatureVerificationException ex) {
-        return ResponseEntity.ok().body(new ExceptionResponseDto(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ExceptionResponseDto> handleBusinessException(HttpServletRequest request, BusinessException exception) {
+        return createResponseEntity(exception.getExceptionType());
     }
 
-    @ExceptionHandler({TokenExpiredException.class})
-    public ResponseEntity<ExceptionResponseDto> exceptionHandler(HttpServletRequest request, TokenExpiredException ex) {
-        return ResponseEntity.ok().body(new ExceptionResponseDto(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
+    private ResponseEntity<ExceptionResponseDto> createResponseEntity(ExceptionType exceptionType) {
+        return ResponseEntity.status(exceptionType.getStatusCode()).body(ExceptionResponseDto.from(exceptionType));
     }
 }

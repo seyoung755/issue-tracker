@@ -1,16 +1,16 @@
 package com.codesquad.issuetracker.user.domain;
 
+import com.codesquad.issuetracker.common.util.PasswordEncryptor;
+import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
+import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.mindrot.jbcrypt.BCrypt;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
 public class User {
@@ -19,23 +19,42 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
     private String username;
+    private String name;
     private String password;
     private String profileImage;
+    private String refreshToken;
 
-    public User(String userId, String username, String password, String profileImage) {
-        this.userId = userId;
+    @Enumerated(EnumType.STRING)
+    private LoginType loginType;
+
+    public User(String username, String name, String password, String profileImage, LoginType loginType) {
         this.username = username;
-        this.password = password;
+        this.name = name;
+        this.password = PasswordEncryptor.hashPassword(password);
         this.profileImage = profileImage;
+        this.loginType = loginType;
     }
 
-    public void validatePassword(String password) {
-        if (!this.password.equals(password)) {
-            //todo : 비밀번호 불일치 익셉션으로 변경해야함.
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+    public void validatePassword(String plainTextPassword) {
+        if (!PasswordEncryptor.checkPassword(plainTextPassword, password)) {
+            throw new BusinessException(UserExceptionType.INVALID_PASSWORD);
         }
+    }
+
+    public void saveRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+
+    public void validateRefreshToken(String refreshToken) {
+        if (!this.refreshToken.equals(refreshToken)) {
+            throw new BusinessException(AuthExceptionType.INVALID_REFRESH_TOKEN);
+        }
+    }
+
+    public void expireRefreshToken() {
+        this.refreshToken = "";
     }
 }
 

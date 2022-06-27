@@ -3,7 +3,7 @@ package com.codesquad.issuetracker.milestone.presentation.controller;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneCountDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneSaveRequestDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestonesResponseDto;
-import com.codesquad.issuetracker.milestone.presentation.dto.SingleMilestoneResponseDto;
+import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +31,8 @@ public class MilestoneController {
 
     @Operation(summary = "마일스톤 편집하기", description = "마일스톤의 정보를 편집합니다.")
     @PutMapping("/{milestoneId}")
-    public SingleMilestoneResponseDto edit(@PathVariable long milestoneId,
-                                           @RequestBody MilestoneSaveRequestDto milestoneSaveRequestDto) {
+    public MilestoneResponseDto edit(@PathVariable long milestoneId,
+                                     @RequestBody MilestoneSaveRequestDto milestoneSaveRequestDto) {
         return null;
     }
 
