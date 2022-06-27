@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { issueListQuery } from '@/stores/selector/issueList';
+import { issueListQuery } from '@/stores/selector/issueListQuery';
 
 import * as S from './style';
 
