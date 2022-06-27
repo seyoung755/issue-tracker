@@ -16,6 +16,7 @@ public class BaseEntity {
     @Column(columnDefinition = "TIMESTAMP", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "BOOLEAN", nullable = false)
     private boolean isDeleted;
 
     protected void changeDeleted(boolean isDeleted) {
