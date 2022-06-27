@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { TextButton } from '@/components/Common/Button';
-import Dropdown from '@/components/Common/Dropdown';
 import Icon from '@/components/Common/Icon';
+import Dropdown from '@/components/Dropdown';
 import useDropdown from '@/hooks/useDropdown';
 
 import * as S from './style';
