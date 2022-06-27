@@ -55,8 +55,12 @@ public class Issue {
                 .forEach(assignee -> this.assignees.add(assignee));
     }
 
-    public void addLabels(List<IssueLabel> labels) {
-        this.labels.addAll(labels);
+    public void updateLabels(List<IssueLabel> labels) {
+        this.labels.removeIf(label -> !labels.contains(label));
+
+        labels.stream()
+                .filter(label -> !(this.labels.contains(label)))
+                .forEach(label -> this.labels.add(label));
     }
 
     @Override

@@ -2,9 +2,10 @@ package com.codesquad.issuetracker.issue.presentation.dto;
 
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class IssueLabelEditRequestDto {
 
-    private String toAdd;
-    private String toDelete;
+    private List<String> labelNames;
 }

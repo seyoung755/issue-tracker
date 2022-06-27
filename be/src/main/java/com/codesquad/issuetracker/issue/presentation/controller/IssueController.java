@@ -4,9 +4,11 @@ import com.codesquad.issuetracker.auth.presentation.argumentresolver.Auth;
 import com.codesquad.issuetracker.issue.application.IssueService;
 import com.codesquad.issuetracker.issue.application.dto.IssueAssigneeEditDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueDto;
+import com.codesquad.issuetracker.issue.application.dto.IssueLabelEditDto;
 import com.codesquad.issuetracker.issue.presentation.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -52,17 +54,18 @@ public class IssueController {
 
     @Operation(summary = "이슈의 담당자를 편집하기", description = "기존 이슈의 담당자를 추가하거나 삭제합니다.")
     @PutMapping("/assignee/{id}")
-    public IssueDetailDto editAssignee(@PathVariable(value = "id") long issueId,
+    public ResponseEntity<Void> editAssignee(@PathVariable(value = "id") long issueId,
                                        @RequestBody IssueAssigneeEditRequestDto issueAssigneeEditRequestDto) {
         issueService.editAssignee(new IssueAssigneeEditDto(issueId, issueAssigneeEditRequestDto.getAssignees()));
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "이슈의 라벨을 편집하기", description = "기존 이슈의 라벨을 추가하거나 삭제합니다.")
     @PutMapping("/label/{id}")
-    public IssueDetailDto editLabel(@PathVariable(value = "id") long issueId,
+    public ResponseEntity<Void> editLabel(@PathVariable(value = "id") long issueId,
                                     @RequestBody IssueLabelEditRequestDto issueLabelEditRequestDto) {
-        return null;
+        issueService.editLabels(new IssueLabelEditDto(issueId, issueLabelEditRequestDto.getLabelNames()));
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "이슈의 마일스톤을 편집하기", description = "기존 이슈의 마일스톤을 추가하거나 삭제합니다.")
