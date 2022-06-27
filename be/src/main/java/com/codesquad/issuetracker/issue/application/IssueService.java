@@ -6,6 +6,7 @@ import com.codesquad.issuetracker.exception.domain.type.MilestoneExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.issue.application.dto.IssueAssigneeEditDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueDto;
+import com.codesquad.issuetracker.issue.application.dto.IssueLabelEditDto;
 import com.codesquad.issuetracker.issue.domain.Issue;
 import com.codesquad.issuetracker.issue.domain.IssueAssignee;
 import com.codesquad.issuetracker.issue.domain.IssueLabel;
@@ -51,7 +52,7 @@ public class IssueService {
 
         if (issueDto.getLabelNames() != null) {
             List<IssueLabel> labels = createIssueLabels(issueDto.getLabelNames(), issue);
-            issue.addLabels(labels);
+            issue.updateLabels(labels);
         }
 
         return issue.getId();
@@ -64,6 +65,15 @@ public class IssueService {
         List<IssueAssignee> assignees = createIssueAssignees(issueAssigneeEditDto.getAssignees(), issue);
 
         issue.updateAssignees(assignees);
+    }
+
+    @Transactional
+    public void editLabels(IssueLabelEditDto issueLabelEditDto) {
+        Issue issue = findIssue(issueLabelEditDto.getIssueId());
+
+        List<IssueLabel> labels = createIssueLabels(issueLabelEditDto.getLabelNames(), issue);
+
+        issue.updateLabels(labels);
     }
 
     private List<IssueAssignee> createIssueAssignees(List<Long> assigneeIds, Issue issue) {
