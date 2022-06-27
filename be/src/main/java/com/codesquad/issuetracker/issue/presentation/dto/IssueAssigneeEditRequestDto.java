@@ -7,6 +7,5 @@ import java.util.List;
 @Getter
 public class IssueAssigneeEditRequestDto {
 
-    private List<String> toAdd;
-    private List<String> toDelete;
+    private List<Long> assignees;
 }

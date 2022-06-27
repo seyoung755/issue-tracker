@@ -1,8 +1,10 @@
 package com.codesquad.issuetracker.issue.application;
 
 import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.IssueExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.MilestoneExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
+import com.codesquad.issuetracker.issue.application.dto.IssueAssigneeEditDto;
 import com.codesquad.issuetracker.issue.application.dto.IssueDto;
 import com.codesquad.issuetracker.issue.domain.Issue;
 import com.codesquad.issuetracker.issue.domain.IssueAssignee;
@@ -31,7 +33,6 @@ public class IssueService {
     private final LabelRepository labelRepository;
     private final MilestoneRepository milestoneRepository;
 
-
     @Transactional
     public long save(IssueDto issueDto) {
         User user = findUser(issueDto.getUserId());
@@ -44,30 +45,47 @@ public class IssueService {
         issueRepository.save(issue);
 
         if (issueDto.getAssignees() != null) {
-            List<IssueAssignee> issueAssignees = findAssignees(issueDto.getAssignees(), issue);
-            issue.addAssignees(issueAssignees);
+            List<IssueAssignee> issueAssignees = createIssueAssignees(issueDto.getAssignees(), issue);
+            issue.updateAssignees(issueAssignees);
         }
 
         if (issueDto.getLabelNames() != null) {
-            List<IssueLabel> labels = findLabels(issueDto.getLabelNames(), issue);
+            List<IssueLabel> labels = createIssueLabels(issueDto.getLabelNames(), issue);
             issue.addLabels(labels);
         }
 
         return issue.getId();
     }
 
-    private List<IssueAssignee> findAssignees(List<Long> assigneeIds, Issue issue) {
+    @Transactional
+    public void editAssignee(IssueAssigneeEditDto issueAssigneeEditDto) {
+        Issue issue = findIssue(issueAssigneeEditDto.getIssueId());
+
+        List<IssueAssignee> assignees = createIssueAssignees(issueAssigneeEditDto.getAssignees(), issue);
+
+        issue.updateAssignees(assignees);
+    }
+
+    private List<IssueAssignee> createIssueAssignees(List<Long> assigneeIds, Issue issue) {
         List<User> assignees = userRepository.findAllById(assigneeIds);
+        validateInputMatchWithResult(assigneeIds.size(), assignees.size());
         return assignees.stream()
                 .map(user -> new IssueAssignee(issue, user))
                 .collect(Collectors.toList());
     }
 
-    private List<IssueLabel> findLabels(List<String> labelNames, Issue issue) {
+    private List<IssueLabel> createIssueLabels(List<String> labelNames, Issue issue) {
         List<Label> labels = labelRepository.findAllByLabelNameIn(labelNames);
+        validateInputMatchWithResult(labelNames.size(), labels.size());
         return labels.stream()
                 .map(label -> new IssueLabel(issue, label))
                 .collect(Collectors.toList());
+    }
+
+    private void validateInputMatchWithResult(int inputSize, int resultSize) {
+        if (inputSize != resultSize) {
+            throw new BusinessException(UserExceptionType.NOT_FOUND);
+        }
     }
 
     private Milestone findMilestone(String milestoneName) {
@@ -81,4 +99,8 @@ public class IssueService {
                 .orElseThrow(() -> new BusinessException(UserExceptionType.NOT_FOUND));
     }
 
+    private Issue findIssue(long issueId) {
+        return issueRepository.findById(issueId)
+                .orElseThrow(() -> new BusinessException(IssueExceptionType.NOT_FOUND));
+    }
 }
