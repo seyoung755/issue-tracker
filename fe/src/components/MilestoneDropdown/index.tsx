@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
 import Dropdown, { DropdownProps } from '@/components/Common/Dropdown';
+import DropdownChildBar from '@/components/Common/DropdownChildBar';
 import { mileStoneQuery } from '@/stores/selector/milestoneQuery';
 
 export default function MilestoneDropdown({ parentComponent, isOpen, onClose }: DropdownProps) {
@@ -14,7 +15,7 @@ export default function MilestoneDropdown({ parentComponent, isOpen, onClose }: 
       onClose={onClose}
     >
       {dropdownChildrenList.map(({ name, dueDate, description, progressRate }) => (
-        <li key={name}>{name}</li>
+        <DropdownChildBar key={name}>{name}</DropdownChildBar>
       ))}
     </Dropdown>
   );
