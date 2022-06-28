@@ -1,10 +1,10 @@
 import { selector } from 'recoil';
 
 import labelApi from '@/api/label';
-import { labelListState } from '@/stores/atoms/labelList';
-import { LabelListType } from '@/types/labelTypes';
+import { labelListState } from '@/stores/atoms/label';
+import { LabelType } from '@/types/labelTypes';
 
-export const labelQuery = selector<LabelListType>({
+export const labelQuery = selector<LabelType[]>({
   key: 'labelQuery',
   get: async ({ get }) => {
     const labelList = get(labelListState);
