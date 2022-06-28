@@ -3,7 +3,7 @@ import { DropdownProps } from '@/components/Common/Dropdown';
 import Icon from '@/components/Common/Icon';
 import useDropdown from '@/hooks/useDropdown';
 
-import * as S from './style';
+import * as S from '../style';
 
 interface DropdownContainerProps {
   id: string;

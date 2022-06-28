@@ -1,8 +1,7 @@
-import LabelDropdown from '@/components/LabelDropdown';
-import MilestoneDropdown from '@/components/MilestoneDropdown';
-import UserDropdown from '@/components/UserDropdown';
-
 import DropdownContainer from './DropdownContainer';
+import LabelDropdown from './DropdownContainer/LabelDropdown';
+import MilestoneDropdown from './DropdownContainer/MilestoneDropdown';
+import UserDropdown from './DropdownContainer/UserDropdown';
 import * as S from './style';
 
 const DropdownLabelList = [

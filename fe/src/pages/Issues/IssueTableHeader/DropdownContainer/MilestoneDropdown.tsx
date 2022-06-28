@@ -6,7 +6,6 @@ import { mileStoneQuery } from '@/stores/selector/milestoneQuery';
 
 export default function MilestoneDropdown({ parentComponent, isOpen, onClose }: DropdownProps) {
   const dropdownChildrenList = useRecoilValue(mileStoneQuery);
-  console.log('dropdownChildrenList :>> ', dropdownChildrenList);
   return (
     <Dropdown
       parentComponent={parentComponent}
