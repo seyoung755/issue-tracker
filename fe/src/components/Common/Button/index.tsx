@@ -13,7 +13,7 @@ export type ButtonProps<T extends ElementType> = OverridableProps<
     isSecondary?: boolean;
     disabled?: boolean;
     className?: string;
-    customStyle?: CSSProp | null | undefined;
+    customStyle?: CSSProp;
   }
 >;
 

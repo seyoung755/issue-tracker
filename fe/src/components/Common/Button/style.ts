@@ -10,7 +10,7 @@ const commonStyle = css`
   ${({ theme }) => theme.fonts.linkMedium}
 `;
 
-export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>`
+export const Button = styled.button<{ customStyle?: CSSProp }>`
   ${commonStyle}
   background: ${({ theme }) => theme.colors.primary.normal};
   color: ${({ theme }) => theme.colors.greyscale.offWhite};
@@ -41,7 +41,7 @@ export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>
     `}
 `;
 
-export const Secondary = styled.button<{ customStyle: CSSProp | null | undefined }>`
+export const Secondary = styled.button<{ customStyle?: CSSProp }>`
   ${commonStyle}
   background: ${({ theme }) => theme.colors.greyscale.offWhite};
   color: ${({ theme }) => theme.colors.primary.normal};
@@ -73,7 +73,7 @@ export const Secondary = styled.button<{ customStyle: CSSProp | null | undefined
     `}
 `;
 
-export const TextButton = styled.button<{ customStyle: CSSProp | null | undefined }>`
+export const TextButton = styled.button<{ customStyle?: CSSProp }>`
   color: ${({ theme }) => theme.colors.greyscale.label};
   ${({ theme }) => theme.fonts.linkSmall};
   :hover {
