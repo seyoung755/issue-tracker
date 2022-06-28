@@ -10,15 +10,19 @@ import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class LoginController {
 
+    private static final String CLIENT_URL = "http://localhost:3000";
     private final OAuthLoginService oAuthLoginService;
     private final BasicLoginService basicLoginService;
 
@@ -36,7 +40,9 @@ public class LoginController {
         TokenDto tokenDto = oAuthLoginService.login(code, loginType);
         ResponseCookie responseCookie = createResponseCookie(tokenDto);
 
-        return ResponseEntity.ok()
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .location(URI.create(CLIENT_URL))
                 .header("Set-Cookie", responseCookie.toString())
                 .body(new LoginResponseDto(tokenDto.getAccessToken()));
     }
