@@ -82,10 +82,9 @@ public class IssueController {
     }
 
     @Operation(summary = "이슈 열고 닫기", description = "현재 이슈를 열거나 닫습니다.")
-    @PutMapping("/status/{id}")
-    public ResponseEntity<Void> changeIssueStatus(@RequestBody IssueStatusDto issueStatusDto,
-                                                  @PathVariable(value = "id") long issueId) {
-        issueService.changeStatus(issueId, issueStatusDto.getStatus());
+    @PutMapping("/status}")
+    public ResponseEntity<Void> changeIssueStatus(@RequestBody IssueStatusDto issueStatusDto) {
+        issueService.changeStatus(issueStatusDto);
         return ResponseEntity.ok().build();
     }
 }
