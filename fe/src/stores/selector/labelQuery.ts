@@ -11,8 +11,8 @@ export const labelQuery = selector<LabelListType>({
     // TODO: 반복되는 try, catch utils로 빼기
     try {
       const response = await labelApi.getLabels();
-      console.log('response', response);
-      return labelList;
+      return response.data;
+      // return labelList;
     } catch (error) {
       // TODO: 에러처리 로직 구체화하기 (error-boundary적용)
       throw error;

@@ -1,43 +1,23 @@
-import { useState } from 'react';
+import { labelQuery } from '@/stores/selector/labelQuery';
 
-import { TextButton } from '@/components/Common/Button';
-import Icon from '@/components/Common/Icon';
-import Dropdown from '@/components/Dropdown';
-import useDropdown from '@/hooks/useDropdown';
-
+import DropdownButtonContainer from './DropdownButtonContainer';
 import * as S from './style';
 
+const DropdownLabelList = [
+  { id: 'assignee', text: '담당자', selector: labelQuery },
+  { id: 'label', text: '레이블', selector: labelQuery },
+  { id: 'milestone', text: '마일스톤', selector: labelQuery },
+  { id: 'writer', text: '작성자', selector: labelQuery },
+];
+
 export default function IssueTableHeader() {
-  const [parent, isDropdownOpen, openDropdown, closeDropdown] = useDropdown(false);
-  const [info, setInfo] = useState('default');
-  const handleDropdownOpen = (id: string) => {
-    openDropdown();
-    setInfo(id);
-  };
   return (
-    <S.IssueTableHeader ref={parent}>
+    <S.IssueTableHeader>
       <S.DropdownTextButtonContainer>
-        {DropdownLabelList.map(({ id, text }) => (
-          <TextButton
-            onClick={() => handleDropdownOpen(id)}
-            key={id}
-            customStyle={S.DropdownTextButton}
-          >
-            {text}
-            <Icon iconName="angleDown" iconSize="base" />
-          </TextButton>
+        {DropdownLabelList.map(({ id, text, selector }) => (
+          <DropdownButtonContainer key={id} id={id} text={text} selector={selector} />
         ))}
       </S.DropdownTextButtonContainer>
-      <Dropdown parentComponent={parent} isOpen={isDropdownOpen} onClose={closeDropdown}>
-        {info}
-      </Dropdown>
     </S.IssueTableHeader>
   );
 }
-
-const DropdownLabelList = [
-  { id: 'assignee', text: '담당자' },
-  { id: 'label', text: '레이블' },
-  { id: 'milestone', text: '마일스톤' },
-  { id: 'writer', text: '작성자' },
-];

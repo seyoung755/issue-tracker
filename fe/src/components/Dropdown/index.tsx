@@ -2,11 +2,11 @@ import { MutableRefObject, ReactNode } from 'react';
 
 import * as S from './style';
 
-interface DropdownProps {
+export interface DropdownProps {
   parentComponent: MutableRefObject<HTMLDivElement>;
   isOpen: boolean;
   onClose: (event: MouseEvent) => void;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export default function Dropdown({ parentComponent, children, isOpen, onClose }: DropdownProps) {
