@@ -1,8 +1,12 @@
 package com.codesquad.issuetracker.user.application.oauth;
 
-import com.codesquad.issuetracker.user.application.dto.*;
+import com.codesquad.issuetracker.common.properties.GoogleProperty;
+import com.codesquad.issuetracker.user.application.dto.GoogleAccessToken;
+import com.codesquad.issuetracker.user.application.dto.GoogleTokenRequestDto;
+import com.codesquad.issuetracker.user.application.dto.GoogleUserInformation;
+import com.codesquad.issuetracker.user.application.dto.OAuthUserInformation;
+import com.codesquad.issuetracker.user.domain.LoginType;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,24 +15,27 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 @Transactional
 @Service
-public class GoogleLoginService implements OAuthProvider {
+public class GoogleLoginProvider implements OAuthProvider {
 
-    private static final String GOOGLE_ACCESS_TOKEN_URL = "https://oauth2.googleapis.com/token";
-    private static final String GOOGLE_RESOURCE_URL = "https://www.googleapis.com/oauth2/v2/userinfo?alt=json";
+    private final GoogleProperty googleProperty;
 
-    private final String clientId;
-    private final String clientSecret;
+    public GoogleLoginProvider(GoogleProperty googleProperty) {
+        this.googleProperty = googleProperty;
+    }
 
-    public GoogleLoginService(
-            @Value("${oauth.google.client_id}") String clientId,
-            @Value("${oauth.google.client_secret}") String clientSecret) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
+    @Override
+    public LoginType getOAuthType() {
+        return LoginType.GOOGLE;
+    }
+
+    @Override
+    public String getRedirectUrl() {
+        return googleProperty.getRedirectUrl();
     }
 
     @Override
     public OAuthUserInformation requestUserInformation(String code) {
-        GoogleTokenRequestDto googleTokenRequestDto = new GoogleTokenRequestDto(clientId, clientSecret, code);
+        GoogleTokenRequestDto googleTokenRequestDto = new GoogleTokenRequestDto(googleProperty.getClientId(), googleProperty.getClientSecret(), code);
         log.debug("OAuthService, login: {}", googleTokenRequestDto);
 
         GoogleAccessToken googleAccessToken = requestAccessToken(googleTokenRequestDto);
@@ -40,7 +47,7 @@ public class GoogleLoginService implements OAuthProvider {
     private GoogleAccessToken requestAccessToken(GoogleTokenRequestDto googleTokenRequestDto) {
         return WebClient
                 .builder()
-                .baseUrl(GOOGLE_ACCESS_TOKEN_URL)
+                .baseUrl(googleProperty.getAccessTokenUrl())
                 .build()
                 .post()
                 .bodyValue(googleTokenRequestDto)
@@ -54,7 +61,7 @@ public class GoogleLoginService implements OAuthProvider {
         String tokenString = createTokenString(googleAccessToken);
 
         GoogleUserInformation userInformation = WebClient.builder()
-                .baseUrl(GOOGLE_RESOURCE_URL)
+                .baseUrl(googleProperty.getResourceUrl())
                 .build()
                 .get()
                 .header("Authorization", tokenString)

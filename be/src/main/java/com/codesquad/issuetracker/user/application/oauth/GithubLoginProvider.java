@@ -1,10 +1,11 @@
 package com.codesquad.issuetracker.user.application.oauth;
 
+import com.codesquad.issuetracker.common.properties.GithubProperty;
 import com.codesquad.issuetracker.user.application.dto.GithubAccessToken;
 import com.codesquad.issuetracker.user.application.dto.GithubTokenRequestDto;
 import com.codesquad.issuetracker.user.application.dto.GithubUserInformation;
+import com.codesquad.issuetracker.user.domain.LoginType;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,24 +14,28 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 @Transactional
 @Service
-public class GithubLoginService implements OAuthProvider {
+public class GithubLoginProvider implements OAuthProvider {
 
-    private static final String GITHUB_ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
-    private static final String GITHUB_RESOURCE_URL = "https://api.github.com/user";
+    private final GithubProperty githubProperty;
 
-    private final String clientId;
-    private final String clientSecret;
+    public GithubLoginProvider(GithubProperty githubProperty) {
+        this.githubProperty = githubProperty;
+    }
 
-    public GithubLoginService(
-            @Value("${oauth.github.client_id}") String clientId,
-            @Value("${oauth.github.client_secret}") String clientSecret) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
+
+    @Override
+    public LoginType getOAuthType() {
+        return LoginType.GITHUB;
+    }
+
+    @Override
+    public String getRedirectUrl() {
+        return githubProperty.getRedirectUrl();
     }
 
     @Override
     public GithubUserInformation requestUserInformation(String code) {
-        GithubTokenRequestDto githubTokenRequestDto = new GithubTokenRequestDto(clientId, clientSecret, code);
+        GithubTokenRequestDto githubTokenRequestDto = new GithubTokenRequestDto(githubProperty.getClientId(), githubProperty.getClientSecret(), code);
         log.debug("OAuthService, login: {}", githubTokenRequestDto);
 
         GithubAccessToken githubAccessToken = requestAccessToken(githubTokenRequestDto);
@@ -45,7 +50,7 @@ public class GithubLoginService implements OAuthProvider {
     private GithubAccessToken requestAccessToken(GithubTokenRequestDto githubTokenRequestDto) {
         return WebClient
                 .builder()
-                .baseUrl(GITHUB_ACCESS_TOKEN_URL)
+                .baseUrl(githubProperty.getAccessTokenUrl())
                 .build()
                 .post()
                 .bodyValue(githubTokenRequestDto)
@@ -59,7 +64,7 @@ public class GithubLoginService implements OAuthProvider {
         String tokenString = createTokenString(githubAccessToken);
 
         GithubUserInformation userInformation = WebClient.builder()
-                .baseUrl(GITHUB_RESOURCE_URL)
+                .baseUrl(githubProperty.getResourceUrl())
                 .build()
                 .get()
                 .header("Authorization", tokenString)
