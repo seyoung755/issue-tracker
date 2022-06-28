@@ -1,7 +1,7 @@
 import { labelQuery } from '@/stores/selector/labelQuery';
 import { mileStoneQuery } from '@/stores/selector/milestoneQuery';
 
-import DropdownButtonContainer from './DropdownButtonContainer';
+import DropdownContainer from './DropdownContainer';
 import * as S from './style';
 
 const DropdownLabelList = [
@@ -16,7 +16,7 @@ export default function IssueTableHeader() {
     <S.IssueTableHeader>
       <S.DropdownTextButtonContainer>
         {DropdownLabelList.map(({ id, header, selector }) => (
-          <DropdownButtonContainer key={id} id={id} header={header} selector={selector} />
+          <DropdownContainer key={id} id={id} header={header} selector={selector} />
         ))}
       </S.DropdownTextButtonContainer>
     </S.IssueTableHeader>

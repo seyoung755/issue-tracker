@@ -8,17 +8,13 @@ import { LabelType } from '@/types/labelTypes';
 import DropDownList from './DropDownList';
 import * as S from './style';
 
-interface DropdownButtonContainerProps {
+interface DropdownContainerProps {
   id: string;
   header: string;
   selector: RecoilValueReadOnly<LabelType[]>;
 }
 
-export default function DropdownButtonContainer({
-  id,
-  header,
-  selector,
-}: DropdownButtonContainerProps) {
+export default function DropdownContainer({ id, header, selector }: DropdownContainerProps) {
   const [parent, isDropdownOpen, openDropdown, closeDropdown] = useDropdown(false);
   return (
     <TextButton ref={parent} onClick={openDropdown} key={id} customStyle={S.DropdownTextButton}>
