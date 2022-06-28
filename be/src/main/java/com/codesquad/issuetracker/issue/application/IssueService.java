@@ -103,9 +103,12 @@ public class IssueService {
     }
 
     @Transactional
-    public void changeStatus(long issueId, IssueStatus changedStatus) {
-        Issue issue = findIssue(issueId);
-        issue.changeStatus(changedStatus);
+    public void changeStatus(IssueStatusDto issueStatusDto) {
+        IssueStatus changedStatus = issueStatusDto.getStatus();
+
+        issueStatusDto.getIssues()
+                .forEach(id -> findIssue(id).changeStatus(changedStatus));
+
     }
 
     private List<IssueAssignee> createIssueAssignees(List<Long> assigneeIds, Issue issue) {
