@@ -6,12 +6,16 @@ import com.codesquad.issuetracker.milestone.domain.Milestone;
 import com.codesquad.issuetracker.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
+@DynamicInsert
 @Entity
 public class Issue extends BaseEntity {
 
@@ -22,6 +26,10 @@ public class Issue extends BaseEntity {
     @Column(nullable = false)
     private String title;
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(20) default 'OPEN'")
+    private IssueStatus issueStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -74,6 +82,10 @@ public class Issue extends BaseEntity {
 
     public void delete() {
         super.changeDeleted(true);
+    }
+
+    public void changeStatus(IssueStatus changedStatus) {
+        issueStatus = changedStatus;
     }
 
     @Override
