@@ -6,3 +6,8 @@ export const userState = atom<UserType | null | undefined>({
   key: 'userState',
   default: null,
 });
+
+export const userListState = atom<UserType[] | null | undefined>({
+  key: 'userListState',
+  default: null,
+});
