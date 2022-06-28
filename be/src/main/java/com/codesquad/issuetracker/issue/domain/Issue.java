@@ -101,4 +101,9 @@ public class Issue extends BaseEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public boolean isOpen() {
+        return issueStatus.equals(IssueStatus.OPEN);
+    }
+
 }
