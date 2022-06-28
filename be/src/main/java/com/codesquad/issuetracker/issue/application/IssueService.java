@@ -4,10 +4,7 @@ import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.IssueExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.MilestoneExceptionType;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
-import com.codesquad.issuetracker.issue.domain.Issue;
-import com.codesquad.issuetracker.issue.domain.IssueAssignee;
-import com.codesquad.issuetracker.issue.domain.IssueLabel;
-import com.codesquad.issuetracker.issue.domain.IssueRepository;
+import com.codesquad.issuetracker.issue.domain.*;
 import com.codesquad.issuetracker.issue.presentation.dto.*;
 import com.codesquad.issuetracker.label.domain.Label;
 import com.codesquad.issuetracker.label.domain.LabelRepository;
@@ -103,6 +100,12 @@ public class IssueService {
 
         issue.delete();
         return issueId;
+    }
+
+    @Transactional
+    public void changeStatus(long issueId, IssueStatus changedStatus) {
+        Issue issue = findIssue(issueId);
+        issue.changeStatus(changedStatus);
     }
 
     private List<IssueAssignee> createIssueAssignees(List<Long> assigneeIds, Issue issue) {

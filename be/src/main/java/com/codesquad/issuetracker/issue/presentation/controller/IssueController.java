@@ -80,4 +80,12 @@ public class IssueController {
     public long delete(@PathVariable(value = "id") long issueId) {
         return issueService.softDelete(issueId);
     }
+
+    @Operation(summary = "이슈 열고 닫기", description = "현재 이슈를 열거나 닫습니다.")
+    @PutMapping("/status/{id}")
+    public ResponseEntity<Void> changeIssueStatus(@RequestBody IssueStatusDto issueStatusDto,
+                                                  @PathVariable(value = "id") long issueId) {
+        issueService.changeStatus(issueId, issueStatusDto.getStatus());
+        return ResponseEntity.ok().build();
+    }
 }

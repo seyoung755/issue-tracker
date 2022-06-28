@@ -8,6 +8,6 @@ public enum IssueStatus {
 
     @JsonCreator
     public static IssueStatus from(String name) {
-        return IssueStatus.valueOf(name);
+        return IssueStatus.valueOf(name.toUpperCase());
     }
 }
