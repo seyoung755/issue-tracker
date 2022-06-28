@@ -1,34 +1,35 @@
-import { RecoilValueReadOnly, useRecoilValue } from 'recoil';
+import { RecoilValueReadOnly } from 'recoil';
 
 import { TextButton } from '@/components/Common/Button';
 import Icon from '@/components/Common/Icon';
-import Dropdown from '@/components/Dropdown';
 import useDropdown from '@/hooks/useDropdown';
+import { LabelType } from '@/types/labelTypes';
 
 import DropDownList from './DropDownList';
 import * as S from './style';
 
-interface DropdownButtonContainerProps<T> {
+interface DropdownButtonContainerProps {
   id: string;
-  text: string;
-  selector: RecoilValueReadOnly<T>;
+  header: string;
+  selector: RecoilValueReadOnly<LabelType[]>;
 }
 
-export default function DropdownButtonContainer<T>({
+export default function DropdownButtonContainer({
   id,
-  text,
+  header,
   selector,
-}: DropdownButtonContainerProps<T>) {
+}: DropdownButtonContainerProps) {
   const [parent, isDropdownOpen, openDropdown, closeDropdown] = useDropdown(false);
   return (
     <TextButton ref={parent} onClick={openDropdown} key={id} customStyle={S.DropdownTextButton}>
-      {text}
+      {header}
       <Icon iconName="angleDown" iconSize="base" />
       <DropDownList
         parentComponent={parent}
         isOpen={isDropdownOpen}
         onClose={closeDropdown}
         selector={selector}
+        header={header}
       />
     </TextButton>
   );

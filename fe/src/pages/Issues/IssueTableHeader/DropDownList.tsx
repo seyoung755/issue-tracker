@@ -1,22 +1,32 @@
 import { RecoilValueReadOnly, useRecoilValue } from 'recoil';
 
 import Dropdown, { DropdownProps } from '@/components/Dropdown';
+import { LabelListType, LabelType } from '@/types/labelTypes';
 
-interface DropDownListProps<T> extends DropdownProps {
-  selector: RecoilValueReadOnly<T>;
+import * as S from './style';
+
+interface DropDownListProps extends DropdownProps {
+  selector: RecoilValueReadOnly<LabelType[]>;
+  header: string;
 }
 
-export default function DropDownList<T>({
+export default function DropDownList({
   parentComponent,
   isOpen,
   onClose,
   selector,
-}: DropDownListProps<T>) {
+  header,
+}: DropDownListProps) {
   const dropdownChildrenList = useRecoilValue(selector);
   console.log('dropdownChildrenList :>> ', dropdownChildrenList);
   return (
     <Dropdown parentComponent={parentComponent} isOpen={isOpen} onClose={onClose}>
-      <div>d</div>
+      <S.DropdownHeader>{header}필터</S.DropdownHeader>
+      <S.DropdownBody>
+        {dropdownChildrenList.map(({ labelName, description, textColor, colorCode }) => (
+          <li key={labelName}>{labelName}</li>
+        ))}
+      </S.DropdownBody>
     </Dropdown>
   );
 }

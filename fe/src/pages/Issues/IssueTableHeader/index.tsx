@@ -1,21 +1,22 @@
 import { labelQuery } from '@/stores/selector/labelQuery';
+import { mileStoneQuery } from '@/stores/selector/milestoneQuery';
 
 import DropdownButtonContainer from './DropdownButtonContainer';
 import * as S from './style';
 
 const DropdownLabelList = [
-  { id: 'assignee', text: '담당자', selector: labelQuery },
-  { id: 'label', text: '레이블', selector: labelQuery },
-  { id: 'milestone', text: '마일스톤', selector: labelQuery },
-  { id: 'writer', text: '작성자', selector: labelQuery },
+  { id: 'assignee', header: '담당자', selector: labelQuery },
+  { id: 'label', header: '레이블', selector: labelQuery },
+  { id: 'milestone', header: '마일스톤', selector: labelQuery },
+  { id: 'writer', header: '작성자', selector: labelQuery },
 ];
 
 export default function IssueTableHeader() {
   return (
     <S.IssueTableHeader>
       <S.DropdownTextButtonContainer>
-        {DropdownLabelList.map(({ id, text, selector }) => (
-          <DropdownButtonContainer key={id} id={id} text={text} selector={selector} />
+        {DropdownLabelList.map(({ id, header, selector }) => (
+          <DropdownButtonContainer key={id} id={id} header={header} selector={selector} />
         ))}
       </S.DropdownTextButtonContainer>
     </S.IssueTableHeader>
