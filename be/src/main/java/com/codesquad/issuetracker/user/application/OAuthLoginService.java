@@ -8,6 +8,7 @@ import com.codesquad.issuetracker.user.application.oauth.OAuthProvider;
 import com.codesquad.issuetracker.user.domain.LoginType;
 import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
+import com.codesquad.issuetracker.user.presentation.dto.TokenDto;
 import com.codesquad.issuetracker.user.presentation.dto.UserJoinRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class OAuthLoginService {
         return oAuthProvider.getRedirectUrl();
     }
 
-    public LoginResponseDto login(String code, LoginType type) {
+    public TokenDto login(String code, LoginType type) {
         OAuthProvider oAuthProvider = oAuthProviderEnumMap.get(type);
         OAuthUserInformation oAuthUserInformation = oAuthProvider.requestUserInformation(code);
 
@@ -43,7 +44,7 @@ public class OAuthLoginService {
 
         user.saveRefreshToken(refreshToken);
 
-        return new LoginResponseDto(accessToken, refreshToken);
+        return new TokenDto(accessToken, refreshToken);
     }
 
     private User oAuthLogin(OAuthUserInformation oAuthUserInformation) {
