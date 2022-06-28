@@ -16,9 +16,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final UserService userService;
 
-    public AccessTokenDto refreshAccessToken(String authorization) {
-        String refreshToken = TokenParser.parseToken(authorization);
-
+    public AccessTokenDto refreshAccessToken(String refreshToken) {
         jwtProvider.validateJwtToken(refreshToken);
         Long userId = jwtProvider.getClaimFromToken(refreshToken, JwtProvider.USER_ID_CLAIM_KEY);
 
