@@ -44,6 +44,8 @@ public class LoginController {
                 .status(HttpStatus.FOUND)
                 .location(URI.create(CLIENT_URL))
                 .header("Set-Cookie", responseCookie.toString())
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Origin", "http://http://43.200.37.159")
                 .body(new LoginResponseDto(tokenDto.getAccessToken()));
     }
 
