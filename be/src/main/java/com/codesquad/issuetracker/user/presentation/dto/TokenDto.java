@@ -3,11 +3,13 @@ package com.codesquad.issuetracker.user.presentation.dto;
 import lombok.Getter;
 
 @Getter
-public class LoginResponseDto {
+public class TokenDto {
 
     private final String accessToken;
+    private final String refreshToken;
 
-    public LoginResponseDto(String accessToken) {
+    public TokenDto(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 }
