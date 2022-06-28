@@ -1,11 +1,10 @@
 package com.codesquad.issuetracker.milestone.presentation.controller;
 
-import com.codesquad.issuetracker.auth.presentation.argumentresolver.Auth;
 import com.codesquad.issuetracker.milestone.application.MilestoneService;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneCountDto;
+import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneResponseDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneSaveRequestDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestonesResponseDto;
-import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

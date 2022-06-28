@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class Milestone extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "milestone")
-    private List<Issue> issues;
+    private List<Issue> issues = new ArrayList<>();
 
     public Milestone(String name, LocalDate dueDate, String description) {
 
@@ -36,7 +37,7 @@ public class Milestone extends BaseEntity {
     public MilestoneInformation getInformation() {
         long openCount = issues.stream().filter(Issue::isOpen).count();
         long closeCount = issues.size() - openCount;
-        double progressRate = ((double) (closeCount) / (openCount + closeCount));
+        double progressRate = Double.parseDouble(String.format("%.3f", ((double) (closeCount) / (openCount + closeCount))));
         return new MilestoneInformation(progressRate, openCount, closeCount);
     }
 }
