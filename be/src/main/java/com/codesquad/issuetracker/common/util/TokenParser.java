@@ -17,7 +17,7 @@ public class TokenParser {
             token = authorization.split(" ")[1].trim();
         } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
             e.printStackTrace();
-            throw new BusinessException(AuthExceptionType.TOKEN_NOT_FOUND);
+            throw new BusinessException(AuthExceptionType.ACCESS_TOKEN_NOT_FOUND);
         }
         return token;
     }
