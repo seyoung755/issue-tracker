@@ -10,15 +10,14 @@ interface DropdownChildBarProps {
 
 export default function DropdownChildBar({ children }: DropdownChildBarProps) {
   const [isSelected, setIsSelected] = useState(false);
-  const CheckBox = () =>
-    isSelected ? <Icon iconName="circleCheck" /> : <Icon iconName="circleEmpty" />;
+  const iconName = isSelected ? 'circleCheck' : 'circleEmpty';
   const handleBarClick = () => {
     setIsSelected(prev => !prev);
   };
   return (
     <S.DropdownChildBar onClick={handleBarClick}>
       <S.Info>{children}</S.Info>
-      {CheckBox()}
+      <Icon iconName={iconName} />
     </S.DropdownChildBar>
   );
 }
