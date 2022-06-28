@@ -4,7 +4,7 @@ import MilestoneDropdown from './DropdownContainer/MilestoneDropdown';
 import UserDropdown from './DropdownContainer/UserDropdown';
 import * as S from './style';
 
-const DropdownLabelList = [
+const DropdownTextButtonList = [
   { id: 'assignee', header: '담당자', DropdownComponent: UserDropdown },
   { id: 'label', header: '레이블', DropdownComponent: LabelDropdown },
   { id: 'milestone', header: '마일스톤', DropdownComponent: MilestoneDropdown },
@@ -15,7 +15,7 @@ export default function IssueTableHeader() {
   return (
     <S.IssueTableHeader>
       <S.DropdownTextButtonContainer>
-        {DropdownLabelList.map(({ id, header, DropdownComponent }) => (
+        {DropdownTextButtonList.map(({ id, header, DropdownComponent }) => (
           <DropdownContainer
             key={id}
             id={id}

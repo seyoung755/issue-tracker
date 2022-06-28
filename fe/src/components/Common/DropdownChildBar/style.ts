@@ -10,7 +10,8 @@ export const Info = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  > img {
-    margin-right: 12px;
+  > img,
+  > div {
+    margin-right: 8px;
   }
 `;
