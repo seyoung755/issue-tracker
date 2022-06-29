@@ -5,7 +5,6 @@ import com.codesquad.issuetracker.exception.domain.BusinessException;
 import com.codesquad.issuetracker.exception.domain.type.UserExceptionType;
 import com.codesquad.issuetracker.user.domain.User;
 import com.codesquad.issuetracker.user.presentation.dto.LoginResponseDto;
-import com.codesquad.issuetracker.user.presentation.dto.TokenDto;
 import com.codesquad.issuetracker.user.presentation.dto.UserLoginRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class BasicLoginService {
     private final JwtProvider jwtProvider;
     private final UserService userService;
 
-    public TokenDto login(UserLoginRequestDto userLoginRequestDto) {
+    public LoginResponseDto login(UserLoginRequestDto userLoginRequestDto) {
         User user = userService.findByUsername(userLoginRequestDto.getUsername())
                 .orElseThrow(() -> new BusinessException(UserExceptionType.NOT_FOUND));
 
@@ -30,7 +29,7 @@ public class BasicLoginService {
 
         user.saveRefreshToken(refreshToken);
 
-        return new TokenDto(accessToken, refreshToken);
+        return new LoginResponseDto(accessToken, refreshToken);
     }
 
     public void logout(long userId) {
