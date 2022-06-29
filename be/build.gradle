@@ -30,7 +30,6 @@ dependencies {
     implementation 'org.mindrot:jbcrypt:0.4'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
     implementation 'com.auth0:java-jwt:3.19.2'
-    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 
     implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
