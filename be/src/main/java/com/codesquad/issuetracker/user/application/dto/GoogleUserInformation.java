@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class GoogleUserInformation extends OAuthUserInformation {
 
-    private static final LoginType loginType = LoginType.GOOGLE;
+    private final LoginType loginType = LoginType.GOOGLE;
 
     @JsonProperty(value = "email")
     private String username;

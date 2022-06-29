@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class GithubUserInformation extends OAuthUserInformation {
 
-    private static final LoginType loginType = LoginType.GITHUB;
+    private final LoginType loginType = LoginType.GITHUB;
 
     @JsonProperty(value = "id")
     private String username;

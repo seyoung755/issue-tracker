@@ -22,7 +22,6 @@ public class GithubLoginProvider implements OAuthProvider {
         this.githubProperty = githubProperty;
     }
 
-
     @Override
     public LoginType getOAuthType() {
         return LoginType.GITHUB;
@@ -35,7 +34,8 @@ public class GithubLoginProvider implements OAuthProvider {
 
     @Override
     public GithubUserInformation requestUserInformation(String code) {
-        GithubTokenRequestDto githubTokenRequestDto = new GithubTokenRequestDto(githubProperty.getClientId(), githubProperty.getClientSecret(), code);
+        GithubTokenRequestDto githubTokenRequestDto =
+                new GithubTokenRequestDto(githubProperty.getClientId(), githubProperty.getClientSecret(), code);
         log.debug("OAuthService, login: {}", githubTokenRequestDto);
 
         GithubAccessToken githubAccessToken = requestAccessToken(githubTokenRequestDto);

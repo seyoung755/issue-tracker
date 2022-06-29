@@ -33,7 +33,6 @@ public class OAuthLoginService {
     public LoginResponseDto login(String code, LoginType type) {
         OAuthProvider oAuthProvider = oAuthProviderEnumMap.get(type);
         OAuthUserInformation oAuthUserInformation = oAuthProvider.requestUserInformation(code);
-
         User user = oAuthLogin(oAuthUserInformation);
 
         String accessToken = jwtProvider.createAccessToken(user.getId());
