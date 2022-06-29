@@ -11,6 +11,7 @@ import com.codesquad.issuetracker.exception.domain.type.AuthExceptionType;
 import com.codesquad.issuetracker.user.application.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -29,6 +30,12 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         log.debug("request-uri: {}", request.getRequestURI());
+
+        if (StringUtils.equals(request.getMethod(), "OPTIONS")) {
+            log.debug("if request options method is options, return true");
+
+            return true;
+        }
 
         String authorization = request.getHeader("Authorization");
         String token = TokenParser.parseToken(authorization);
