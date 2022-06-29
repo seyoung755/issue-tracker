@@ -20,7 +20,7 @@ public class CommentAuthorResponseDto {
         this.isIssueAuthor = isIssueAuthor;
     }
 
-    public static CommentAuthorResponseDto from(User user, boolean isIssueAuthor) {
+    public static CommentAuthorResponseDto of(User user, boolean isIssueAuthor) {
         return new CommentAuthorResponseDto(user.getId(), user.getProfileImage(), user.getName(), isIssueAuthor);
     }
 }

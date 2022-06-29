@@ -28,7 +28,7 @@ public class CommentResponseDto {
 
         boolean isIssueAuthor = issue.getUser().getId() == author.getId();
         return new CommentResponseDto(comment.getContent(),
-                CommentAuthorResponseDto.from(author, isIssueAuthor),
+                CommentAuthorResponseDto.of(author, isIssueAuthor),
                 comment.getCreatedAt());
     }
 }
