@@ -1,17 +1,20 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import authApi from '@/api/auth';
 import { Button } from '@/components/Common/Button';
-import { LOADING_ROUTE } from '@/constant/route';
 
 import LoginForm from './LoginForm';
 import * as S from './style';
 
 export default function Login() {
-  const navigate = useNavigate();
-
-  function handleGitHubOAuthClick() {
-    navigate(LOADING_ROUTE);
-  }
+  const handleGitHubOAuthClick = async () => {
+    try {
+      const response = await authApi.getGithubOAuthUrl();
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
