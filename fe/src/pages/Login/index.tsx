@@ -10,7 +10,10 @@ export default function Login() {
   const handleGitHubOAuthClick = async () => {
     try {
       const response = await authApi.getGithubOAuthUrl();
-      window.location.href = response.data.url;
+      if (response.data) {
+        // TODO: data 형식 체크하는 로직 구현
+        window.location.href = response.data;
+      }
     } catch (error) {
       console.error(error);
     }
