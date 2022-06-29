@@ -7,6 +7,7 @@ import com.codesquad.issuetracker.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -86,6 +87,13 @@ public class Issue extends BaseEntity {
 
     public void changeStatus(IssueStatus changedStatus) {
         issueStatus = changedStatus;
+    }
+
+    public String getMilestoneName() {
+        if (ObjectUtils.isEmpty(milestone)) {
+            return "";
+        }
+        return milestone.getName();
     }
 
     @Override

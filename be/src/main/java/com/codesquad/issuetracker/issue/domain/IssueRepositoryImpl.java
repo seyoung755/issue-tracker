@@ -35,7 +35,7 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
 
         return query.selectFrom(issue)
                 .join(issue.user).fetchJoin()
-                .join(issue.milestone, milestone).fetchJoin()
+                .leftJoin(issue.milestone, milestone).fetchJoin()
                 .leftJoin(issue.labels, issueLabel).fetchJoin()
                 .leftJoin(issueLabel.label, label).fetchJoin()
                 .leftJoin(issue.comments, comment)
@@ -46,9 +46,14 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
                         milestone(filteringCondition.getMilestoneName()),
                         label(filteringCondition.getLabelName()),
                         comment(userId, filteringCondition.getCommentAuthor()),
-                        assignee(filteringCondition.getAssigneeId()))
+                        assignee(filteringCondition.getAssigneeId()),
+                        isNotDeleted())
                 .distinct()
                 .fetch();
+    }
+
+    private BooleanExpression isNotDeleted() {
+        return issue.isDeleted.eq(false);
     }
 
     private BooleanExpression assignee(Long assigneeId) {

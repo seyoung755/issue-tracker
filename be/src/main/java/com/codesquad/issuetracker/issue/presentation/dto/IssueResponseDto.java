@@ -44,7 +44,7 @@ public class IssueResponseDto {
                 issue.getIssueStatus(),
                 issue.getCreatedAt(),
                 new LabelsResponseDto(labelResponseDtos),
-                issue.getMilestone().getName(),
+                issue.getMilestoneName(),
                 AuthorInformationDto.from(issue.getUser()));
     }
 }
