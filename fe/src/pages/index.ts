@@ -1,9 +1,9 @@
 import Buttons from './Buttons';
+import Callback from './Callback';
 import Icons from './Icons';
 import IssueDetail from './IssueDetail';
 import Issues from './Issues';
 import Labels from './Labels';
-import Loading from './Loading';
 import Login from './Login';
 import Milestones from './Milestones';
 import NotAllow from './NotAllow';
@@ -23,5 +23,5 @@ export {
   Buttons,
   TextInputs,
   Icons,
-  Loading,
+  Callback,
 };

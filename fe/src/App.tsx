@@ -8,7 +8,7 @@ import {
   LOGIN_ROUTE,
   MILESTONES_ROUTE,
   SIGNUP_ROUTE,
-  LOADING_ROUTE,
+  CALLBACK_ROUTE,
 } from '@/constant/route';
 import PrivateRoute from '@/hoc/PrivateRoute';
 import PublicRoute from '@/hoc/PublicRoute';
@@ -18,7 +18,7 @@ import {
   IssueDetail,
   Issues,
   Labels,
-  Loading,
+  Callback,
   Login,
   Milestones,
   NotFound,
@@ -28,7 +28,7 @@ import {
 
 // TODO: isLogin이라는 util 메서드를 만들어서 로그인 여부를 boolean으로 반환하기
 export default function App() {
-  const isLogin = false;
+  const isLogin = true;
   return (
     <BrowserRouter>
       <Routes>
@@ -39,7 +39,7 @@ export default function App() {
 
         <Route
           path={LOGIN_ROUTE}
-          element={<PublicRoute Component={Login} isLogin={isLogin} restricted />}
+          element={<PublicRoute Component={Login} isLogin={false} restricted />}
         />
         <Route
           path={SIGNUP_ROUTE}
@@ -62,8 +62,8 @@ export default function App() {
           element={<PrivateRoute Component={Milestones} isLogin={isLogin} />}
         />
         <Route
-          path={LOADING_ROUTE}
-          element={<PublicRoute Component={Loading} isLogin={isLogin} restricted={false} />}
+          path={CALLBACK_ROUTE}
+          element={<PublicRoute Component={Callback} isLogin={isLogin} restricted={false} />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
