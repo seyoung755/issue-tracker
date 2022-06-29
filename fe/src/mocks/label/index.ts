@@ -1,10 +1,10 @@
 import { rest } from 'msw';
 
-import { API_PREFIX, LABEL_API } from '@/constant/api';
+import { LABEL_API } from '@/constant/api';
 import { mockLabels } from '@/mocks/label/data';
 
 const labelHandler = [
-  rest.get(API_PREFIX + LABEL_API.LABELS, (req, res, ctx) => {
+  rest.get(LABEL_API.LABELS, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockLabels));
   }),
 ];
