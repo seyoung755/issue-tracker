@@ -13,8 +13,8 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    private static final int ACCESS_TOKEN_EXPIRES_MINUTE = 60;
-    private static final int REFRESH_TOKEN_EXPIRES_WEEK = 60 * 24 * 14;
+    private static final int ACCESS_TOKEN_EXPIRES_MINUTE = 1;
+    private static final int REFRESH_TOKEN_EXPIRES_WEEK = 3;
     public static final String USER_ID_CLAIM_KEY = "userId";
     private final Algorithm algorithm;
 
