@@ -44,16 +44,17 @@ public class CommentService {
         return comment.getId();
     }
 
+    @Transactional
     public void editComment(long commentId, String content) {
         Comment comment = findComment(commentId);
         comment.updateContent(content);
     }
 
+    @Transactional
     public void deleteComment(long commentId) {
         Comment comment = findComment(commentId);
         comment.delete();
     }
-
 
     private User findUser(long userId) {
         return userRepository.findByIdAndIsDeleted(userId, false)
