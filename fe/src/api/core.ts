@@ -4,7 +4,7 @@ import { SERVER_URI } from '@/constant/api';
 
 const apiInstance: AxiosInstance = axios.create({
   baseURL: SERVER_URI,
-  timeout: 2500,
+  timeout: 3000,
   headers: {},
 });
 
