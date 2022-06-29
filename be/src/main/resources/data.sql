@@ -36,4 +36,5 @@ INSERT INTO issue_label (label_id, issue_id) VALUES
 (1, 2),
 (2, 3);
 
-
+INSERT INTO comment (is_deleted, content, issue_id, user_id) VALUES
+(false, '덧글 내용', 1, 2);
