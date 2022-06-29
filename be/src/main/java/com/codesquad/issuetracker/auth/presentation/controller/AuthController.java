@@ -9,12 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingRequestCookieException;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,8 +23,9 @@ public class AuthController {
 
     @Operation(summary = "Access 토큰 갱신하기", description = "Refresh token을 통해 Access 토큰을 재발급합니다.")
     @GetMapping("/auth/refresh")
-    public AccessTokenDto refresh(@CookieValue(value = "refreshToken") Cookie refreshToken) {
-        return authService.refreshAccessToken(refreshToken.getValue());
+    public AccessTokenDto refresh(HttpServletRequest request) {
+        String refreshToken = (String) request.getAttribute("Authorization");
+        return authService.refreshAccessToken(refreshToken);
     }
 
     @ExceptionHandler(JWTVerificationException.class)
