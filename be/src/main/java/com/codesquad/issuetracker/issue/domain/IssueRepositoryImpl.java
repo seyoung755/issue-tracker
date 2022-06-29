@@ -53,7 +53,7 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
     }
 
     private BooleanExpression comment(Long userId, String authorName) {
-        if (authorName.equals(FILTER_KEYWORD)) {
+        if (StringUtils.hasText(authorName) && authorName.equals(FILTER_KEYWORD)) {
             return comment.user.id.eq(userId);
         }
         return null;
