@@ -1,10 +1,12 @@
 package com.codesquad.issuetracker.issue.domain;
 
 import com.codesquad.issuetracker.label.domain.Label;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Getter
 @NoArgsConstructor
 @Entity
 public class IssueLabel {

@@ -33,11 +33,11 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
     @Override
     public List<Issue> findAllByFilteringCondition(Long userId, FilteringCondition filteringCondition) {
 
-        List<Issue> issues = query.select(issue)
-                .from(issue)
-                .leftJoin(issue.milestone, milestone)
-                .leftJoin(issue.labels, issueLabel)
-                .leftJoin(issueLabel.label, label)
+        return query.selectFrom(issue)
+                .join(issue.user).fetchJoin()
+                .join(issue.milestone, milestone).fetchJoin()
+                .leftJoin(issue.labels, issueLabel).fetchJoin()
+                .leftJoin(issueLabel.label, label).fetchJoin()
                 .leftJoin(issue.comments, comment)
                 .leftJoin(issue.assignees, issueAssignee)
                 .leftJoin(issueAssignee.assignee, user)
@@ -49,17 +49,11 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
                         assignee(filteringCondition.getAssigneeId()))
                 .distinct()
                 .fetch();
-
-        for (Issue i : issues) {
-            log.debug("issue select : {}", i.getId());
-        }
-
-        return issues;
     }
 
     private BooleanExpression assignee(Long assigneeId) {
         if (assigneeId != null) {
-            return issueAssignee.assignee.id.eq(assigneeId);
+            return user.id.eq(assigneeId);
         }
         return null;
     }

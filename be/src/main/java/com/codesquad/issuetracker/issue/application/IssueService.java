@@ -29,8 +29,17 @@ public class IssueService {
     private final LabelRepository labelRepository;
     private final MilestoneRepository milestoneRepository;
 
-    public void findAll(Long userId, FilteringCondition filteringCondition) {
-        issueRepository.findAllByFilteringCondition(userId, filteringCondition);
+    public IssuesResponseDto findAll(Long userId, FilteringCondition filteringCondition) {
+        List<Issue> issues = issueRepository.findAllByFilteringCondition(userId, filteringCondition);
+
+        long openCount = issues.stream().filter(Issue::isOpen).count();
+        long closeCount = issues.size() - openCount;
+
+        List<IssueResponseDto> issueResponseDtos = issues.stream()
+                .map(IssueResponseDto::from)
+                .collect(Collectors.toList());
+
+        return new IssuesResponseDto(issueResponseDtos, openCount, closeCount);
     }
 
     @Transactional

@@ -26,8 +26,7 @@ public class IssueController {
     @Operation(summary = "이슈 목록 조회하기", description = "필터링 조건으로 조회한 이슈 목록을 보여줍니다.")
     @GetMapping
     public IssuesResponseDto readIssues(@Auth Long userId, FilteringCondition filteringCondition) {
-        issueService.findAll(userId, filteringCondition);
-        return null;
+        return issueService.findAll(userId, filteringCondition);
     }
 
     @Operation(summary = "이슈 작성하기", description = "새로운 이슈를 작성합니다.")
