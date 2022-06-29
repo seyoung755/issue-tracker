@@ -5,10 +5,11 @@ export const API_PREFIX = '/api';
 export const AUTH_API = {
   GITHUB_OAUTH: '/oauth/github/login',
   GITHUB_OAUTH_TOKEN: '/oauth/github/callback',
+  LOGIN: '/login',
 };
 
 export const USER_API = {
-  LOGIN: '/login',
+  INFO: '/info',
 };
 
 export const ISSUE_API = {

@@ -9,8 +9,6 @@ const apiInstance: AxiosInstance = axios.create({
   headers: {},
 });
 
-// instance.defaults.withCredentials = true;
-
 apiInstance.interceptors.request.use(
   config => {
     const accessToken = localStorageDB.get('accessToken');
