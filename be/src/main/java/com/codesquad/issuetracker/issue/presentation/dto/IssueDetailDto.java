@@ -18,6 +18,5 @@ public class IssueDetailDto {
     private List<AssigneeResponseDto> assignees;
     private LabelResponseDto label;
     private MilestoneResponseDto milestone;
-    private List<CommentResponseDto> comments;
 
 }
