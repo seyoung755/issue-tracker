@@ -12,7 +12,7 @@ public class FilteringCondition {
     private String labelName;
     private String milestoneName;
     private Long authorId;
-    private String assignee;
+    private Long assigneeId;
     private String commentAuthor;
 
     public void setIssueStatus(String issueStatus) {

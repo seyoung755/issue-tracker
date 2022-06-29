@@ -11,9 +11,11 @@ import java.util.List;
 
 import static com.codesquad.issuetracker.comment.domain.QComment.comment;
 import static com.codesquad.issuetracker.issue.domain.QIssue.issue;
+import static com.codesquad.issuetracker.issue.domain.QIssueAssignee.issueAssignee;
 import static com.codesquad.issuetracker.issue.domain.QIssueLabel.issueLabel;
 import static com.codesquad.issuetracker.label.domain.QLabel.label;
 import static com.codesquad.issuetracker.milestone.domain.QMilestone.milestone;
+import static com.codesquad.issuetracker.user.domain.QUser.user;
 
 @Slf4j
 public class IssueRepositoryImpl implements IssueCustomRepository {
@@ -37,11 +39,14 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
                 .leftJoin(issue.labels, issueLabel)
                 .leftJoin(issueLabel.label, label)
                 .leftJoin(issue.comments, comment)
+                .leftJoin(issue.assignees, issueAssignee)
+                .leftJoin(issueAssignee.assignee, user)
                 .where(status(filteringCondition.getIssueStatus()),
                         author(filteringCondition.getAuthorId()),
                         milestone(filteringCondition.getMilestoneName()),
                         label(filteringCondition.getLabelName()),
-                        comment(userId, filteringCondition.getCommentAuthor()))
+                        comment(userId, filteringCondition.getCommentAuthor()),
+                        assignee(filteringCondition.getAssigneeId()))
                 .distinct()
                 .fetch();
 
@@ -50,6 +55,13 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
         }
 
         return issues;
+    }
+
+    private BooleanExpression assignee(Long assigneeId) {
+        if (assigneeId != null) {
+            return issueAssignee.assignee.id.eq(assigneeId);
+        }
+        return null;
     }
 
     private BooleanExpression comment(Long userId, String authorName) {
