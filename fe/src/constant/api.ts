@@ -1,9 +1,16 @@
+export const SERVER_URI = 'http://43.200.37.159';
+
 export const API_PREFIX = '/api';
 
-export const USER_API = {
+export const AUTH_API = {
   GITHUB_OAUTH: '/oauth/github/login',
+  GITHUB_OAUTH_TOKEN: '/oauth/github/callback',
+};
+
+export const USER_API = {
   LOGIN: '/login',
 };
+
 export const ISSUE_API = {
   ISSUES: '/issues',
 };

@@ -1,14 +1,16 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { API_PREFIX } from '@/constant/api';
+import { SERVER_URI } from '@/constant/api';
 
-const instance: AxiosInstance = axios.create({
-  baseURL: API_PREFIX,
+const apiInstance: AxiosInstance = axios.create({
+  baseURL: SERVER_URI,
   timeout: 2500,
   headers: {},
 });
 
-instance.interceptors.request.use(
+// instance.defaults.withCredentials = true;
+
+apiInstance.interceptors.request.use(
   config => {
     // 요청을 보내기 전에 수행할 로직
     // TODO: refresh token 체크하는 함수 만들기
@@ -22,7 +24,7 @@ instance.interceptors.request.use(
 );
 
 // 학습용 주석:  https://yamoo9.github.io/axios/guide/error-handling.html
-instance.interceptors.response.use(
+apiInstance.interceptors.response.use(
   response => {
     // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 데이터가 있는 작업 수행
@@ -50,4 +52,4 @@ instance.interceptors.response.use(
   },
 );
 
-export default instance;
+export default apiInstance;
