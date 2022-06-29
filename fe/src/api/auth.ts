@@ -1,7 +1,8 @@
 import { AxiosPromise } from 'axios';
 
-import apiInstance from '@/api/core';
 import { AUTH_API } from '@/constant/api';
+
+import authInstance from './instances/authInstance';
 
 export interface OAuthToken {
   accessToken: string;
@@ -10,13 +11,13 @@ export interface OAuthToken {
 
 const authApi = {
   getGithubOAuthUrl() {
-    return apiInstance({
+    return authInstance({
       url: AUTH_API.GITHUB_OAUTH,
       method: 'get',
     });
   },
   getGithubOAuthToken(code: string): AxiosPromise<OAuthToken> {
-    return apiInstance({
+    return authInstance({
       url: AUTH_API.GITHUB_OAUTH_TOKEN,
       method: 'get',
       params: {
