@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @CreatedDate
-    @Column(columnDefinition = "TIMESTAMP", nullable = false)
+    @Column(columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(columnDefinition = "BOOLEAN", nullable = false)
