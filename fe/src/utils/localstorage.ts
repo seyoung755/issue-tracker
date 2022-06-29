@@ -6,11 +6,7 @@ export interface LocalStorageDB {
 
 export const localStorageDB: LocalStorageDB = {
   set: (key, value) => {
-    if (typeof value !== 'string') {
-      localStorage.setItem(key, JSON.stringify(value));
-    } else {
-      localStorage.setItem(key, value);
-    }
+    localStorage.setItem(key, JSON.stringify(value));
   },
   get: key => {
     const item = localStorage.getItem(key);
