@@ -5,9 +5,11 @@ import com.codesquad.issuetracker.issue.application.IssueService;
 import com.codesquad.issuetracker.issue.presentation.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/issues")
 @RestController
@@ -23,8 +25,8 @@ public class IssueController {
 
     @Operation(summary = "이슈 목록 조회하기", description = "필터링 조건으로 조회한 이슈 목록을 보여줍니다.")
     @GetMapping
-    public IssuesResponseDto readListOfOpen(FilteringCondition filteringCondition) {
-
+    public IssuesResponseDto readIssues(@Auth Long userId, FilteringCondition filteringCondition) {
+        issueService.findAll(userId, filteringCondition);
         return null;
     }
 

@@ -29,6 +29,10 @@ public class IssueService {
     private final LabelRepository labelRepository;
     private final MilestoneRepository milestoneRepository;
 
+    public void findAll(Long userId, FilteringCondition filteringCondition) {
+        issueRepository.findAllByFilteringCondition(userId, filteringCondition);
+    }
+
     @Transactional
     public long save(long userId, IssueSaveRequestDto issueSaveRequestDto) {
         User user = findUser(userId);
