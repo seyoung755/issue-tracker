@@ -15,7 +15,8 @@ export const issueListQuery = selector<IssueListType>({
       return issueList;
     } catch (error) {
       // TODO: 에러처리 로직 구체화하기 (error-boundary적용)
-      throw error;
+      console.error(error);
+      return issueList;
     }
   },
 });

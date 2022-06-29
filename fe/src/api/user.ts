@@ -1,16 +1,16 @@
-import instance from '@/api/core';
 import { USER_API } from '@/constant/api';
 
+import apiInstance from './instances/apiInstance';
+
 const userApi = {
-  // TODO: auth api로 분리하기
-  requestGithubOAuth() {
-    return instance({
-      url: USER_API.GITHUB_OAUTH,
+  getuserInfo() {
+    return apiInstance({
+      url: USER_API.INFO,
       method: 'get',
     });
   },
   getAllUsers() {
-    return instance({
+    return apiInstance({
       url: USER_API.USERS,
       method: 'get',
     });

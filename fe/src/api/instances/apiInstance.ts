@@ -1,17 +1,22 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { API_PREFIX } from '@/constant/api';
+import { SERVER_URI } from '@/constant/api';
+import { localStorageDB } from '@/utils/localstorage';
 
-const instance: AxiosInstance = axios.create({
-  baseURL: API_PREFIX,
-  timeout: 2500,
+const apiInstance: AxiosInstance = axios.create({
+  baseURL: SERVER_URI,
+  timeout: 3000,
   headers: {},
 });
 
-instance.interceptors.request.use(
+apiInstance.interceptors.request.use(
   config => {
-    // 요청을 보내기 전에 수행할 로직
-    // TODO: refresh token 체크하는 함수 만들기
+    const accessToken = localStorageDB.get('accessToken');
+    if (!config?.headers) {
+      console.error(`Expected 'config' and 'config.headers' not to be undefined`);
+      return;
+    }
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   error => {
@@ -22,7 +27,7 @@ instance.interceptors.request.use(
 );
 
 // 학습용 주석:  https://yamoo9.github.io/axios/guide/error-handling.html
-instance.interceptors.response.use(
+apiInstance.interceptors.response.use(
   response => {
     // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 데이터가 있는 작업 수행
@@ -45,9 +50,9 @@ instance.interceptors.response.use(
       // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
       console.log('Error', error.message);
     }
-    console.log(error.config);
+    console.log(error);
     return Promise.reject(error);
   },
 );
 
-export default instance;
+export default apiInstance;

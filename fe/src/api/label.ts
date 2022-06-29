@@ -1,9 +1,10 @@
-import instance from '@/api/core';
 import { LABEL_API } from '@/constant/api';
+
+import apiInstance from './instances/apiInstance';
 
 const labelApi = {
   getLabels() {
-    return instance({
+    return apiInstance({
       url: LABEL_API.LABELS,
       method: 'get',
     });

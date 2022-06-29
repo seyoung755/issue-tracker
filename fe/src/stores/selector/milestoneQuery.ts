@@ -15,7 +15,8 @@ export const mileStoneQuery = selector<MilestoneType[]>({
       return response.data;
     } catch (error) {
       // TODO: 에러처리 로직 구체화하기 (error-boundary적용)
-      throw error;
+      console.error(error);
+      return [];
     }
   },
 });

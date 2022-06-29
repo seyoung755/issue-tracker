@@ -8,6 +8,7 @@ import {
   LOGIN_ROUTE,
   MILESTONES_ROUTE,
   SIGNUP_ROUTE,
+  CALLBACK_ROUTE,
 } from '@/constant/route';
 import PrivateRoute from '@/hoc/PrivateRoute';
 import PublicRoute from '@/hoc/PublicRoute';
@@ -17,6 +18,7 @@ import {
   IssueDetail,
   Issues,
   Labels,
+  Callback,
   Login,
   Milestones,
   NotFound,
@@ -37,7 +39,7 @@ export default function App() {
 
         <Route
           path={LOGIN_ROUTE}
-          element={<PublicRoute Component={Login} isLogin={isLogin} restricted />}
+          element={<PublicRoute Component={Login} isLogin={false} restricted />}
         />
         <Route
           path={SIGNUP_ROUTE}
@@ -58,6 +60,10 @@ export default function App() {
         <Route
           path={MILESTONES_ROUTE}
           element={<PrivateRoute Component={Milestones} isLogin={isLogin} />}
+        />
+        <Route
+          path={CALLBACK_ROUTE}
+          element={<PublicRoute Component={Callback} isLogin={isLogin} restricted={false} />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

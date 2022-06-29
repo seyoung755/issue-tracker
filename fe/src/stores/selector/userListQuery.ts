@@ -13,7 +13,8 @@ export const userListQuery = selector<UserType[]>({
       return response.data;
       // return labelList;
     } catch (error) {
-      throw error;
+      console.error(error);
+      return [];
     }
   },
 });
