@@ -10,6 +10,7 @@ export const AUTH_API = {
 
 export const USER_API = {
   INFO: '/info',
+  USERS: '/users',
 };
 
 export const ISSUE_API = {

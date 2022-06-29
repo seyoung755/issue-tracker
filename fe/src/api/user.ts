@@ -9,6 +9,12 @@ const userApi = {
       method: 'get',
     });
   },
+  getAllUsers() {
+    return apiInstance({
+      url: USER_API.USERS,
+      method: 'get',
+    });
+  },
 };
 
 export default userApi;
