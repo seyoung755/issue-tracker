@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 import { CommentType } from '@/types/commentType';
-import { IssueInfo } from '@/types/IssueType';
+import { IssueInfo, IssueListType } from '@/types/IssueType';
 import { MilestoneType } from '@/types/milestoneType';
 import { UserType } from '@/types/userType';
 
@@ -24,4 +24,13 @@ export const issueDetailMilestone = atom<MilestoneType | null | undefined>({
 export const issueDetailComments = atom<CommentType[] | null | undefined>({
   key: 'issueDetailComments',
   default: null,
+});
+
+export const issueListState = atom<IssueListType>({
+  key: 'issueListState',
+  default: {
+    openCount: 0,
+    closeCount: 0,
+    issues: [],
+  },
 });

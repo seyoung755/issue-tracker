@@ -31,6 +31,7 @@
     "import/no-unresolved": "off",
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
+    "react/display-name": "off",
     "import/order": [
       "error",
       {

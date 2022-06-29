@@ -1,7 +1,7 @@
 import { selector } from 'recoil';
 
 import issueApi from '@/api/issue';
-import { issueListState } from '@/stores/atoms/issueList';
+import { issueListState } from '@/stores/atoms/issue';
 import { IssueListType } from '@/types/IssueType';
 
 export const issueListQuery = selector<IssueListType>({
