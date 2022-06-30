@@ -11,7 +11,7 @@ public class ExceptionResponseDto {
     private String errorCode;
     private String message;
 
-    public ExceptionResponseDto(String errorCode, String message) {
+    private ExceptionResponseDto(String errorCode, String message) {
         this.errorCode = errorCode;
         this.message = message;
     }

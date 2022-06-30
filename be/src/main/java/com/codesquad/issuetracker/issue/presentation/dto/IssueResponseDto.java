@@ -23,7 +23,7 @@ public class IssueResponseDto {
     private String milestoneName;
     private AuthorInformationDto author;
 
-    public IssueResponseDto(long id, String title, IssueStatus issueStatus, LocalDateTime createdAt, LabelsResponseDto labels, String milestoneName, AuthorInformationDto author) {
+    private IssueResponseDto(long id, String title, IssueStatus issueStatus, LocalDateTime createdAt, LabelsResponseDto labels, String milestoneName, AuthorInformationDto author) {
         this.id = id;
         this.title = title;
         this.issueStatus = issueStatus;

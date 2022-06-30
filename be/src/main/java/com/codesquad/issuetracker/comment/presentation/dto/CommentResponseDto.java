@@ -16,7 +16,7 @@ public class CommentResponseDto {
     private CommentAuthorResponseDto author;
     private LocalDateTime createdAt;
 
-    public CommentResponseDto(String content, CommentAuthorResponseDto author, LocalDateTime createdAt) {
+    private CommentResponseDto(String content, CommentAuthorResponseDto author, LocalDateTime createdAt) {
         this.content = content;
         this.author = author;
         this.createdAt = createdAt;
@@ -26,7 +26,7 @@ public class CommentResponseDto {
         User author = comment.getUser();
         Issue issue = comment.getIssue();
 
-        boolean isIssueAuthor = issue.getUser().getId() == author.getId();
+        boolean isIssueAuthor = issue.getUser().getId().equals(author.getId());
         return new CommentResponseDto(comment.getContent(),
                 CommentAuthorResponseDto.of(author, isIssueAuthor),
                 comment.getCreatedAt());

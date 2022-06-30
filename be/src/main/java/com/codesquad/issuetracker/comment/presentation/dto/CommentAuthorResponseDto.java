@@ -13,7 +13,7 @@ public class CommentAuthorResponseDto {
     private String name;
     private boolean isIssueAuthor;
 
-    public CommentAuthorResponseDto(long userId, String profileImage, String name, boolean isIssueAuthor) {
+    private CommentAuthorResponseDto(long userId, String profileImage, String name, boolean isIssueAuthor) {
         this.userId = userId;
         this.profileImage = profileImage;
         this.name = name;

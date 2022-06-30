@@ -14,7 +14,7 @@ public class LabelResponseDto {
     private String colorCode;
     private TextColor textColor;
 
-    public LabelResponseDto(String labelName, String description, String colorCode, TextColor textColor) {
+    private LabelResponseDto(String labelName, String description, String colorCode, TextColor textColor) {
         this.labelName = labelName;
         this.description = description;
         this.colorCode = colorCode;

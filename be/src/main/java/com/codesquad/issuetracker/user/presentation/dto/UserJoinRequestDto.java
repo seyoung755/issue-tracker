@@ -26,7 +26,7 @@ public class UserJoinRequestDto {
 
     private LoginType loginType;
 
-    public UserJoinRequestDto(String username, String name, String password, String profileImage, LoginType loginType) {
+    private UserJoinRequestDto(String username, String name, String password, String profileImage, LoginType loginType) {
         this.username = username;
         this.name = name;
         this.password = password;

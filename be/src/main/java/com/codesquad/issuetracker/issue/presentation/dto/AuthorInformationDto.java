@@ -12,7 +12,7 @@ public class AuthorInformationDto {
     private String profileImage;
     private String name;
 
-    public AuthorInformationDto(long userId, String profileImage, String name) {
+    private AuthorInformationDto(long userId, String profileImage, String name) {
         this.userId = userId;
         this.profileImage = profileImage;
         this.name = name;
