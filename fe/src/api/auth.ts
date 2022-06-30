@@ -25,6 +25,15 @@ const authApi = {
       },
     });
   },
+  refreshAccessToken(refreshToken: string) {
+    return authInstance({
+      url: AUTH_API.REFRESH_TOKEN,
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    });
+  },
 };
 
 export default authApi;
