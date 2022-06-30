@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 import authApi from '@/api/auth';
 import { SERVER_URI } from '@/constant/api';
@@ -12,30 +12,37 @@ const apiInstance: AxiosInstance = axios.create({
   headers: {},
 });
 
+const refreshAccessToken = async () => {
+  const isExpired = isTokenExpired(ACCESS_TOKEN);
+  const refreshToken = localStorageDB.get(REFRESH_TOKEN);
+  if (isExpired && refreshToken) {
+    try {
+      const response = await authApi.refreshAccessToken(refreshToken);
+      const accessToken = response.data?.accessToken;
+      if (accessToken) {
+        localStorageDB.set(ACCESS_TOKEN, accessToken);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
+const setAcessTokenInrequestConfig = (config: AxiosRequestConfig) => {
+  const accessToken = localStorageDB.get(ACCESS_TOKEN);
+  if (!config?.headers) {
+    console.error(`Expected 'config' and 'config.headers' not to be undefined`);
+    return;
+  }
+  config.headers.Authorization = `Bearer ${accessToken}`;
+  return config;
+};
+
 apiInstance.interceptors.request.use(
   async config => {
-    const isExpired = isTokenExpired(ACCESS_TOKEN);
-    const refreshToken = localStorageDB.get(REFRESH_TOKEN);
-
-    if (isExpired && refreshToken) {
-      try {
-        const response = await authApi.refreshAccessToken(refreshToken);
-        const accessToken = response.data?.accessToken;
-        if (accessToken) {
-          localStorageDB.set(ACCESS_TOKEN, accessToken);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-      return;
-    }
-    const accessToken = localStorageDB.get(ACCESS_TOKEN);
-    if (!config?.headers) {
-      console.error(`Expected 'config' and 'config.headers' not to be undefined`);
-      return;
-    }
-    config.headers.Authorization = `Bearer ${accessToken}`;
-    return config;
+    await refreshAccessToken();
+    const newConfig = setAcessTokenInrequestConfig(config);
+    return newConfig;
   },
   error => {
     // 요청 에러가 발생했을 때 수행할 로직
