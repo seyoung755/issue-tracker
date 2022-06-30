@@ -127,7 +127,7 @@ public class IssueService {
     }
 
     public IssueDetailDto findOne(long issueId) {
-        Issue issue = findIssue(issueId);
+        Issue issue = findIssueDetail(issueId);
 
         return IssueDetailDto.from(issue);
     }
@@ -166,6 +166,11 @@ public class IssueService {
 
     private Issue findIssue(long issueId) {
         return issueRepository.findByIdAndIsDeleted(issueId, false)
+                .orElseThrow(() -> new BusinessException(IssueExceptionType.NOT_FOUND));
+    }
+
+    private Issue findIssueDetail(long issueId) {
+        return issueRepository.findIssueDetailById(issueId)
                 .orElseThrow(() -> new BusinessException(IssueExceptionType.NOT_FOUND));
     }
 }

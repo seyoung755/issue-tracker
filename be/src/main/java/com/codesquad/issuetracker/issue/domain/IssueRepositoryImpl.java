@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.codesquad.issuetracker.comment.domain.QComment.comment;
 import static com.codesquad.issuetracker.issue.domain.QIssue.issue;
@@ -56,6 +57,21 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
                         assignee(filteringCondition.getAssigneeId()),
                         isNotDeleted())
                 .fetchOne();
+    }
+
+    @Override
+    public Optional<Issue> findIssueDetailById(long issueId) {
+        return Optional.ofNullable(queryFactory
+                .selectFrom(issue)
+                .distinct()
+                .leftJoin(issue.labels, issueLabel)
+                .leftJoin(issueLabel.label, label)
+                .leftJoin(issue.assignees, issueAssignee)
+                .leftJoin(issueAssignee.assignee, user)
+                .leftJoin(issue.milestone, milestone).fetchJoin()
+                .leftJoin(milestone.issues).fetchJoin()
+                .where(issue.id.eq(issueId))
+                .fetchOne());
     }
 
     private BooleanExpression isNotDeleted() {
