@@ -1,6 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 
+import authApi from '@/api/auth';
 import { SERVER_URI } from '@/constant/api';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constant/token';
+import { isTokenExpired } from '@/utils/auth';
 import { localStorageDB } from '@/utils/localstorage';
 
 const apiInstance: AxiosInstance = axios.create({
@@ -10,8 +13,23 @@ const apiInstance: AxiosInstance = axios.create({
 });
 
 apiInstance.interceptors.request.use(
-  config => {
-    const accessToken = localStorageDB.get('accessToken');
+  async config => {
+    const isExpired = isTokenExpired(ACCESS_TOKEN);
+    const refreshToken = localStorageDB.get(REFRESH_TOKEN);
+
+    if (isExpired && refreshToken) {
+      try {
+        const response = await authApi.refreshAccessToken(refreshToken);
+        const accessToken = response.data?.accessToken;
+        if (accessToken) {
+          localStorageDB.set(ACCESS_TOKEN, accessToken);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      return;
+    }
+    const accessToken = localStorageDB.get(ACCESS_TOKEN);
     if (!config?.headers) {
       console.error(`Expected 'config' and 'config.headers' not to be undefined`);
       return;
@@ -34,6 +52,8 @@ apiInstance.interceptors.response.use(
     return response;
   },
   error => {
+    // acces token이 만료되었다는 에러 상태코드를 받으면 refreshAccessToken()
+
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 오류가 있는 작업 수행
     if (error.response) {
