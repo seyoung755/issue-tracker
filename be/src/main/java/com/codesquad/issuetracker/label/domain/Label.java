@@ -34,14 +34,14 @@ public class Label extends BaseEntity {
         this.textColor = textColor;
     }
 
-    public void editInformation(LabelSaveRequestDto labelSaveRequestDto) {
-        labelName = labelSaveRequestDto.getLabelName();
-        description = labelSaveRequestDto.getDescription();
-        colorCode = labelSaveRequestDto.getColorCode();
-        textColor = labelSaveRequestDto.getTextColor();
+    public void editInformation(Label label) {
+        labelName = label.getLabelName();
+        description = label.getDescription();
+        colorCode = label.colorCode;
+        textColor = label.getTextColor();
     }
 
     public void delete() {
-    super.changeDeleted(true);
+        changeDeleted(true);
     }
 }

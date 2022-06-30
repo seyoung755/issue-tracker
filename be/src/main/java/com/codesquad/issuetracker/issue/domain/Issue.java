@@ -82,7 +82,7 @@ public class Issue extends BaseEntity {
     }
 
     public void delete() {
-        super.changeDeleted(true);
+        changeDeleted(true);
     }
 
     public void changeStatus(IssueStatus changedStatus) {
