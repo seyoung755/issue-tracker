@@ -58,14 +58,17 @@ export const fonts = {
   },
   // text
   textLarge: {
+    'font-weight': '400',
     'font-size': '24px',
     'line-height': '40px',
   },
   textMedium: {
+    'font-weight': '400',
     'font-size': `${FONT.SIZE.MEDIUM}`,
     'line-height': `${FONT.SIZE.LARGE}`,
   },
   textSmall: {
+    'font-weight': '400',
     'font-size': `${FONT.SIZE.BASE}`,
     'line-height': '28px',
   },
@@ -76,6 +79,7 @@ export const fonts = {
   },
   // Display
   displayRegular: {
+    'font-weight': '400',
     'font-size': `${FONT.SIZE.LARGE}`,
     'line-height': '48px',
   },

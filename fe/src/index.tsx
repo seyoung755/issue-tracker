@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
@@ -16,12 +15,10 @@ if (process.env.MOCK_TOOL === 'msw') {
 }
 
 root.render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
-    </ThemeProvider>
-  </StrictMode>,
+  <ThemeProvider theme={theme}>
+    <GlobalStyle />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </ThemeProvider>,
 );
