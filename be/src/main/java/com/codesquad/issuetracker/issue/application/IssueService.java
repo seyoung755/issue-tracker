@@ -126,6 +126,12 @@ public class IssueService {
 
     }
 
+    public IssueDetailDto findOne(long issueId) {
+        Issue issue = findIssue(issueId);
+
+        return IssueDetailDto.from(issue);
+    }
+
     private List<IssueAssignee> createIssueAssignees(List<Long> assigneeIds, Issue issue) {
         List<User> assignees = userRepository.findAllById(assigneeIds);
         validateInputMatchWithResult(assigneeIds.size(), assignees.size());
