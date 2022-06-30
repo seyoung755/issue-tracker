@@ -6,6 +6,7 @@ export const AUTH_API = {
   GITHUB_OAUTH: '/oauth/github/login',
   GITHUB_OAUTH_TOKEN: '/oauth/github/callback',
   LOGIN: '/login',
+  REFRESH_TOKEN: '/auth/refresh',
 };
 
 export const USER_API = {
