@@ -41,7 +41,7 @@ public class LabelService {
     public LabelResponseDto edit(long labelId, LabelSaveRequestDto labelSaveRequestDto) {
         Label label = findLabel(labelId);
 
-        label.editInformation(labelSaveRequestDto);
+        label.editInformation(labelSaveRequestDto.toEntity());
 
         return LabelResponseDto.from(label);
     }
