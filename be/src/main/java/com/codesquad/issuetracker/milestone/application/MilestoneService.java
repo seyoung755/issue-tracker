@@ -1,5 +1,8 @@
 package com.codesquad.issuetracker.milestone.application;
 
+import com.codesquad.issuetracker.exception.domain.BusinessException;
+import com.codesquad.issuetracker.exception.domain.type.MilestoneExceptionType;
+import com.codesquad.issuetracker.milestone.domain.Milestone;
 import com.codesquad.issuetracker.milestone.domain.MilestoneRepository;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneCountDto;
 import com.codesquad.issuetracker.milestone.presentation.dto.MilestoneResponseDto;
@@ -32,12 +35,30 @@ public class MilestoneService {
 
         return new MilestonesResponseDto(milestoneRepository.findAll()
                 .stream()
-                .map(milestone ->
-                        new MilestoneResponseDto(
-                                milestone.getName(),
-                                milestone.getDueDate(),
-                                milestone.getDescription(),
-                                milestone.getInformation())
-                ).collect(Collectors.toList()));
+                .map(MilestoneResponseDto::from)
+                .collect(Collectors.toList()));
+    }
+
+    @Transactional
+    public long softDelete(long milestoneId) {
+        Milestone milestone = findMilestone(milestoneId);
+
+        milestone.delete();
+
+        return milestone.getId();
+    }
+
+    @Transactional
+    public MilestoneResponseDto edit(long milestoneId, MilestoneSaveRequestDto milestoneSaveRequestDto) {
+        Milestone milestone = findMilestone(milestoneId);
+
+        milestone.editInformation(milestoneSaveRequestDto.toEntity());
+
+        return MilestoneResponseDto.from(milestone);
+    }
+
+    private Milestone findMilestone(long milestoneId) {
+        return milestoneRepository.findByIdAndIsDeleted(milestoneId, false)
+                .orElseThrow(() -> new BusinessException(MilestoneExceptionType.NOT_FOUND));
     }
 }

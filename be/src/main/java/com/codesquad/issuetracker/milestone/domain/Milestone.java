@@ -40,4 +40,14 @@ public class Milestone extends BaseEntity {
         double progressRate = Double.parseDouble(String.format("%.3f", ((double) (closeCount) / (openCount + closeCount))));
         return new MilestoneInformation(progressRate, openCount, closeCount);
     }
+
+    public void delete() {
+        changeDeleted(true);
+    }
+
+    public void editInformation(Milestone milestone) {
+        name = milestone.getName();
+        dueDate = milestone.getDueDate();
+        description = milestone.getDescription();
+    }
 }

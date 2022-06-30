@@ -38,12 +38,12 @@ public class MilestoneController {
     @PutMapping("/{milestoneId}")
     public MilestoneResponseDto edit(@PathVariable long milestoneId,
                                      @RequestBody MilestoneSaveRequestDto milestoneSaveRequestDto) {
-        return null;
+        return milestoneService.edit(milestoneId, milestoneSaveRequestDto);
     }
 
     @Operation(summary = "마일스톤 삭제하기", description = "선택한 마일스톤을 삭제합니다.")
     @DeleteMapping("/{milestoneId}")
     public long delete(@PathVariable long milestoneId) {
-        return 1L;
+        return milestoneService.softDelete(milestoneId);
     }
 }
