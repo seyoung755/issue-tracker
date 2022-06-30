@@ -10,6 +10,9 @@ spring:
     open-in-view: false
     show-sql: true
     defer-datasource-initialization: true
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
   sql:
     init:
       mode: always
