@@ -10,7 +10,7 @@ export const localStorageDB: LocalStorageDB = {
   },
   get: key => {
     const item = localStorage.getItem(key);
-    if (item !== null) {
+    if (!!item) {
       return JSON.parse(item);
     }
   },
