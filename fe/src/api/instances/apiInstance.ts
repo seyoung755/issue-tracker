@@ -12,19 +12,25 @@ const apiInstance: AxiosInstance = axios.create({
   headers: {},
 });
 
-const refreshAccessToken = async () => {
+const checkAccessToken = () => {
   const isExpired = isTokenExpired(ACCESS_TOKEN);
   const refreshToken = localStorageDB.get(REFRESH_TOKEN);
-  if (isExpired && refreshToken) {
-    try {
+  const shoudRequestRefreshAceessToken = isExpired && refreshToken;
+  return shoudRequestRefreshAceessToken;
+};
+
+const refreshAccessToken = async () => {
+  const refreshToken = localStorageDB.get(REFRESH_TOKEN);
+  try {
+    if (refreshToken) {
       const response = await authApi.refreshAccessToken(refreshToken);
       const accessToken = response.data?.accessToken;
       if (accessToken) {
         localStorageDB.set(ACCESS_TOKEN, accessToken);
       }
-    } catch (error) {
-      console.error(error);
     }
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -40,7 +46,10 @@ const setAcessTokenInrequestConfig = (config: AxiosRequestConfig) => {
 
 apiInstance.interceptors.request.use(
   async config => {
-    await refreshAccessToken();
+    const shoudRequestRefreshAceessToken = checkAccessToken();
+    if (shoudRequestRefreshAceessToken) {
+      await refreshAccessToken();
+    }
     const newConfig = setAcessTokenInrequestConfig(config);
     return newConfig;
   },
@@ -58,23 +67,27 @@ apiInstance.interceptors.response.use(
     // 응답 데이터가 있는 작업 수행
     return response;
   },
-  error => {
-    // acces token이 만료되었다는 에러 상태코드를 받으면 refreshAccessToken()
-
+  async error => {
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     // 응답 오류가 있는 작업 수행
     if (error.response) {
-      // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
+      console.log('요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.');
+      console.log(error.response);
+      if (error.response.data) {
+        const { errorCode } = error.response.data;
+        if (errorCode === 'AUTH002') {
+          await refreshAccessToken();
+        }
+      }
       // response: {data, status, headers}
       return Promise.reject(error.response.data);
     }
     if (error.request) {
-      // 요청이 이루어 졌으나 응답을 받지 못했습니다.
-      // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는
-      // Node.js의 http.ClientRequest 인스턴스입니다.
+      console.log('요청이 이루어 졌으나 응답을 받지 못했습니다.');
+      // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는  Node.js의 http.ClientRequest 인스턴스입니다.
       console.log(error.request);
     } else {
-      // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
+      console.log('오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.');
       console.log('Error', error.message);
     }
     console.log(error);
