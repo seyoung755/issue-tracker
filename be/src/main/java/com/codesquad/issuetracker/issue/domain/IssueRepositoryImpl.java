@@ -3,10 +3,10 @@ package com.codesquad.issuetracker.issue.domain;
 import com.codesquad.issuetracker.issue.presentation.dto.FilteringCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.codesquad.issuetracker.comment.domain.QComment.comment;
@@ -18,22 +18,17 @@ import static com.codesquad.issuetracker.milestone.domain.QMilestone.milestone;
 import static com.codesquad.issuetracker.user.domain.QUser.user;
 
 @Slf4j
+@RequiredArgsConstructor
 public class IssueRepositoryImpl implements IssueCustomRepository {
 
     private static final String FILTER_KEYWORD = "@me";
 
-    private final EntityManager em;
-    private final JPAQueryFactory query;
-
-    public IssueRepositoryImpl(EntityManager em) {
-        this.em = em;
-        query = new JPAQueryFactory(em);
-    }
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public List<Issue> findAllByFilteringCondition(Long userId, FilteringCondition filteringCondition) {
 
-        return query.selectFrom(issue)
+        return queryFactory.selectFrom(issue)
                 .join(issue.user).fetchJoin()
                 .leftJoin(issue.milestone, milestone).fetchJoin()
                 .leftJoin(issue.labels, issueLabel).fetchJoin()
@@ -41,8 +36,7 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
                 .leftJoin(issue.comments, comment)
                 .leftJoin(issue.assignees, issueAssignee)
                 .leftJoin(issueAssignee.assignee, user)
-                .where(status(filteringCondition.getIssueStatus()),
-                        author(filteringCondition.getAuthorId()),
+                .where(author(filteringCondition.getAuthorId()),
                         milestone(filteringCondition.getMilestoneName()),
                         label(filteringCondition.getLabelName()),
                         comment(userId, filteringCondition.getCommentAuthor()),
@@ -50,6 +44,18 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
                         isNotDeleted())
                 .distinct()
                 .fetch();
+    }
+
+    @Override
+    public Long countByFilteringCondition(Long userId, FilteringCondition filteringCondition) {
+        return queryFactory.select(issue.count()).from(issue)
+                .where(author(filteringCondition.getAuthorId()),
+                        milestone(filteringCondition.getMilestoneName()),
+                        label(filteringCondition.getLabelName()),
+                        comment(userId, filteringCondition.getCommentAuthor()),
+                        assignee(filteringCondition.getAssigneeId()),
+                        isNotDeleted())
+                .fetchOne();
     }
 
     private BooleanExpression isNotDeleted() {

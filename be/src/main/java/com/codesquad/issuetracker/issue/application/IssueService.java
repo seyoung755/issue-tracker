@@ -30,16 +30,18 @@ public class IssueService {
     private final MilestoneRepository milestoneRepository;
 
     public IssuesResponseDto findAll(Long userId, FilteringCondition filteringCondition) {
-        List<Issue> issues = issueRepository.findAllByFilteringCondition(userId, filteringCondition);
 
-        long openCount = issues.stream().filter(Issue::isOpen).count();
-        long closeCount = issues.size() - openCount;
+        List<Issue> totalIssues = issueRepository.findAllByFilteringCondition(userId, filteringCondition);
 
-        List<IssueResponseDto> issueResponseDtos = issues.stream()
-                .map(IssueResponseDto::from)
+        int totalCount = totalIssues.size();
+
+        long openCount = totalIssues.stream().filter(Issue::isOpen).count();
+
+        List<Issue> filteredIssues = totalIssues.stream()
+                .filter(issue -> issue.doesMatchStatus(filteringCondition.getIssueStatus()))
                 .collect(Collectors.toList());
 
-        return new IssuesResponseDto(issueResponseDtos, openCount, closeCount);
+        return IssuesResponseDto.of(filteredIssues, openCount, totalCount - openCount);
     }
 
     @Transactional

@@ -96,6 +96,13 @@ public class Issue extends BaseEntity {
         return milestone.getName();
     }
 
+    public boolean doesMatchStatus(IssueStatus issueStatus) {
+        if (ObjectUtils.isEmpty(issueStatus)) {
+            issueStatus = IssueStatus.OPEN;
+        }
+        return this.issueStatus.equals(issueStatus);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Issue)) {

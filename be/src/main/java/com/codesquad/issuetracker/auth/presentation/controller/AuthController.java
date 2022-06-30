@@ -33,7 +33,7 @@ public class AuthController {
         ex.printStackTrace();
         AuthExceptionType type = AuthExceptionType.INVALID_REFRESH_TOKEN;
         ExceptionResponseDto exceptionResponseDto =
-                new ExceptionResponseDto(type.getErrorCode(), type.getMessage());
+                ExceptionResponseDto.from(type);
         return ResponseEntity.status(type.getStatusCode()).body(exceptionResponseDto);
     }
 
@@ -42,7 +42,7 @@ public class AuthController {
         ex.printStackTrace();
         AuthExceptionType type = AuthExceptionType.REFRESH_TOKEN_NOT_FOUND;
         ExceptionResponseDto exceptionResponseDto =
-                new ExceptionResponseDto(type.getErrorCode(), type.getMessage());
+                ExceptionResponseDto.from(type);
         return ResponseEntity.status(type.getStatusCode()).body(exceptionResponseDto);
     }
 

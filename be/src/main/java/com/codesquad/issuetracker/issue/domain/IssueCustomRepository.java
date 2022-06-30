@@ -7,4 +7,6 @@ import java.util.List;
 public interface IssueCustomRepository {
 
     List<Issue> findAllByFilteringCondition(Long userId, FilteringCondition filteringCondition);
+
+    Long countByFilteringCondition(Long userId, FilteringCondition filteringCondition);
 }
