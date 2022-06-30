@@ -67,7 +67,7 @@ public class CommentService {
     }
 
     private Comment findComment(long commentId) {
-        return commentRepository.findById(commentId)
+        return commentRepository.findByIdAndIsDeleted(commentId, false)
                 .orElseThrow(() -> new BusinessException(CommentExceptionType.NOT_FOUND));
     }
 
