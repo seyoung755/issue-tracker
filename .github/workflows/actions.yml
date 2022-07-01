@@ -28,6 +28,7 @@ jobs:
       - name: Set application.yml for test
         working-directory: ./be/src/test/resources
         run: |
+          cat /dev/null > application.yml
           echo "${{ secrets.APPLICATION_TEST }}" >> ./applicaion.yml
 
       - name: Setup Java JDK
