@@ -4,6 +4,7 @@ import com.codesquad.issuetracker.milestone.domain.Milestone;
 import com.codesquad.issuetracker.milestone.domain.MilestoneInformation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 
@@ -28,6 +29,10 @@ public class MilestoneResponseDto {
     }
 
     public static MilestoneResponseDto from(Milestone milestone) {
+        if (ObjectUtils.isEmpty(milestone)) {
+            return null;
+        }
+
         return new MilestoneResponseDto(
                 milestone.getName(),
                 milestone.getDueDate(),
