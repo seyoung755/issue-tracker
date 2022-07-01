@@ -51,9 +51,6 @@ class IssueTest {
     @Autowired
     LabelRepository labelRepository;
 
-    @Autowired
-    EntityManager em;
-
     User testUser;
 
 
