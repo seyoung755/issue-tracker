@@ -1,9 +1,10 @@
-import instance from '@/api/core';
 import { MILESTONE_API } from '@/constant/api';
+
+import apiInstance from './instances/apiInstance';
 
 const milestoneApi = {
   getMileStones() {
-    return instance({
+    return apiInstance({
       url: MILESTONE_API.MILESTONES,
       method: 'get',
     });

@@ -10,16 +10,22 @@ const commonStyle = css`
   ${({ theme }) => theme.fonts.linkMedium}
 `;
 
-export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>`
+export const Button = styled.button<{ customStyle?: CSSProp }>`
   ${commonStyle}
   background: ${({ theme }) => theme.colors.primary.normal};
   color: ${({ theme }) => theme.colors.greyscale.offWhite};
 
   :hover {
     background: ${({ theme }) => theme.colors.primary.dark};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.dark};
+    }
   }
   :focus {
     border: 4px solid ${({ theme }) => theme.colors.primary.light};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.light};
+    }
   }
   ${({ disabled, theme }) =>
     disabled &&
@@ -35,16 +41,22 @@ export const Button = styled.button<{ customStyle: CSSProp | null | undefined }>
     `}
 `;
 
-export const Secondary = styled.button<{ customStyle: CSSProp | null | undefined }>`
+export const Secondary = styled.button<{ customStyle?: CSSProp }>`
   ${commonStyle}
   background: ${({ theme }) => theme.colors.greyscale.offWhite};
   color: ${({ theme }) => theme.colors.primary.normal};
   border: 2px solid ${({ theme }) => theme.colors.primary.normal};
   :hover {
     border: 2px solid ${({ theme }) => theme.colors.primary.dark};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.dark};
+    }
   }
   :focus {
     border: 4px solid ${({ theme }) => theme.colors.primary.light};
+    & path {
+      stroke: ${({ theme }) => theme.colors.primary.light};
+    }
   }
   ${({ disabled, theme }) =>
     disabled &&
@@ -61,14 +73,20 @@ export const Secondary = styled.button<{ customStyle: CSSProp | null | undefined
     `}
 `;
 
-export const TextButton = styled.button<{ customStyle: CSSProp | null | undefined }>`
+export const TextButton = styled.button<{ customStyle?: CSSProp }>`
   color: ${({ theme }) => theme.colors.greyscale.label};
   ${({ theme }) => theme.fonts.linkSmall};
   :hover {
     color: ${({ theme }) => theme.colors.greyscale.titleActive};
+    & path {
+      stroke: ${({ theme }) => theme.colors.greyscale.titleActive};
+    }
   }
   :focus {
     color: ${({ theme }) => theme.colors.greyscale.body};
+    & path {
+      stroke: ${({ theme }) => theme.colors.greyscale.titleActive};
+    }
   }
   ${({ disabled, theme }) =>
     disabled &&

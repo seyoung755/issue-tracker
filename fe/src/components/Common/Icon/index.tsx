@@ -7,7 +7,7 @@ export interface IconPropsType {
   iconName: IconsType;
   iconSize?: keyof IconSizeTypes;
   className?: string;
-  customStyle?: CSSProp | null | undefined;
+  customStyle?: CSSProp;
 }
 
 export default function Icon({

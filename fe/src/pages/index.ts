@@ -1,4 +1,5 @@
 import Buttons from './Buttons';
+import Callback from './Callback';
 import Icons from './Icons';
 import IssueDetail from './IssueDetail';
 import Issues from './Issues';
@@ -22,4 +23,5 @@ export {
   Buttons,
   TextInputs,
   Icons,
+  Callback,
 };
